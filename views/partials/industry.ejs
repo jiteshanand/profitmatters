@@ -1,0 +1,153 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <!-- ========== elastic search implementation to show stock on search ================ -->
+    <div class="screen1">
+        <div class="search-container" ng-init="callIndustry()">
+            <section class="search-result">
+                <div class="spinnerback" ng-show="loading">
+                    <div class="spinner">
+                        <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="stock-disp-container" ng-show='peers.length'>
+                    <div class="industry_header">
+                        {{industryinuse}} INDUSTRY
+                    </div>
+                    <div class="grid-toggle" ng-show='industryPeers.length'>
+                        <a ng-click="gridToggle = !gridToggle" ng-class="{ 'active' : gridToggle }">
+                            <i class="fa fa-th"></i>
+                            <i class="fa fa-list"></i>
+                        </a>
+                    </div>
+                    <ul class="grid" ng-class="{ 'grid-list' : !gridToggle, 'grid-thumb' : gridToggle }">
+                        <li class="grid-head">
+                            <ul>
+                                <li style="width:39%;text-align:left;padding-left:50px;"><a ng-click="sort_by('stock.values[3]')">Name&nbsp;<i class="fa fa-arrows-v"></i></a></li>
+                                <li style="width:12%;text-align:left;"><a>Price</a></li>
+                                <li style="width:12%;text-align:left;"><a ng-click="sort_by('stock.values[9]')">Gain/Loss</a></li>
+                                <li style="width:12%;text-align:center;"><a>EPS</a></li>
+                                <li style="width:12%;text-align:center;"><a>PE Ratio</a></li>
+                                <li style="width:12%;text-align:center;"><a>Volume</a></li>
+                            </ul>
+                        </li>
+                        <li class="grid-body animate-repeat" ng-class="{'last':$last}">
+                            <!-- <div class="search-result" ng-repeat="stock in niftystocks" ng-if="stock.values[3] == item._source.symbol"> -->
+                            <div class="search-result" ng-repeat="stock in peers">
+                                <div class="top-info">
+                                    <ul>
+                                        <li>
+                                            <span class="grid-icon" ng-class="{'lp_bg_green':(parseFloat(stock.values[7]))>0,'lp_bg_red':(parseFloat(stock.values[7]))<0}">{{ stock.values[3] }}</span>
+                                            <span class="company-title"><a ng-href="stock/{{stock.values[3]}}">{{stock.values[2]}}</a></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="side-info">
+                                        <li>
+                                            <span class="list-price" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}">{{ stock.values[6]}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="grid-date">{{ stock.values[9] }}%</span>
+                                        </li>
+                                        <li>
+                                            <span class="grid-date">{{ stock.values[11]}}</span>
+                                        </li>
+                                        <li>
+                                            <span>{{ stock.values[12] }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="grid-date">{{ stock.vo }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget-container">
+                                    <div class="widget">
+                                        <a ng-href="stock/{{stock.values[3]}}">
+                                            <div class="top-widget">
+                                                <div class="leftinfo">
+                                                    <div>
+                                                        <span class="info-big">{{stock.values[3]}}</span>
+                                                        <span class="price-info" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}">{{stock.values[7]}}</span>
+                                                        <span class="info-small" ng-class="{'lp_bg_green':(parseFloat(stock.values[7]))>0,'lp_bg_red':(parseFloat(stock.values[7]))<0,'lp_bg_blue':(parseFloat(stock.values[7]))==0}">{{stock.values[9]}}%</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="info-price" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{stock.values[6]}}</span>
+                                                    </div>
+                                                </div>
+                                                <ul class="rightinfo">
+                                                    <li>PE :&nbsp;&nbsp;&nbsp;{{stock.values[12]}}</li>
+                                                    <li class="graph-info-big">EPS :&nbsp;&nbsp;&nbsp;{{stock.values[11]}}</li>
+                                                    <li class="graph-info-small">Low :&nbsp;&nbsp;&nbsp;{{stock.lo}}</li>
+                                                </ul>
+                                            </div>
+                                        </a>
+                                        <div class="bottom-widget">
+                                            <ul>
+                                                <li><span class="green" style="height: 70%"></span></li>
+                                                <li><span class="green" style="height: 40%"></span></li>
+                                                <li><span class="orange" style="height: 47.5%"></span></li>
+                                                <li><span class="orange" style="height: 70%"></span></li>
+                                                <li><span class="orange" style="height: 85%"></span></li>
+                                                <li><span class="orange" style="height: 40%"></span></li>
+                                                <li><span class="green" style="height: 75%"></span></li>
+                                                <li><span class="green" style="height: 50%"></span></li>
+                                                <li><span class="green" style="height: 15%"></span></li>
+                                                <li><span class="green" style="height: 25%"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="widget-buttons">
+                                        <button class="btn btn-buy" ng-class="{'btn-success':(parseFloat(stock.values[7]))>0,'btn-danger':(parseFloat(stock.values[7]))<0}" type="button" ng-click="buyStock(stock.values[3],strtoint(stock.values[6]))">Trade</button>
+                                        <button class="btn btn-primary btn-portfolio" type="button" ng-click="">Add to portfolio
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="uib-pagination">
+                            <uib-pager total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()"></uib-pager>
+                            <p ng-if="itemsPerPage * currentPage < totalItems">
+                                Showing {{ itemsPerPage * currentPage - itemsPerPage + 1 }} - {{ itemsPerPage * currentPage }} of {{ totalItems }} total items
+                            </p>
+                            <p ng-if="itemsPerPage * currentPage >= totalItems">
+                                Showing {{ itemsPerPage * currentPage - itemsPerPage + 1 }} - {{ totalItems }} of {{ totalItems }} total items
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class='no-stocks' ng-hide='industryPeers.length'>No stock for this industry.Please try again.</div>
+            </section>
+        </div>
+        <!-- ================================================================elastic search finish======================================================= -->
+        <%- include footer.ejs %>
+    </div>
+    <script type="text/ng-template" id="buyStockConsole.html">
+        <div class="modal-header stockBuymodalHead">
+            <div class="modal-title">{{stockName}} @ <i class="fa fa-inr" aria-hidden="true"></i> {{stockPrice}}</div>
+            <div class="modal-title2" ng-show="curPrice=='Yes'">Total Value : <i class="fa fa-inr" aria-hidden="true"></i> {{parseFloat((stockPrice+0) * (quantity+0)).toFixed(2)}}</div>
+            <div class="modal-title2" ng-show="curPrice=='No'">Total Value : <i class="fa fa-inr" aria-hidden="true"></i> {{parseFloat((price+0) * (quantity+0)).toFixed(2)}}</div>
+        </div>
+        <div class="modal-body">
+            <div class="wrap-buy">
+                <div class="body-heading0">
+                    <form novalidate name="myform" class="stockBuyForm" action="#">
+                        <div class="buyMessage">Want to buy {{stockName}} at current price ?</div>
+                        <div class="labelWrap">
+                        <label>
+                            <input id="currentPrice_yes" type="radio" ng-model="curPrice" value="Yes"> Yes
+                        </label>
+                        <label>
+                            <input id="currentPrice_No" type="radio" ng-model="curPrice" value="No"> No
+                        </label>
+                        </div>
+                        <div>
+                            <input type="number" ng-hide="curPrice=='Yes'" name="price" placeholder="Enter Price" ng-model="price" ng-required="true" />
+                            <input type="number" name="quantity" placeholder="Number of shares to buy" ng-model="quantity" ng-required="true" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="confirm_callback(fundName,'MF','Callback')">Confirm</button>
+                <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+            </div>
+        </div>
+    </script>

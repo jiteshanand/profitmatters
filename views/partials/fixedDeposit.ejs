@@ -1,0 +1,100 @@
+<!-- Include header -->
+<%- include header.ejs %>
+<section class="FD-option-container">
+    <div class="selectBank-head">
+        <span class="head-text">
+            Select Bank
+        </span>
+    </div>
+    <div class="input-group input-text-box bank-filter">
+        <form class="search-bank">
+            <i aria-hidden="true" class="fa fa-list">
+            </i>
+            <input class="searchbox-nifty" ng-model="bankNameText" placeholder="Search here to get your favourite bank ..." type="text">
+            </input>
+        </form>
+    </div>
+    <div class="no-banks" ng-hide="banks.length">
+        <img src="../images/no-data.jpg">
+            <br/>
+            No bank found with this name. Please try some other name.
+        </img>
+    </div>
+    <div class="bankcontainer">
+     <!--    <div class="bankcard" ng-repeat="bank in banks = (bankNames | filter:{Name:bankNameText})" style="width: 31%;display: flex;background: white;padding: 5px;margin-right: 2%;border: 1px solid #e0e5ec;
+    position: relative;cursor: pointer;float: left; margin-bottom: 20px;"> -->
+    <a ng-href="/bank/fd/{{bank.Id}}/{{bank.icon}}-fixed-deposit-interest-rate" class="bankcard" ng-repeat="bank in banks = (bankNames | filter:{Name:bankNameText})"> 
+            <div class="leftcard" style="width:35%;align-self: center;">
+                <div class="img-box">
+                    <img src="../images/bank/{{bank.icon | lowercase}}.png">
+                    </img>
+                </div>
+                <div class="bank-box" style="margin-top: 5px">
+                    {{bank.Name}}
+                </div>
+            </div>
+            <div class="rightcard" style="width:65%;" ng-repeat="fd in fdDetail_General | filter:{bankId:bank.Id}:true">
+                <div style="padding-bottom: 10px;">
+                    <span style="font-size: 1.6vh;font-family: roboto;letter-spacing: 1px;">
+                        Interest Rate :
+                    </span>
+                    <span style="font-weight: bold;font-size: 2vh;letter-spacing: 1px;">
+                        {{((fd.value[0].interestRate_0_1)*100).toFixed(2)}}% - {{((fd.value[(fd.value.length)-1].interestRate_0_1)*100).toFixed(2)}}%
+                    </span>
+                </div>
+                <div class="durationrange" style="font-size: 13px;">
+                    <div class="min-duration">
+                        <span>
+                            Min Duration:
+                        </span>
+                        <span>
+                            {{fd.value[0].duration}}
+                        </span>
+                    </div>
+                    <div class="min-duration">
+                        <span>
+                            Max Duration:
+                        </span>
+                        <span>
+                            {{fd.value[(fd.value.length)-1].duration}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+        </a>
+    </div>
+    <!--   <div class="bank-option-labels">
+            <div class="bank-name">Bank</div>
+            <div class="min-duration-label">Duration Range</div>
+            <div class="min-irate-label">Interest Rate Range</div>
+        </div> -->
+    <!--       <a ng-href="/bank/fd/{{bank.Id}}/{{bank.icon}}-fixed-deposit-interest-rate" class="bankWrap" ng-repeat="bank in banks = (bankNames | filter:{Name:bankNameText})"> 
+        <h3>{{bank.length}}</h3>
+            <div class="bankDetail">
+                <div class="img-box">
+                    <img src="../images/bank/{{bank.icon | lowercase}}.png" width="50px" height="50px">
+                </div>
+                <div class="bank-box">
+                    {{bank.Name}}
+                </div>
+            </div>
+            <div class="desktop-fd-details">
+                <div class="first-record" ng-repeat="fd in fdDetail_General | filter:{bankId:bank.Id}:true">
+                    <div class="fd-Duration">
+                        <div class="duration-value">
+                            <div class="min-duration-value">{{fd.value[0].duration}}
+                                <br> to
+                                <br> {{fd.value[(fd.value.length)-1].duration}}</div>
+                        </div>
+                    </div>
+                    <div class="fd-irate">
+                        <div class="irate-value">
+                            <div class="min-irate-value">{{((fd.value[0].interestRate_0_1)*100).toFixed(2)}}% - {{((fd.value[(fd.value.length)-1].interestRate_0_1)*100).toFixed(2)}}% </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a> -->
+</section>
+<%- include footer.ejs %>

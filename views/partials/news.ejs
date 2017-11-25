@@ -1,0 +1,78 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"></div> -->
+    <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"> -->
+    <div class="page-container">
+        <div class="left-menu">
+            <div class="show-news-heading" ng-click="shownews =!shownews">
+                <span class="heading-text">Search For NIFTY100 Stocks here</span>
+                <div class="input-group input-text-box" ng-click="shownews">
+                    <input class="searchbox-nifty" ng-model="query" placeholder="Search for NIFTY100 stocks here !!" autofocus>
+                </div>
+            </div>
+            <div class="news-choice-container" ng-show="shownews">
+                <div class="newsList" ng-repeat="list in newsSymbol | filter:{name:query}">
+                    <div class="title-logo">
+                        <a href="/stock/{{list.symbol}}"><img src="../images/logo/{{list.symbol}}.jpg" width="120px" height="120px">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="feed-container col-lg-6 col-md-6 col-sm-6 col-xs-6"> -->
+        <div class="feed-container">
+            <uib-tabset active="activeJustified" justified="true">
+                <uib-tab index="0">
+                    <uib-tab-heading class="heading_link"><i class="fa fa-subway" aria-hidden="true"></i> Domestic News </uib-tab-heading>
+                    <div class="feed-item" id="domestic" ng-repeat="feed in nationalnewsfeed">
+                        <div class="text-holder">
+                            <div class="news_logo">
+                                <img src="../images/logo/{{feed.shortened}}.JPG" width="50px" height="50px">
+                            </div>
+                            <div class="text-header">
+                                <div class="feed-title">
+                                    <a class="feed-url" href="{{feed.url}}" target="_blank">{{feed.title}}</a>
+                                </div>
+                                <!-- <div class="title-date">{{feed.date |date : DD/MM/YYYY}}</div> -->
+                            </div>
+                        </div>
+                        <div class="feed-description">
+                            <p>{{feed.description}}</p>
+                        </div>
+                    </div>
+                </uib-tab>
+                <uib-tab index="1" heading="International News">
+                    <uib-tab-heading class="heading_link"><i class="fa fa-plane" aria-hidden="true"></i> International News </uib-tab-heading>
+                    <div class="feed-item" id="international" ng-repeat="feed in globalnewsfeed">
+                        <div class="text-holder">
+                            <div class="news_logo">
+                                <img src="../images/logo/{{feed.shortened}}.JPG" width="50px" height="50px">
+                            </div>
+                            <div class="text-header">
+                                <div class="feed-title">
+                                    <a class="feed-url" href="{{feed.url}}" target="_blank">{{feed.title}}</a>
+                                </div>
+                                <!-- <div class="title-date">{{feed.date |date : DD/MM/YYYY}}</div> -->
+                            </div>
+                        </div>
+                        <div class="feed-description">
+                            <p>{{feed.description}}</p>
+                        </div>
+                    </div>
+                </uib-tab>
+            </uib-tabset>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        $('a[scrollhref]').click(function() {
+            var target = $("#" + $(this).attr("scrollhref").replace(/\#/g, ''));
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        });
+    });
+    </script>

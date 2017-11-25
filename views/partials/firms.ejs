@@ -1,0 +1,312 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div id="main" class="site-content">
+        <main id="content" role="main" itemprop="mainContentOfPage">
+            <div id="home-splash" class="intro-image-firm active">
+                <div class="banner wrapper">
+                    <h1>Brokerage firms are the connection between<br>you and your investment.</h1>
+                    <p>We will help you to maximize the return on investment by selecting the best brokerage firm.</p>
+                    <form class="form-wrapper firm-form-wrapper" method="POST" ng-submit="searchthisstock()">
+                        <input type="text" name="query" placeholder="Search here for brokerage firms....&nbsp;&nbsp;&nbsp;&nbsp;ex. sharekhan,IIFL,ICICIDirect etc" ng-model="search_stock" required>
+                    </form>
+                </div>
+            </div>
+            <div class="spinnerback" ng-show="loading">
+                <div class="spinner">
+                    <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="firm-detail-container">
+                <section class="firm-filter filter-desktop">
+                    <div class="filter-heading" ng-click="showfilter=!showfilter">
+                        <span>Filters  </span><i class="fa fa-list" aria-hidden="true"></i>
+                    </div>
+                    <form name="filterForm" class="filter-form" ng-hide="showfilter">
+                        <div class="broker-type-container">
+                            <div class="broker-type-heading" ng-click="showbroker =!showbroker">
+                                <span>Firm Type</span>
+                                <div class="filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showbroker"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showbroker"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <select ng-model="firmtype" class="firmtype" ng-options="ftype for ftype in firmType" ng-show="showbroker">
+                                    <option value="">All Brokers</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="investment-type">
+                            <div class="investment-type-heading" ng-click="showinvestment=!showinvestment">
+                                <span>Investment Type</span>
+                                <div class="filter-icon">
+                                    <i class="fa fa-caret-down" ng-hide="showinvestment"></i>
+                                    <i class="fa fa-caret-right" ng-hide="!showinvestment"></i>
+                                </div>
+                            </div>
+                            <div class="filter-investment-type">
+                                <div ng-repeat="investment in investment_type" class="investment" ng-show="!showinvestment">
+                                    <label>
+                                        <input type="checkbox" ng-click="includeType(investment.value)">
+                                        <div class="check-label">{{investment.label}}</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-type">
+                            <div class="product-type-heading" ng-click="showproduct=!showproduct">
+                                <span>Product Feature</span>
+                                <div class="filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showproduct"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showproduct"></i>
+                                </div>
+                            </div>
+                            <div class="filter-product-type closed">
+                                <div ng-repeat="feature in product_feature" class="investment" ng-show="showproduct">
+                                    <label>
+                                        <input type="checkbox" ng-click="includeFeature(feature.value)">
+                                        <div class="check-label">{{feature.label}}</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <section class="firm-filter filter-mobile">
+                    <div class="filter-heading" ng-click="showfilter=!showfilter">
+                        <span>Filters  </span><i class="fa fa-list" aria-hidden="true"></i>
+                    </div>
+                    <form name="filterForm" class="filter-form" ng-show="showfilter">
+                        <div class="broker-type-container">
+                            <div class="broker-type-heading" ng-click="showbroker =!showbroker">
+                                <span>Firm Type</span>
+                                <div class="filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showbroker"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showbroker"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <select ng-model="firmtype" class="firmtype" ng-options="ftype for ftype in firmType" ng-show="showbroker">
+                                    <option value="">All Brokers</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="investment-type">
+                            <div class="investment-type-heading" ng-click="showinvestment=!showinvestment">
+                                <span>Investment Type</span>
+                                <div class="filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showinvestment"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showinvestment"></i>
+                                </div>
+                            </div>
+                            <div class="filter-investment-type">
+                                <div ng-repeat="investment in investment_type" class="investment" ng-show="showinvestment">
+                                    <label>
+                                        <input type="checkbox" ng-click="includeType(investment.value)">
+                                        <div class="check-label">{{investment.label}}</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-type">
+                            <div class="product-type-heading" ng-click="showproduct=!showproduct">
+                                <span>Product Feature</span>
+                                <div class="filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showproduct"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showproduct"></i>
+                                </div>
+                            </div>
+                            <div class="filter-product-type closed">
+                                <div ng-repeat="feature in product_feature" class="investment" ng-show="showproduct">
+                                    <label>
+                                        <input type="checkbox" ng-click="includeFeature(feature.value)">
+                                        <div class="check-label">{{feature.label}}</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <section class="firm-display">
+                    <div class="item_show">
+                        <p ng-if="itemsPerPage * currentPage < totalItems">
+                            Showing {{ filteredBrokers.length * currentPage - filteredBrokers.length + 1 }} - {{ filteredBrokers.length * currentPage }} of {{filteredBrokers.length.length}} total items
+                        </p>
+                        <p ng-if="itemsPerPage * currentPage >= totalItems">
+                            Showing {{ filteredBrokers.length * currentPage - filteredBrokers.length + 1 }} - {{ filteredBrokers.length }} of {{ filteredBrokers.length }} total items
+                        </p>
+                    </div>
+                    <ul class="broker-firm-list" ng-class="grid-list">
+                        <li class="grid-head">
+                            <ul class="firm-heading">
+                                <li style="width:25%">Profit Matter rating
+                                    <a ng-click="sort_by('name')"><i class="fa fa-chevron-down"></i></a>
+                                </li>
+                                <li style="width:60%">Operational charges</li>
+                                <li style="width:15%">Here for you !</li>
+                            </ul>
+                        </li>
+                        <li class="broker_firm_detail" ng-repeat="item in filteredBrokers = (pagedItems[currentPage - 1] | filter: brokerFilter |filter: featureFilter|filter:{name:search_stock} | filter:{firmType:firmtype ||undefined}:true)" ng-class="{'last':$last}">
+                            <!-- <li class="broker_firm_detail" ng-repeat="item in pagedItems[currentPage - 1] | filter:{firmType:firmtype ||undefined}:true | filter:brokerFilter"> -->
+                            <div class="accordion-parent">
+                                <div class="accordion-head" ng-click="showbody=!showbody">
+                                    <img src="../images/brokerage_firms/{{item.logo}}.jpg" class="firm-img">
+                                    <div class="firm-name">{{item.name}}</div>
+                                    <div class="arrow-down"></div>
+                                    <div class="star-rating" star-rating rating-value='rating' on-rating-selected="getSelectedRating(rating)"></div>
+                                    <div class="firm-social-wrapper">
+                                        <div class="firm-social-btn"><i class="fa fa-facebook"></i></div>
+                                        <div class="firm-social-btn"><i class="fa fa-twitter"></i></div>
+                                        <div class="firm-social-btn"><i class="fa fa-linkedin"></i></div>
+                                    </div>
+                                </div>
+                                <div class="accordion-body" ng-hide="showbody">
+                                    <div class="brokerage-firm-charges">
+                                        <ul class="accordion-charges">
+                                            <li class="accordion-item">
+                                                <input id="s1_{{item.firmNumber}}" class="hide" type="checkbox">
+                                                <label for="s1_{{item.firmNumber}}" class="accordion-label">Account Opening Charges</label>
+                                                <div class="accordion-child">
+                                                    <div class="opening_charges">
+                                                        <div class="account_opening">
+                                                            <div class="account_opening_label">Trading account:</div>
+                                                            <div class="account_opening_value">{{item.firmFee.tradingAccountOpening}}</div>
+                                                        </div>
+                                                        <div class="account_opening">
+                                                            <div class="account_opening_label">Trading + Demat account:</div>
+                                                            <div class="account_opening_value">{{item.firmFee.tradingAndDematAccountOpening}}</div>
+                                                        </div>
+                                                        <div class="account_opening">
+                                                            <div class="account_opening_label">Commodity account:</div>
+                                                            <div class="account_opening_value">{{item.firmFee.commodityAccountOpening}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="accordion-item">
+                                                <input id="s2_{{item.firmNumber}}" class="hide" type="checkbox">
+                                                <label for="s2_{{item.firmNumber}}" class="accordion-label">Account Maintenance Charges</label>
+                                                <div class="accordion-child">
+                                                    <div class="amc_charges">
+                                                        <div class="account_opening">
+                                                            <div class="account_opening_label">Trading account:</div>
+                                                            <div class="account_opening_value">{{item.firmFee.tradingAccountAmc}}</div>
+                                                        </div>
+                                                        <div class="account_opening">
+                                                            <div class="account_opening_label">Demat account:</div>
+                                                            <div class="account_opening_value">{{item.firmFee.dematAccountAmc}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="accordion-item">
+                                                <input id="s3_{{item.firmNumber}}" class="hide" type="checkbox">
+                                                <label for="s3_{{item.firmNumber}}" class="accordion-label">Standard Plan</label>
+                                                <div class="accordion-child">
+                                                    <div class="brokerage-charges">
+                                                        <div class="brokerage_type">
+                                                            <div class="equity_type">
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Equity Delivery:</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["equityDelivery"]}}</div>
+                                                                </div>
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Equity Intraday:</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["equityIntraday"]}}</div>
+                                                                </div>
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Equity Futures:</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["equityFutures"]}}</div>
+                                                                </div>
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Equity Options:</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["equityOptions"]}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="currency_type">
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Currency Futures:</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["currencyFutures"]}}</div>
+                                                                </div>
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Currency Options</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["currencyOptions"]}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="commodity_type">
+                                                                <div class="brokerage_fee">
+                                                                    <div class="brokerage_fee_label">Commodity</div>
+                                                                    <div class="brokerage_fee_value">{{item.firmBrokerage["Commodity"]}}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="brokerage_fee">
+                                                                <div class="brokerage_fee_label">Minimum Brokerage</div>
+                                                                <div class="brokerage_fee_value">{{item.firmBrokerage["minimumBrokerage"]}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal" id="openaccount{{item.firmNumber}}">
+                                                    <script type="text/ng-template" id="newAccount.html">
+                                                        <div class="modal-header">
+                                                            <h3 class="modal-title">Welcome to {{brokerName}}.</h3>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div id="wrap" ng-app>
+                                                                <form novalidate name="myform" class="modalForm" action="#">
+                                                                    <div class="form_wrap">
+                                                                        <input type="text" name="name" placeholder="Enter your name" ng-model="lead.name" ng-required="true" ng-minlength="2" />
+                                                                        <input type="email" name="email" placeholder="Email" ng-model="lead.email" />
+                                                                        <p class="error" ng-show="myform.email.$invalid && myform.mobile.$touched"> Please, enter a valid email</p>
+                                                                        <input type="number" name="mobile" placeholder="Mobile Number" ng-model="lead.mobile" ng-required="true" ng-minlength="10" />
+                                                                        <p class="error" ng-show="myform.mobile.$invalid && myform.mobile.$touched"> Please, enter a 10 digit mobile number</p>
+                                                                        <textarea cols="30" rows="3" name="comment" ng-model="lead.comment" placeholder="Please provide any comment like appropriate time to contact you etc."></textarea>
+                                                                    </div>
+                                                                    <div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" type="button" ng-click="myform.$valid &&openNewAccount()">SAVE</button>
+                                                            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                                                        </div>
+                                                    </script>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                        <div class="start_here">
+                                            <button type="button" class="btn btn-success get-start" ng-click="open(filteredBrokers[$index].name,'Brokerage Account','New')">Open Account</button>
+                                            <button type="button" class="btn btn-primary get-start">Explore!!</button>
+                                            <button type="button" class="btn btn-info get-start" ng-click="open(filteredBrokers[$index].name,'Brokerage Account','Callback')">Request callback</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </li>
+                        <li class="uib-pagination">
+                            <uib-pager total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()"></uib-pager>
+                            <p ng-if="itemsPerPage * currentPage < totalItems">
+                                Showing {{ filteredBrokers.length * currentPage - filteredBrokers.length + 1 }} - {{ filteredBrokers.length * currentPage }} of {{pagedItems[currentPage - 1].length}} total items
+                            </p>
+                            <p ng-if="itemsPerPage * currentPage >= totalItems">
+                                Showing {{ filteredBrokers.length * currentPage - filteredBrokers.length + 1 }} - {{ filteredBrokers.length }} of {{ pagedItems[currentPage - 1].length }} total items
+                            </p>
+                        </li>
+                    </ul>
+                </section>
+                </div>
+        </main>
+        <%- include footer.ejs %>
+            </div>
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $('.collapse.in').prev('.panel-heading').addClass('active');
+                $('#accordion, #bs-collapse')
+                    .on('show.bs.collapse', function(a) {
+                        $(a.target).prev('.panel-heading').addClass('active');
+                    })
+                    .on('hide.bs.collapse', function(a) {
+                        $(a.target).prev('.panel-heading').removeClass('active');
+                    });
+            });
+            </script>

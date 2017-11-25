@@ -1,0 +1,165 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div class="spinnerback" ng-show="loading">
+        <div class="spinner">
+            <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+        </div>
+    </div>
+    <section class="console1">
+        <div class="console1_container">
+            <div class="console1_gainer">
+                <div class="index-header">
+                    <span class="index-header-title">Top Gainers</span>
+                    <i class="fa fa-bar-chart"></i>
+                </div>
+                <div class="index-data" ng-repeat="stock in niftystocks | orderBy: '-values[9]'|limitTo:15 ">
+                    <a ng-href="/stock/{{stock.values[3]}}" style="text-decoration:none;">
+                        <div class="line1">
+                            <span class="exchange">{{stock.values[3]}}</span>
+                            <span class="index-price">{{stock.values[6]}}</span>
+                        </div>
+                        <div class="line2">
+                            <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.values[7]))>=0,'arrowd':(parseFloat(stock.values[7]))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.values[7]))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.values[7]))<0.00"></i></div>
+                            <div class="index-change">
+                                <span class="index-changep" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0.0,'lp_red':(parseFloat(stock.values[7]))<0.0}">{{stock.values[7]}}</span>
+                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0.0,'lp_red':(parseFloat(stock.values[7]))<0.0}">({{stock.values[9]}})%</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+          <div class="console1_loser">
+                <div class="index-header">
+                    <span class="index-header-title">Top Losers</span>
+                    <i class="fa fa-bar-chart"></i>
+                </div>
+                <div class="index-data" ng-repeat="stock in niftystocks | orderBy: '-values[9]' |limitTo:-15 ">
+                    <a ng-href="/stock/{{stock.values[3]}}" style="text-decoration:none;">
+                        <div class="line1">
+                            <span class="exchange">{{stock.values[3]}}</span>
+                            <span class="index-price">{{stock.values[6]}}</span>
+                        </div>
+                        <div class="line2" ng-hide=>
+                            <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.values[7]))>=0,'arrowd':(parseFloat(stock.values[7]))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.values[7]))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.values[7]))<0.00"></i></div>
+                            <div class="index-change">
+                                <span class="index-changep" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0.0,'lp_red':(parseFloat(stock.values[7]))<0.0}">{{stock.values[7]}}</span>
+                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0.0,'lp_red':(parseFloat(stock.values[7]))<0.0}">({{stock.values[9]}})%</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="console1_volume">
+                <div class="index-header">
+                    <span class="index-header-title">Volume Toppers</span>
+                    <i class="fa fa-bar-chart"></i>
+                </div>
+                <div class="index-data" ng-repeat="stock in niftystocks |filter:strtonum | orderObjectBy: 'vo' :true | limitTo : 10  ">
+                    <a ng-href="/stock/{{stock.values[3]}}" style="text-decoration:none;">
+                        <div class="line1">
+                            <span class="exchange">{{stock.values[3]}}</span>
+                            <span class="index-price">{{stock.values[6]}}</span>
+                        </div>
+                        <div class="line2">
+                            <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.values[7]))>=0,'arrowd':(parseFloat(stock.values[7]))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.values[7]))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.values[7]))<0.00"></i></div>
+                            <div class="index-change">
+                                <span class="index-vol"> {{getformatmoney(stock[0].vo)}} </span>
+                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0.0,'lp_red':(parseFloat(stock.values[7]))<0.0}">({{stock.values[9]}})%</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="phoneFrame">
+            <div class="tabs">
+                <a href="#tab1" class="active">Gainers</a>
+                <a href="#tab2">Losers</a>
+                <a href="#tab3">Volume</a>
+            </div>
+            <div class="tabContent" id="tab1">
+                <div class="console1_gainer">
+                    <div class="index-header">
+                        <span class="index-header-title gainer-title">Top Gainers</span>
+                        <i class="fa fa-bar-chart"></i>
+                    </div>
+                    
+                    <div class="index-data" ng-repeat="stock in niftystocks | orderBy: 'values[9]' :true | limitTo:10 ">
+                        <a ng-href="/stock/{{stock.values[3]}}" style="text-decoration:none;">
+                            <div class="line1">
+                                <span class="exchange">{{stock.values[3]}}</span>
+                                <span class="index-price">{{stock.values[6]}}</span>
+                            </div>
+                            <div class="line2">
+                                <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.values[7]))>=0,'arrowd':(parseFloat(stock.values[7]))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.values[7]))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.values[7]))<0.00"></i></div>
+                                <div class="index-change">
+                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0,'lp_red':(parseFloat(stock.values[7]))<0}">{{stock.values[7]}}</span>
+                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0,'lp_red':(parseFloat(stock.values[7]))<0}">({{stock.values[9]}})%</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="tabContent" id="tab2">
+                <div class="console1_loser">
+                    <div class="index-header">
+                        <span class="index-header-title loser-title">Top Losers</span>
+                        <i class="fa fa-bar-chart"></i>
+                    </div>
+                    <div class="index-data" ng-repeat="stock in niftystocks | orderBy: '-values[9]' |limitTo:-10 ">
+                        <a ng-href="/stock/{{stock.values[3]}}" style="text-decoration:none;">
+                            <div class="line1">
+                                <span class="exchange">{{stock.values[3]}}</span>
+                                <span class="index-price">{{stock.values[6]}}</span>
+                            </div>
+                            <div class="line2">
+                                <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.values[7]))>=0,'arrowd':(parseFloat(stock.values[7]))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.values[7]))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.values[7]))<0.00"></i></div>
+                                <div class="index-change">
+                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0,'lp_red':(parseFloat(stock.values[7]))<0}">{{stock.values[7]}}</span>
+                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0,'lp_red':(parseFloat(stock.values[7]))<0}">({{stock.values[9]}})%</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="tabContent" id="tab3">
+                <div class="console1_volume">
+                    <div class="index-header">
+                        <span class="index-header-title vol-title">Volume Toppers</span>
+                        <i class="fa fa-bar-chart"></i>
+                    </div>
+                    <div class="index-data" ng-repeat="stock in niftystocks |filter:strtonum | orderObjectBy: 'vo' :true | limitTo : 10  ">
+                        <a ng-href="/stock/{{stock.values[3]}}" style="text-decoration:none;">
+                            <div class="line1">
+                                <span class="exchange">{{stock.values[3]}}</span>
+                                <span class="index-price">{{stock.values[6]}}</span>
+                            </div>
+                            <div class="line2">
+                                <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.values[7]))>=0,'arrowd':(parseFloat(stock.values[7]))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.values[7]))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.values[7]))<0.00"></i></div>
+                                <div class="index-change">
+                                    <span class="index-vol"> {{getformatmoney(stock[0].vo)}} </span>
+                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.values[7]))>=0,'lp_red':(parseFloat(stock.values[7]))<0}">({{stock.values[9]}})%</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include footer.ejs %>
+        <script type="text/javascript">
+        //tabs
+        $('.tabContent').removeClass('activeTab');
+        $('#tab1').addClass('activeTab');
+        $('.tabs a').click(function() {
+            $('.tabs a').removeClass('active');
+            $(this).addClass('active');
+            var currentTab = $(this).attr('href');
+            $('.tabContent').removeClass('activeTab');
+            $(currentTab).addClass('activeTab');
+            return false;
+        });
+        </script>

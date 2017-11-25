@@ -1,0 +1,152 @@
+<!-- Include header -->
+<%- include header.ejs %>
+<section class="landing-mf" id="landing">
+    <div class="slider slider-mf slider-1">
+        <img class="ratio" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAEALAAAAAABAAEAAAIBTAA7"/>
+        <input class="slide" id="s-1-1" name="slider-1" type="radio"/>
+        <label for="s-1-1">
+        </label>
+        <div>
+            <img src="../images/mf_investment4.jpg"/>
+            <div class="content">
+                <h2>
+                    Achieve your financial goals with investment in Saving & Fixed deposits, Mutual Funds
+                </h2>
+            </div>
+        </div>
+        <input class="slide" id="s-1-2" name="slider-1" type="radio"/>
+        <label for="s-1-2">
+        </label>
+        <div>
+            <img src="../images/mf_investment5.jpg"/>
+            <div class="content">
+                <h2>
+                    Open Savings or Fixed deposit account and Get risk free returns.
+                </h2>
+                <!--   <p>
+                    Drive more engagement for your games when players fight it out against one another in battles. When players compete, your game wins!
+                </p> -->
+                <!--               <a class="button button-orange" href="#">
+                    Explore Saving Accounts
+                </a> -->
+            </div>
+        </div>
+        <input checked="" class="slide" id="s-1-3" name="slider-1" type="radio"/>
+        <label for="s-1-3">
+        </label>
+        <div>
+            <img src="../images/mf_investment3.jpg"/>
+            <div class="content">
+                <h2>
+                    Start a SIP from list of mutual funds carefully chosen as per your need
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="form-heading">
+            <h2>
+                Plan your investment goals, Search for a fund.
+            </h2>
+            <br/>
+        </div>
+        <form class="mf-form-wrapper" method="POST">
+            <select class="mf-option-type" ng-model="schemeType" ng-options="type for type in mftypes">
+                <option value="">
+                    Scheme Type
+                </option>
+            </select>
+            <select class="mf-option-category" ng-disabled="!schemeType" ng-model="selectCategory" ng-options="x.categ for x in mfcategory | filter:{type :schemeType }">
+                <option value="">
+                    Fund category
+                </option>
+            </select>
+            <select class="mf-option-amc" ng-model="selectAMC" ng-options="y.name for y in familyunit">
+                <option value="">
+                    Select AMC
+                </option>
+            </select>
+            <button class="mf-search-btn" name="search" ng-click="mfSearchResult(schemeType,selectCategory.categ,selectAMC.id)" type="button">
+                Search
+            </button>
+        </form>
+    </div>
+    <a href="javascript:void(0);" scrollhref="#heading-link">
+        <div class="chevron">
+        </div>
+    </a>
+</section>
+<div id="fund-wrap">
+    <div class="mf-option-heading" id="heading-link">
+        <h3>
+            Plan your Investment, We have multiple options for you !
+        </h3>
+    </div>
+    <div class="mfconsole-container ng-scope" ng-repeat="opt in mfoption">
+        <a class="type-container" href="/mf/list/{{opt[1]}}" style="text-decoration: none">
+            <div class="type-icon">
+                <img class="mf-option-img" src="../images/mf/{{opt[2]}}.png">
+                </img>
+            </div>
+            <div class="mfDetail">
+                <div class="mftype-heading">
+                    {{opt[0]}}
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<%- include footer.ejs %>
+<script type="text/javascript">
+    $(function() {
+        $('a[scrollhref]').click(function() {
+            var target = $("#" + $(this).attr("scrollhref").replace(/\#/g, ''));
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        });
+    });
+
+    function doSlide (slider) {
+      var id, o = slider.querySelectorAll("input.slide"), last = o.length-1, current = slider.querySelector("input.slide:checked");
+      for (var i=0; i<o.length; i++) if (o[i] === current) {id = i; break;}
+      o[id >= last ? 0 : id + 1].click();
+    }
+
+    function onSlide (e) {
+      var o = e.target.parentNode;
+      clearTimeout(o.autoslider);
+      o.autoslider = setTimeout(function(){doSlide(o);}, 7e3);
+    }
+
+    $(function(){
+      $(document).on("click", "input.slide", onSlide);
+      $(".slider").each(function(){doSlide(this)});
+    });
+    
+</script>
+<script id="mfSearchResult1.html" type="text/ng-template">
+    <div class="modal-header">
+            <h3 class="modal-title">Search Result</h3>
+        </div>
+        <div class="modal-body">
+            <div class="wrap-buy">
+                <div class="body-heading1">
+                    <ul class="mssearchResult-wrap" >
+                        <li class="mfsearchResult-radio-options" ng-repeat="list in searchMfResult">
+                            <a href="mFund/{{list.schemeName}}" ng-click="exit()">{{list.schemeName}}</a>
+                        </li>
+                        <li class="no-mfsearchResult-options">
+                            <img src="../images/mf/warning1.png" class="mf-warning-img"><span class="warning-text">No Fund available in this category.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+            </div>
+        </div>
+</script>

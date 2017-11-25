@@ -1,0 +1,467 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div class="spinnerback" ng-show="loading">
+        <div class="spinner">
+            <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div id="main" class="site-content">
+        <main id="content" role="main" itemprop="mainContentOfPage">
+            <div class="goi_scheme_wrapper">
+                <div class="goi_scheme_details">
+                    <div class="goi_scheme_head">Government of India investment schemes</div>
+                    <uib-tabset active="activeJustified" justified="true">
+                        <uib-tab index="0" heading="Saving Schemes">
+                            <div class="scheme_list">
+                                <ul class="scheme_heading">
+                                    <li style="width:33%">Profit Matter rating
+                                        <a ng-click="sort_by('name')"><i class="fa fa-chevron-down"></i></a>
+                                    </li>
+                                    <li style="width:18%">Interest Rate</li>
+                                    <li style="width:17%">Min Investment</li>
+                                    <li style="width:17%">Max Investment</li>
+                                    <li style="width:15%">Maturity Period</li>
+                                </ul>
+                                <div class="govt_scheme_detail" ng-repeat="item in saving">
+                                    <div class="detail_line1">
+                                        <div class="saving_name_wrapper">
+                                            <div class="govt_scheme_name">{{item.name}}</div>
+                                        </div>
+                                        <div class="govt_scheme_rate">
+                                            <div ng-repeat="interest in item.interestRate">
+                                                <div class="rate_percent">{{interest.rate}}{{interest.rateLabel}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="govt_scheme_min">
+                                            <div class="min_inv_data">{{item.minInvestment}}</div>
+                                        </div>
+                                        <div class="govt_scheme_max">
+                                            <div class="max_inv_data">{{item.maxInvestment}}</div>
+                                        </div>
+                                        <div class="govt_scheme_maturity">{{item.maturityPeriod}}</div>
+                                    </div>
+                                    <div class="view_detail">
+                                        <i class="fa fa-chevron-circle-down" ng-click="up=true" ng-hide="up" aria-hidden="true"> View Details</i>
+                                        <i class="fa fa-chevron-circle-up" ng-click="up=false" ng-hide="!up" aria-hidden="true"> View Details</i>
+                                    </div>
+                                    <div class="hidden_block" ng-show="up">
+                                        <div class="detail_line2">
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Nomination allowed
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.nomination == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.nomination == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.nomination=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Joint Account
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.jointAccount == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.jointAccount == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.jointAccount=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Premature closure
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.prematureClosure == true" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                    <i ng-if="item.prematureClosure == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.premature_closure=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Eligible for 80C tax rebate
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.depositTaxFree == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.depositTaxFree == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.depositTaxFree=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Interest earned tax-exempt
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.interestTaxFree == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.interestTaxFree == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.interestTaxFree=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Online Platform
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.online == true" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                    <i ng-if="item.online == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.online=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Can minors apply?
+                                                </div>
+                                                <div class="feature_value">
+                                                    <i ng-if="item.minor == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.minor == false" class="fa fa-times" aria-hidden="true"></i>
+                                                    <div class="Notapplicable_label" ng-if="item.minor=='NA'">Not Applicable</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="line3">
+                                            <div class="eligibility_wrapper">
+                                                <div class="elig_head">
+                                                    Eligibility Criteria
+                                                </div>
+                                                <ol ng-repeat="elig in item.eligibility">
+                                                    <li class="elig_item">
+                                                        {{elig.eligibility}}
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="notes_wrapper">
+                                                <div class="note_head">
+                                                    Important Points
+                                                </div>
+                                                <ol>
+                                                    <li class="note_item" ng-repeat="note in item.others">
+                                                        {{note.note}}
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="1" heading="Insurance Schemes">
+                            <div class="scheme_list">
+                                <ul class="scheme_heading">
+                                    <li style="width:30%">Profit Matter rating
+                                        <a ng-click="sort_by('broker_name')"><i class="fa fa-chevron-down"></i></a>
+                                    </li>
+                                    <li style="width:12%">Entry Age</li>
+                                    <li style="width:16%">Cover ceasing age</li>
+                                    <li style="width:11%">Premium</li>
+                                    <li style="width:11%">Sum Assured</li>
+                                    <li style="width:20%">Death Benefit</li>
+                                </ul>
+                                <div class="govt_scheme_detail" ng-repeat="item in insurance">
+                                    <div class="detail_line1">
+                                        <div class="insurance_name_wrapper">
+                                            <div class="govt_scheme_name">{{item.name}}</div>
+                                        </div>
+                                        <div class="govt_scheme_entry_age">{{item.entryAge}}</div>
+                                        <div class="govt_scheme_ceasing_age">{{item.coverCeasing}}</div>
+                                        <div class="govt_scheme_premium">{{item.premium}}</div>
+                                        <div class="govt_scheme_sum_assured">{{item.sumAssured}}</div>
+                                        <div class="govt_scheme_death_benefit">
+                                            <div class="death_type" ng-repeat="type in item.deathBenefit">
+                                                <div class="death_label">{{type.benefitLabel}}</div>
+                                                <div class="death_data">{{type.benefit}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="view_detail">
+                                        <i class="fa fa-chevron-circle-down" ng-click="up=true" ng-hide="up" aria-hidden="true"> View Details</i>
+                                        <i class="fa fa-chevron-circle-up" ng-click="up=false" ng-hide="!up" aria-hidden="true"> View Details</i>
+                                    </div>
+                                    <div class="hidden_block" ng-show="up">
+                                        <div class="scheme_intro">
+                                            <p>{{item.intro}}</p>
+                                        </div>
+                                        <div class="detail_line2">
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Maturity Benefit
+                                                </div>
+                                                <div class="feature_value">{{item.maturityBenefit}}</div>
+                                            </div>
+                                            <div class="scheme_feature">
+                                                <div class="feature_label">
+                                                    Risk Period
+                                                </div>
+                                                <div class="feature_value">{{item.riskPeriod}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="line3">
+                                            <div class="eligibility_wrapper">
+                                                <div class="elig_head">
+                                                    Eligibility Criteria
+                                                </div>
+                                                <ol>
+                                                    <li class="elig_item" ng-repeat="elig in item.eligibility">
+                                                        {{elig.eligibility}}
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="notes_wrapper">
+                                                <div class="note_head">
+                                                    Important Points
+                                                </div>
+                                                <ol>
+                                                    <li ng-repeat="note in item.others" class="note_item">
+                                                        {{note.note}}
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab index="2" heading="Pension Schemes">
+                            <div class="scheme_list">
+                                <h2>Coming soon with Data</h2>
+                            </div>
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+            </div>
+            <section class="scheme-container">
+                <div class="phoneFrame">
+                    <div class="tabs">
+                        <a href="#tab1" class="active">Saving</a>
+                        <a href="#tab2">Insurance</a>
+                        <a href="#tab3">Pension</a>
+                    </div>
+                    <div class="tabContent" id="tab1">
+                        <ul class="scheme-list" ng-class="grid-list">
+                            <li class="scheme_detail" ng-repeat="item in saving">
+                                <div class="accordion-parent1">
+                                    <div class="accordion-head1" ng-click="showscheme=!showscheme">
+                                        <div class="scheme-name">
+                                            <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
+                                            <img src="../images/logo/govt_saving.JPG" width="45px" height="45px">&nbsp;&nbsp;{{item.name}}
+                                            </div>
+                                    </div>
+                                    <div class="accordion-body1" ng-show="showscheme">
+                                        <ul class="accordion-detail1">
+                                            <li class="accordion-item1">
+                                                <input id="s1_{{item.schemeNumber}}" class="hide" type="checkbox">
+                                                <label for="s1_{{item.schemeNumber}}" class="accordion-label1">Scheme Details</label>
+                                                <div class="accordion-child1">
+                                                    <div class="scheme-detail">
+                                                        <div class="interest-rate detail-wrap">
+                                                            <div class="interest_rate_label label1">Interest Rate</div>
+                                                            <div ng-repeat="interest in item.interestRate">
+                                                                <div class="interest_rate_percent value">{{interest.rate}}{{interest.rateLabel}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="min-invest detail-wrap">
+                                                            <div class="label1">Minimum Investment</div>
+                                                            <div class="value">{{item.minInvestment}}</div>
+                                                        </div>
+                                                        <div class="max-invest detail-wrap">
+                                                            <div class="label1">Maximum Investment</div>
+                                                            <div class="value">{{item.maxInvestment}}</div>
+                                                        </div>
+                                                        <div class="maturity-period detail-wrap">
+                                                            <div class="label1">Maturity Period</div>
+                                                            <div class="value">{{item.maturityPeriod}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="accordion-item1">
+                                                <input id="s2_{{item.schemeNumber}}" class="hide" type="checkbox">
+                                                <label for="s2_{{item.schemeNumber}}" class="accordion-label1">Scheme Features</label>
+                                                <div class="accordion-child1">
+                                                    <div class="scheme-feature">
+                                                        <div class="feature-wrap">
+                                                            <div class="feature_value">
+                                                                <i ng-if="item.jointAccount == true" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                                <i ng-if="item.jointAccount == false" class="fa fa-times" aria-hidden="true"></i>
+                                                                <div class="Notapplicable_label" ng-if="item.jointAccount=='NA'">N.A</div>
+                                                            </div>
+                                                            <div class="feature_label">
+                                                                Joint Account
+                                                            </div>
+                                                        </div>
+                                                        <div class="feature-wrap">
+                                                            <div class="feature_value">
+                                                                <i ng-if="item.prematureClosure == true" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                                <i ng-if="item.prematureClosure == false" class="fa fa-times" aria-hidden="true"></i>
+                                                                <div class="Notapplicable_label" ng-if="item.prematureClosure=='NA'"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+                                                            </div>
+                                                            <div class="feature_label">
+                                                                Premature closure
+                                                            </div>
+                                                        </div>
+                                                        <div class="feature-wrap">
+                                                            <div class="feature_value">
+                                                                <i ng-if="item.depositTaxFree == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.depositTaxFree == false" class="fa fa-times" aria-hidden="true"></i>
+                                                                <div class="Notapplicable_label" ng-if="item.depositTaxFree=='NA'">N.A</div>
+                                                            </div>
+                                                            <div class="feature_label">
+                                                                Eligible for 80C tax rebate
+                                                            </div>
+                                                        </div>
+                                                        <div class="feature-wrap">
+                                                            <div class="feature_value">
+                                                                <i ng-if="item.interestTaxFree == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.interestTaxFree == false" class="fa fa-times" aria-hidden="true"></i>
+                                                                <div class="Notapplicable_label" ng-if="item.interestTaxFree=='NA'">N.A</div>
+                                                            </div>
+                                                            <div class="feature_label">
+                                                                Interest earned tax-exempt
+                                                            </div>
+                                                        </div>
+                                                        <div class="feature-wrap">
+                                                            <div class="feature_value">
+                                                                <i ng-if="item.online == true" class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                                <i ng-if="item.online == false" class="fa fa-times" aria-hidden="true"></i>
+                                                                <div class="Notapplicable_label" ng-if="item.online=='NA'">N.A</div>
+                                                            </div>
+                                                            <div class="feature_label">
+                                                                Online Platform
+                                                            </div>
+                                                        </div>
+                                                        <div class="feature-wrap">
+                                                            <div class="feature_value">
+                                                                <i ng-if="item.minor == true" class="fa fa-check-square-o" aria-hidden="true"></i><i ng-if="item.minor == false" class="fa fa-times" aria-hidden="true"></i>
+                                                                <div class="Notapplicable_label" ng-if="item.minor=='NA'">N.A</div>
+                                                            </div>
+                                                            <div class="feature_label">
+                                                                Can minors apply?
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="legend-info">
+                                                        <div class="legend1">
+                                                            <div class="legend-icon"><i class="fa fa-check-square-o" aria-hidden="true"></i></div>
+                                                            <div class="legend-label">Yes</div>
+                                                        </div>
+                                                        <div class="legend2">
+                                                            <div class="legend-icon"><i class="fa fa-times" aria-hidden="true"></i></div>
+                                                            <div class="legend-label">No</div>
+                                                        </div>
+                                                        <div class="legend3">
+                                                            <div class="legend-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
+                                                            <div class="legend-label">Not Applicable</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="accordion-item1">
+                                                <input id="s3_{{item.schemeNumber}}" class="hide" type="checkbox">
+                                                <label for="s3_{{item.schemeNumber}}" class="accordion-label1">Eligibility & Important points</label>
+                                                <div class="accordion-child1">
+                                                    <div class="scheme-points">
+                                                        <ol ng-repeat="elig in item.eligibility">
+                                                            <li class="elig_item">
+                                                                {{elig.eligibility}}
+                                                            </li>
+                                                        </ol>
+                                                        <ol ng-repeat="note in item.others">
+                                                            <li class="note_item">
+                                                                {{note.note}}
+                                                            </li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tabContent" id="tab2">
+                        <ul class="scheme-list" ng-class="grid-list">
+                            <li class="scheme_detail" ng-repeat="item in insurance">
+                                <div class="accordion-parent1">
+                                    <div class="accordion-head1" ng-click="showscheme=!showscheme">
+                                        <div class="scheme-name">
+                                            <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
+                                             <img src="../images/logo/govt_saving.JPG" width="45px" height="45px">&nbsp;&nbsp;{{item.name}}</div>
+                                    </div>
+                                    <div class="accordion-body1" ng-show="showscheme">
+                                        <ul class="accordion-detail1">
+                                            <li class="accordion-item1">
+                                                <input id="s11_{{item.schemeNumber}}" class="hide" type="checkbox">
+                                                <label for="s11_{{item.schemeNumber}}" class="accordion-label1">Scheme Details</label>
+                                                <div class="accordion-child1">
+                                                    <div class="scheme-detail">
+                                                        <div class="interest-rate detail-wrap">
+                                                            <div class="entry-age label1">Entry Age</div>
+                                                            <div class="entry-age value">{{item.entryAge}}</div>
+                                                        </div>
+                                                        <div class="min-invest detail-wrap">
+                                                            <div class="label1">Cover ceasing age</div>
+                                                            <div class="value">{{item.coverCeasing}}</div>
+                                                        </div>
+                                                        <div class="max-invest detail-wrap">
+                                                            <div class="label1">Premium</div>
+                                                            <div class="value">{{item.premium}}</div>
+                                                        </div>
+                                                        <div class="sum-assured detail-wrap">
+                                                            <div class="label1">Sum Assured</div>
+                                                            <div class="value">{{item.sumAssured}}</div>
+                                                        </div>
+                                                        <div class="maturity-benefit detail-wrap">
+                                                            <div class="label1">Maturity Benefit</div>
+                                                            <div class="value">{{item.maturityBenefit}}</div>
+                                                        </div>
+                                                        <div class="maturity-period detail-wrap">
+                                                            <div class="label1">Risk period</div>
+                                                            <div class="value">{{item.riskPeriod}}</div>
+                                                        </div>
+                                                        <div class="maturity-period detail-wrap">
+                                                            <div class="label1">Death Benefits</div>
+                                                            <div class="death_type" ng-repeat="type in item.deathBenefit">
+                                                                <div class="death_label inner-label">{{type.benefitLabel}}</div>
+                                                                <div class="death_data value">{{type.benefit}}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="accordion-item1">
+                                                <input id="s13_{{item.schemeNumber}}" class="hide" type="checkbox">
+                                                <label for="s13_{{item.schemeNumber}}" class="accordion-label1">Eligibility & Important points</label>
+                                                <div class="accordion-child1">
+                                                    <div class="scheme-points">
+                                                        <ol ng-repeat="elig in item.eligibility">
+                                                            <li class="elig_item">
+                                                                {{elig.eligibility}}
+                                                            </li>
+                                                        </ol>
+                                                        <ol ng-repeat="note in item.others">
+                                                            <li class="note_item">
+                                                                {{note.note}}
+                                                            </li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tabContent" id="tab3">
+                        <h3>Coming soon with Data</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <%- include footer.ejs %>
+        <script type="text/javascript">
+        //tabs
+        $('.tabContent').removeClass('activeTab');
+        $('#tab1').addClass('activeTab');
+        $('.tabs a').click(function() {
+            $('.tabs a').removeClass('active');
+            $(this).addClass('active');
+            var currentTab = $(this).attr('href');
+            $('.tabContent').removeClass('activeTab');
+            $(currentTab).addClass('activeTab');
+            return false;
+        });
+        </script>

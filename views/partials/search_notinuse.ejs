@@ -1,0 +1,120 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <!-- ============================    elastic search implementation to show stock on search    ======================= -->
+    <div class="screen1" ng-init="showsearchresult()">
+        <div class="search-container">
+            <div class="spinnerback" ng-show="loading">
+                <div class="spinner">
+                    <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                </div>
+            </div>
+            <section class="search-box" id="stock-search">
+                <form class="form-wrapper cf">
+                    <input type="text" name="query" placeholder="Search here for stocks...&nbsp;&nbsp;&nbsp;&nbsp;ex. infy,infosys,tata,bank etc" ng-model="search_stock" required>
+                    <button type="button" name="search" ng-click="searchthisstock()">Search</button>
+                </form>
+            </section>
+            <!-- <div class="result-box" ng-init="()"> -->
+            <section class="search-result">
+                <div class='no-stocks' ng-hide='stocks.length'>No stock found with these details.Please try again.</div>
+                <div class="stock-disp-container" ng-show='stocks.length'>
+                    <div class="grid-toggle" ng-show='stocks.length'>
+                        <a ng-click="gridToggle = !gridToggle" ng-class="{ 'active' : gridToggle }">
+                            <i class="fa fa-th"></i>
+                            <i class="fa fa-list"></i>
+                        </a>
+                    </div>
+                    <ul class="grid" ng-class="{ 'grid-list' : !gridToggle, 'grid-thumb' : gridToggle }">
+                        <li class="grid-head">
+                            <ul>
+                                <li style="width:39%;text-align:left;padding-left:50px;"><a ng-click="sort_by('_source.name')">Name&nbsp;<i class="fa fa-arrows-v"></i></a></li>
+                                <li style="width:12%;text-align:left;"><a>Price</a></li>
+                                <li style="width:12%;text-align:left;"><a ng-click="sort_by('_source.cp')">Gain/Loss</a></li>
+                                <li style="width:12%;text-align:center;"><a>High</a></li>
+                                <li style="width:12%;text-align:center;"><a>Low</a></li>
+                                <li style="width:12%;text-align:center;"><a>Volume</a></li>
+                            </ul>
+                        </li>
+                        <li class="grid-body animate-repeat" ng-repeat="item in pagedItems[currentPage - 1] | orderBy:sortingOrder:reverse" ng-class="{'last':$last}">
+                            <!-- <div class="search-result" ng-repeat="stock in niftystocks" ng-if="stock.t == item._source.symbol"> -->
+                            <div class="search-result" ng-repeat="stock in niftystocks | filter:{t:item._source.symbol}:true">
+                                <div class="top-info">
+                                    <ul>
+                                        <li>
+                                            <span class="grid-icon" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0}">{{ stock.t }}</span>
+                                            <span class="company-title"><a ng-href="stock/{{stock.t}}">{{stock.name}}</a></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="side-info">
+                                        <li>
+                                            <span class="list-price" ng-class="{'lp_green':(parseFloat(stock.c))>0,'lp_red':(parseFloat(stock.c))<0}">{{ stock.l}}</span>
+                                        </li>
+                                        <li>
+                                            <span class="grid-date">{{ stock.cp }}%</span>
+                                        </li>
+                                        <li>
+                                            <span class="grid-date">{{ stock.lo}}</span>
+                                        </li>
+                                        <li>
+                                            <span>{{ stock.hi }}</span>
+                                        </li>
+                                        <li>
+                                            <span class="grid-date">{{ stock.vo }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget-container">
+                                    <div class="widget">
+                                        <a ng-href="stock/{{stock.t}}">
+                                            <div class="top-widget">
+                                                <div class="leftinfo">
+                                                    <div>
+                                                        <span class="info-big">{{stock.t}}</span>
+                                                        <span class="info-small" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0,'lp_bg_blue':(parseFloat(stock.c))==0}">{{stock.c}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="info-price" ng-class="{'lp_green':(parseFloat(stock.c))>0,'lp_red':(parseFloat(stock.c))<0}">{{stock.l}}</span>
+                                                    </div>
+                                                </div>
+                                                <ul class="rightinfo">
+                                                    <li>Open&nbsp;&nbsp;&nbsp;{{stock.op}}</li>
+                                                    <li class="graph-info-big">High&nbsp;&nbsp;&nbsp;{{stock.hi}}</li>
+                                                    <li class="graph-info-small">Low&nbsp;&nbsp;&nbsp;{{stock.lo}}</li>
+                                                </ul>
+                                            </div>
+                                        </a>
+                                        <div class="bottom-widget">
+                                            <ul>
+                                                <li><span class="green" style="height: 70%"></span></li>
+                                                <li><span class="green" style="height: 40%"></span></li>
+                                                <li><span class="orange" style="height: 47.5%"></span></li>
+                                                <li><span class="orange" style="height: 70%"></span></li>
+                                                <li><span class="orange" style="height: 85%"></span></li>
+                                                <li><span class="orange" style="height: 40%"></span></li>
+                                                <li><span class="green" style="height: 75%"></span></li>
+                                                <li><span class="green" style="height: 50%"></span></li>
+                                                <li><span class="green" style="height: 15%"></span></li>
+                                                <li><span class="green" style="height: 25%"></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="uib-pagination">
+                            <uib-pager total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()"></uib-pager>
+                            <p ng-if="itemsPerPage * currentPage < totalItems">
+                                Showing {{ itemsPerPage * currentPage - itemsPerPage + 1 }} - {{ itemsPerPage * currentPage }} of {{ totalItems }} total items
+                            </p>
+                            <p ng-if="itemsPerPage * currentPage >= totalItems">
+                                Showing {{ itemsPerPage * currentPage - itemsPerPage + 1 }} - {{ totalItems }} of {{ totalItems }} total items
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        <!-- ================================================================elastic search finish======================================================= -->
+        <%- include footer.ejs %>
+    </div>

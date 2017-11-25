@@ -1,0 +1,242 @@
+
+<div class=" skin-blue sidebar-mini box-layout">
+<div class="wrapper">
+
+<header class="main-header">
+<!-- Logo -->
+<a href="index2.html" class="logo">
+<!-- mini logo for sidebar mini 50x50 pixels -->
+<span class="logo-mini"><b>S</b>M</span>
+<!-- logo for regular state and mobile devices -->
+<span class="logo-lg"><b>Share</b>Mania</span>
+</a>
+
+<nav class="navbar navbar-static-top" role="navigation">
+  <!-- Sidebar toggle button-->
+  <a href="#" class="sidebar-toggle" onclick="hidemenu()" data-toggle="offcanvas" role="button">
+    <span class="sr-only">Investment</span>
+  </a>
+
+  <!-- search form -->
+  <form action="#" method="get" class="sidebar-form">
+  <div class="input-group">
+  <input type="text" name="query" class="form-control" placeholder="Search...">
+  <span class="input-group-btn">
+  <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+  </span>
+  </div>
+  </form>
+  <!-- /.search form -->
+  <div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+      <li class="dropdown messages-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-envelope-o"></i>
+      <span class="label label-success">4</span>
+      </a>
+      </li>
+
+      <li class="dropdown notifications-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-bell-o"></i>
+      <span class="label label-warning">10</span>
+      </a>
+      </li>
+
+      <li class="dropdown tasks-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-flag-o"></i>
+      <span class="label label-danger">9</span>
+      </a>
+      </li>
+
+      <li class="dropdown user user-menu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <img src="../images/profile.jpg" class="user-image" alt="User Image">
+      <span class="hidden-xs">{{loggeduser.name.firstname}} {{loggeduser.name.lastname}}</span>
+      </a>
+        <ul class="dropdown-menu">
+          <!-- User image -->
+          <li class="user-header">
+          <img src="../images/profile.jpg" class="img-circle" alt="User Image">
+          <p>
+         {{loggeduser.name.firstname}} {{loggeduser.name.lastname}}
+          <small>Member since Nov. 2012</small>
+          </p>
+          </li>
+
+          <li class="user-body">
+          <div class="col-xs-4 text-center">
+          <a href="#">Followers</a>
+          </div>
+
+          <div class="col-xs-4 text-center">
+          <a href="#">Friends</a>
+          </div>
+          </li>
+
+          <li class="user-footer">
+          <div class="pull-left">
+          <a href="#" class="btn btn-default btn-flat">Profile</a>
+          </div>
+          <div class="pull-right">
+          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+          </div>
+          </li>
+          </ul>
+          </li>
+              <!-- Control Sidebar Toggle Button -->
+      <li>
+        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+      </li>
+        </ul>
+      </div>
+   </nav>
+  </header>
+
+<aside class="main-sidebar">
+  <section class="sidebar">
+          <!-- Sidebar user panel -->
+  <div class="user-panel">
+    <div class="login-profile row">
+      <img class="profilepic col-lg-4 col-md-4 col-sm-4 col-xs-4" src="../images/profile.jpg" alt="User Image" height="60" width="60">
+      <div class="profilename col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <a href="#">{{loggeduser.name.firstname}} {{loggeduser.name.lastname}}</a>
+        <span class="location">Mumbai , MH</span>
+        <br><br>
+        <div class="follower">Followers: &nbsp; <span class="follower-count">70</span></div>
+        <div class="connection">Connections:&nbsp; <span class="connection-count">350</span></div>
+      </div>
+    </div>
+</div>
+          <hr class="hline">    
+<ul class="sidebar-menu">
+  
+  <li class="link row">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-home"></i></span>
+  <span class="title col-md-8 col-sm-8 col-xs-8"><a href="/home">Home</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-dashboard"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="">Dashboard</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-inr"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="#">Portfolio</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-line-chart"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="#">Analysis</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-users"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="#">My Network</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-bell"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="#">Alerts</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-users"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="#">My Network</a></span>
+  </li>
+  <li class="link">
+  <span class="icons col-md-4 col-sm-4 col-xs-4"><i class="fa fa-bell"></i></span>
+   <span class="title col-md-8 col-sm-8 col-xs-8"><a href="#">Alerts</a></span>
+  </li>
+</ul> 
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+
+<div class="content-wrapper row" style="min-height: 1500px;">
+<section class="main-content col-md-9 col-sm-9 col-xs-9 col-lg-9">
+<section class="content1 row">
+<div class="status col-lg-10 col-md-10 col-sm-10 col-xs-10">
+  <div class="status-post">
+  <textarea class="status-text" id="" rows="3" maxlength="200" placeholder="Write Something..."></textarea>
+  </div>
+
+  <div class="tools">
+  <ul class="icon-list col-md-6 cols-sm-6 cols-xs-6 row">
+  <li class="status-icon col-md-3 col-sm-3 col-xs-3"><a href="#"><i class="fa fa-bar-chart"></i></a></li>
+  <li class="status-icon col-md-3 col-sm-3 col-xs-3"><a href="#"><i class="fa fa-camera"></i></a></li>
+  <li class="status-icon col-md-3 col-sm-3 col-xs-3"><a href="#"><i class="fa fa-user-plus"></i></a></li>
+  <li class="status-icon col-md-3 col-sm-3 col-xs-3"><a href="#"></a></li>
+  </ul>
+
+  <div class="status-length col-md-4 col-sm-4 cols-xs-4" id='div-status-len'>
+    200
+  </div>
+  <form class="post-btn col-md-2 col-sm-2 cols-xs-2" action="">
+    <button type="button" class="butn btn-primary btn-sm">Post</button>
+  </form>
+</div>
+</div>
+</section>
+
+<!-- =================================================================================================== -->
+
+<section class="post-wrapper row">
+<div class="post-container col-lg-10 col-md-10 col-sm-10 col-xs-10" ng-repeat="post in posts">
+ 
+<div class="post-head" ng-repeat="user in users" ng-if="user.userid == post.userid">
+  <div class="header row">
+    <div class="user-img icon-julien col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="user-info col-lg-5 col-md-5 col-sm-5 col-xs-5">
+    <div class="name">
+    <a href=""><strong>{{user.username}}</strong></a>
+    </div>
+    <div class="location"> 
+    <p>{{user.city}}, {{user.state}}</p>
+    </div>
+    </div>
+    <div class="post-info col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="post-time">
+    <p><span class="hrs-ago">few seconds ago</p>
+    </div>
+    </div>
+  </div>
+  <div class="status">
+    <div class="text-status">
+    <p id="post-status-text">{{post.value}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="response">
+  <button type="button" class="col-lg-2 col-md-2 col-sm-2 col-xs-2 btn btn-link admire-btn"><i class="fa fa-thumbs-o-up"></i> upvote</button>
+  <p class="admire col-lg-10 col-md-10 col-sm-10 col-xs-10"><strong><span class="like-count">{{post.like}}</span></strong> People upvoted this.</p>
+</div>
+
+
+<div class="comment-head" ng-repeat="comment in comments" ng-if="post.postid == comment.postid">
+<div class="header row" ng-repeat="user in users" ng-if="user.userid == comment.userid">
+    <div class="user-img icon-julien col-lg-3 col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="user-info col-lg-5 col-md-5 col-sm-5 col-xs-5">
+      <div class="name">
+      <a href=""><strong>{{user.username}}</strong></a>
+      </div>
+    </div>
+    <div class="post-info col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="post-time">
+      <p><span class="hrs-ago">few seconds ago</p>
+      </div>
+    </div>
+  </div>
+  <div class="status">
+    <div class="text-status">
+    <p id="post-status-text">{{comment.value}}</p>
+    </div>
+</div>
+</div>
+
+<div class="reply-text">
+<textarea class="comment-text" id="" rows="2" placeholder="Add a comment..."></textarea>
+</div>
+
+</div>
+</section>
+</section>
+</div>

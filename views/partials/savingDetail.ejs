@@ -1,0 +1,112 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <section class="allServices">
+        <div class="bankDetail savingbankDetail">
+            <div class="img-box">
+                <img src="../images/bank/{{bankName}}.png" width="60px" height="60px">
+            </div>
+            <div class="bank-detail-box" ng-repeat="bank in bankNames | filter : {Id:selectedBankId} :true">
+                {{bank.Name}}
+                <br/>
+                <div class="type-static-text">(Types of Bank Account)</div>
+            </div>
+        </div>
+        <div class="savingContainer">
+            <div ng-repeat="account in savingAccountDetails1 | filter:{bankId:selectedBankId}:true">
+                <ul class="scheme-list" ng-class="grid-list">
+                    <li ng-repeat="accountType in account.type">
+                        <div class="accordion-parent1">
+                            <div class="accordion-head1" ng-click="showscheme=!showscheme">
+                                <div class="scheme-name">
+                                    
+                                    <img src="../images/logo/bank_saving.JPG" width="45px" height="45px">&nbsp;&nbsp;{{accountType.Name}}
+                                </div>
+                            </div>
+                            <div class="accordion-body1" ng-show="showscheme">
+                                <ul class="accordion-detail1 saving-accordion-childbg">
+                                    <li class="accordion-item1">
+                                        <input id="s1_{{item.accountType.Name}}" class="hide" type="checkbox">
+                                        <label for="s1_{{item.accountType.Name}}" class="accordion-label1 saving-accordion-label">Features</label>
+                                        <div class="accordion-child1">
+<!--                                             <div class="scheme-detail">
+                                                <div class="interest-rate detail-wrap">
+                                                    <div class="interest_rate_label label1">Interest Rate</div>
+                                                    <div ng-repeat="interest in item.interestRate">
+                                                        <div class="interest_rate_percent value">{{interest.rate}}{{interest.rateLabel}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="min-invest detail-wrap">
+                                                    <div class="label1">Minimum Investment</div>
+                                                    <div class="value">{{item.minInvestment}}</div>
+                                                </div>
+                                                <div class="max-invest detail-wrap">
+                                                    <div class="label1">Maximum Investment</div>
+                                                    <div class="value">{{item.maxInvestment}}</div>
+                                                </div>
+                                                <div class="maturity-period detail-wrap">
+                                                    <div class="label1">Maturity Period</div>
+                                                    <div class="value">{{item.maturityPeriod}}</div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </li>
+                                               <li class="accordion-item2">
+                                        <input id="s2_{{item.accountType.Name}}" class="hide" type="checkbox">
+                                        <label for="s2_{{item.accountType.Name}}" class="accordion-label2 saving-accordion-label">Eligibility</label>
+                                        <div class="accordion-child2">
+<!--                                             <div class="scheme-detail">
+                                                <div class="interest-rate detail-wrap">
+                                                    <div class="interest_rate_label label1">Interest Rate</div>
+                                                    <div ng-repeat="interest in item.interestRate">
+                                                        <div class="interest_rate_percent value">{{interest.rate}}{{interest.rateLabel}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="min-invest detail-wrap">
+                                                    <div class="label1">Minimum Investment</div>
+                                                    <div class="value">{{item.minInvestment}}</div>
+                                                </div>
+                                                <div class="max-invest detail-wrap">
+                                                    <div class="label1">Maximum Investment</div>
+                                                    <div class="value">{{item.maxInvestment}}</div>
+                                                </div>
+                                                <div class="maturity-period detail-wrap">
+                                                    <div class="label1">Maturity Period</div>
+                                                    <div class="value">{{item.maturityPeriod}}</div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </li>
+                                               <li class="accordion-item3">
+                                        <input id="s3_{{item.accountType.Name}}" class="hide" type="checkbox">
+                                        <label for="s3_{{item.accountType.Name}}" class="accordion-label3 saving-accordion-label">Fees and Charges</label>
+                                        <div class="accordion-child3">
+<!--                                             <div class="scheme-detail">
+                                                <div class="interest-rate detail-wrap">
+                                                    <div class="interest_rate_label label1">Interest Rate</div>
+                                                    <div ng-repeat="interest in item.interestRate">
+                                                        <div class="interest_rate_percent value">{{interest.rate}}{{interest.rateLabel}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="min-invest detail-wrap">
+                                                    <div class="label1">Minimum Investment</div>
+                                                    <div class="value">{{item.minInvestment}}</div>
+                                                </div>
+                                                <div class="max-invest detail-wrap">
+                                                    <div class="label1">Maximum Investment</div>
+                                                    <div class="value">{{item.maxInvestment}}</div>
+                                                </div>
+                                                <div class="maturity-period detail-wrap">
+                                                    <div class="label1">Maturity Period</div>
+                                                    <div class="value">{{item.maturityPeriod}}</div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                    </li>
+                </ul>
+                </div>
+            </div>
+    </section>
+    <%- include footer.ejs %>

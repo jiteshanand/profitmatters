@@ -1,0 +1,562 @@
+<!--Include header -->
+
+<%- include header.ejs %>
+
+<div id="main" class="site-content">
+    <main id="content" role="main" itemprop="mainContentOfPage">
+        <div id="home-splash" class="full-height-intro viewportAnimation active">
+            <div class="login" ng-show='logindisplay'>
+                <div class="login-triangle"></div>
+                <h2 class="login-header">Log in</h2>
+                <div ng-show="alert" id="login-alert" class="alert alert-danger col-sm-12">{{alert}}</div>
+                <form class="login-container" novalidate>
+                    <!-- <form class="form-register" method="post" name="register" novalidate> -->
+                    <p>
+                        <input type="email" ng-model="user.email" class="validate" placeholder="Email" required autocomplete="new-password" />
+                    </p>
+                    <p class="alert alert-danger" ng-show="form-register.email.$error.email">Your email is invalid.</p>
+                    <p>
+                        <input type="password" ng-model="user.password" placeholder="Password" required autocomplete="new-password" class="validate" ng-minlength='6'/>
+                    </p>
+                    <p class="alert alert-danger" ng-show="form-register.password.$error.minlength || form.password.$invalid">Your password must be at least 6 characters.
+                    </p>
+                    <p>
+                        <!-- <input type="submit" value="Log in"> -->
+                        <input class="btn btn-success btn-login" type="button" value="Log in" ng-click="login(user)">
+                    </p>
+                </form>
+                <h4 class="signup-msg-box" ng-show="logindisplay">Don't have an account ?<br/>
+                  <a class="signup-link-box" href="/signup"> Sign up </a> , It's free.</h4>
+              </div>
+              <div ng-class="class" class="banner-width banner wrapper">
+                <h1>Are you not investing your money?<br>We can help you to find the best investment.</h1>
+                <p ng-show="logindisplay">Research and analytical platform helps you to make the best investment decision and increase your wealth. </p>
+                <div clss="btn-container" ng-hide="logindisplay">
+                    <button type="button" class="btn btn-primary" ng-click="changesigninClass()">Sign In</button>&nbsp;&nbsp;&nbsp;
+                </div>
+                <hr class="signin-up-seprator" ng-hide="logindisplay">
+                <h4 class="signup-msg" ng-hide="logindisplay">Don't have an account ? <a class="signup-link" href="/signup"> Sign up </a> , It's free.</h4>
+            </div>
+            <section class="prod-main-menu-desktop">
+                <div class="product-list text-center">
+                    <ul class="clearfix">
+                      <li class="card bank_account">
+                        <div>
+                            <a href="/bank & mutual fund" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-user fa-3dicon"></i></div>
+                                <div class="service-title">Invest in
+                                    <br>Bank Deposit | Mutual Funds</div>
+                                </a>
+                                <p class="description"></p>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <a href="/stocks" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-bar-chart fa-3dicon"></i></div>
+                            <div class="service-title">Invest in
+                                <br>Stock Market</div>
+                            </a>
+                            <p class="description"></p>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="/govt" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-users fa-3dicon"></i></div>
+                            <div class="service-title">Invest in
+                                <br>Government schemes</div>
+                            </a>
+                            <p class="description"></p>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="/firms" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-university fa-3dicon"></i></div>
+                            <div class="service-title">Open Brokerage
+                                <br>Account</div>
+                                <p class="description"></p>
+                            </a>
+                        </li>
+                        <li class="card">
+                            <a href="/blog" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-pencil-square-o fa-3dicon"></i></div>
+                                <div class="service-title">Learn about
+                                    <br>Investment</div>
+                                </a>
+                                <p class="description"></p>
+                            </a>
+                        </li>
+                        <li class="card">
+                            <a href="" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-laptop fa-3dicon"></i></div>
+                                <div class="service-title">Financial
+                                    <br>Planning</div>
+                                </a>
+                                <p class="description"></p>
+                            </a>
+                        </li>
+                        <li class="card">
+                            <a href="/news" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-bolt fa-3dicon"></i></div>
+                                <div class="service-title">Latest
+                                    <br>News</div>
+                                </a>
+                                <p class="description"></p>
+                                <!-- </a> -->
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            <section class="prod-main-menu-mobile">
+                <div class="product-list text-center">
+                    <ul class="clearfix">
+                      <li class="card bank_account">
+                        <div>
+                            <a href="/bank" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-user fa-3dicon"></i></div>
+                                <div class="service-title">Invest in
+                                    <br>Banks</div>
+                                </a>
+                                <p class="description"></p>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <a href="/mf" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-hourglass-half fa-3dicon"></i></div>
+                            <div class="service-title">Invest in Mutual
+                                <br>Funds</div>
+                            </a>
+                            <p class="description"></p>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="/stocks" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-bar-chart fa-3dicon"></i></div>
+                            <div class="service-title">Invest in
+                                <br>Stock Market</div>
+                            </a>
+                            <p class="description"></p>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="/govt" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-users fa-3dicon"></i></div>
+                            <div class="service-title">Invest in
+                                <br>Government schemes</div>
+                            </a>
+                            <p class="description"></p>
+                        </a>
+                    </li>
+                    <li class="card">
+                        <a href="/firms" style="text-decoration:none;">
+                            <div class="icon"><i class="fa fa-university fa-3dicon"></i></div>
+                            <div class="service-title">Open Brokerage
+                                <br>Account</div>
+                                <p class="description"></p>
+                            </a>
+                        </li>
+                        <li class="card">
+                            <a href="/blog" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-pencil-square-o fa-3dicon"></i></div>
+                                <div class="service-title">Learn about
+                                    <br>Investment</div>
+                                </a>
+                                <p class="description"></p>
+                            </a>
+                        </li>
+                        <li class="card">
+                            <a href="" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-laptop fa-3dicon"></i></div>
+                                <div class="service-title">Financial
+                                    <br>Planning</div>
+                                </a>
+                                <p class="description"></p>
+                            </a>
+                        </li>
+                        <li class="card">
+                            <a href="/news" style="text-decoration:none;">
+                                <div class="icon"><i class="fa fa-bolt fa-3dicon"></i></div>
+                                <div class="service-title">Latest
+                                    <br>News</div>
+                                </a>
+                                <p class="description"></p>
+                                <!-- </a> -->
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+          <!--   </div> -->
+            <section class="screen2_wrapper">
+                <div class="screen2">
+                    <div class="screen2_heading">
+                        <span class="hzero">We will help you make better investment decision.</span>
+                    </div>
+                    <div class="screen2_sub-heading">
+                        <p>Profit Matter helps you make better financial decision to invest your money.We will make it simple to find out the best brokerage account, mutual fund, stock or any other investment available in India.</p>
+                    </div>
+                    <div class="screen2_options">
+                        <ul>
+                            <li>
+                                <div class="option_icon">
+                                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                </div>
+                                <h3>
+                                  Tailored advice
+                              </h3>
+                              <p class="home-props__text">
+                                See when you can retire or what travel card is right for you. Every recommendation we make is tailored to you and your unique financial goals.
+                            </p>
+                        </li>
+                        <li>
+                            <div class="option_icon">
+                                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                            </div>
+                            <h3>
+                              Clear, honest info
+                          </h3>
+                          <p class="home-props__text">
+                            No jargon or toggling between sites to guess your best option. Just fair, easy-to-understand info that'll help you navigate any decision with confidence.
+                        </p>
+                    </li>
+                    <li>
+                        <div class="option_icon">
+                            <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        </div>
+                        <h3>
+                          On-call experts
+                      </h3>
+                      <p class="home-props__text">
+                        Have questions about things like taxes, retirement or homebuying? We have certified experts ready to talk you through it. All you have to do is ask.
+                    </p>
+                </li>
+                <li>
+                    <div class="option_icon">
+                        <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    </div>
+                    <h3>
+                      Big-time savings
+                  </h3>
+                  <p class="home-props__text">
+                    Small tweaks can make a big difference. See how swapping your auto insurance company or refinancing your mortgage can lower your highest bills.
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+</section>
+<section class="screen3_wrapper">
+    <div class="screen3">
+        <div class="screen3_heading">
+            <span class="hzero">Learn about Investment from experts </span>
+        </div>
+        <div class="blogs_container">
+            <div class="screen3_blog_items">
+                <a href="http://www.profitmatter.com/blog/investment-2/" target="_blank" class="home-reads__img read-1">
+                </a>
+                <div class="screen3_blog_info">
+                    <div class="screen3_blog_align">
+                        <h3><a href="http://www.profitmatter.com/blog/investment-2/" target="_blank">Beginners Guide: Investment Basics</a></h3>
+                        <div class="screen3_blog_byline">
+                            <div class="home-reads__byline--pic">
+                                <img src="../images/logo/BRAND.JPG" height="30" width="30" alt="">
+                            </div>
+                            <div class="screen3_blog_author">
+                                by Profit Matter Team
+                            </div>
+                        </div>
+                        <span class="screen3_blog_gist">There are many investment options available but It’s better to start early because even if...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="screen3_blog_items">
+                <a href="http://www.profitmatter.com/blog/understand-income-tax-on-your-income-in-india-2/" target="_blank" class="home-reads__img read-2">
+                </a>
+                <div class="screen3_blog_info">
+                    <div class="screen3_blog_align">
+                        <h3><a href="http://www.profitmatter.com/blog/understand-income-tax-on-your-income-in-india-2/" target="_blank">Quick Guide : income tax slabs in India</a></h3>
+                        <div class="screen3_blog_byline">
+                            <div class="home-reads__byline--pic">
+                                <img src="../images/logo/BRAND.JPG" height="30" width="30" alt="">
+                            </div>
+                            <div class="screen3_blog_author">
+                                by Profit Matter Team
+                            </div>
+                        </div>
+                        <span class="screen3_blog_gist">There is income tax on everything that you earn.So you should be aware about why and how much tax you are paying to government.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="screen3_blog_items">
+                <a href="http://www.profitmatter.com/blog/investment-in-mutual-funds-2/" target="_blank" class="home-reads__img read-3">
+                </a>
+                <div class="screen3_blog_info">
+                    <div class="screen3_blog_align">
+                        <h3><a href="http://www.profitmatter.com/blog/investment-in-mutual-funds-2/" target="_blank">Things you must know before investing in Mutual Funds in India</a></h3>
+                        <div class="screen3_blog_byline">
+                            <div class="home-reads__byline--pic">
+                                <img src="../images/logo/BRAND.JPG" height="30" width="30" alt="">
+                            </div>
+                            <div class="screen3_blog_author">
+                                by Profit Matter Team
+                            </div>
+                        </div>
+                        <span class="screen3_blog_gist">You want to start investing your money and does not have much knowledge about share market or you are a small investor and can't invest in large companies then Mutual Funds are the best bet for you.</span>
+                    </div>
+                </div>
+            </div>
+            <!-- =========================================================== -->
+            <div class="screen3_blog_items">
+                <a href="http://www.profitmatter.com/blog/understand-income-tax-cycle-in-india/" target="_blank" class="home-reads__img read-4">
+                </a>
+                <div class="screen3_blog_info">
+                    <div class="screen3_blog_align">
+                        <h3><a href="http://www.profitmatter.com/blog/understand-income-tax-cycle-in-india/" target="_blank">Things you should know about investment declaration and income tax return</a></h3>
+                        <div class="screen3_blog_byline">
+                            <div class="home-reads__byline--pic">
+                                <img src="../images/logo/BRAND.JPG" height="30" width="30" alt="">
+                            </div>
+                            <div class="screen3_blog_author">
+                                by Profit Matter Team
+                            </div>
+                        </div>
+                        <span class="screen3_blog_gist">You have starting earning but have doubts about investment declaration and tax return.Here you can....</span>
+                    </div>
+                </div>
+            </div>
+                        <!--   <div class="screen3_blog_items">
+    <a href="http://www.profitmatter.com/blog/understand-income-tax-on-your-income-in-india-2/" target="_blank" class="home-reads__img read-2">
+    </a>
+    
+  <div class="screen3_blog_info">
+      <div class="screen3_blog_align">
+        <h3><a href="http://www.profitmatter.com/blog/understand-income-tax-on-your-income-in-india-2/" target="_blank">Quick Guide : income tax slabs in India</a></h3>
+        <div class="screen3_blog_byline">
+          <div class="home-reads__byline-pic">
+            <img src="../images/logo/BRAND.JPG" height="30" width="30" alt="">
+          </div>
+          <div class="screen3_blog_author">
+            by Profit Matter Team
+          </div>
+        </div>
+        <span class="screen3_blog_gist">There is income tax on everything that you earn.So you should be aware about why and how much tax you are paying to government.</span>
+      </div>
+    </div>
+</div>
+
+  <div class="screen3_blog_items">
+  <a href="http://www.profitmatter.com/blog/investment-in-mutual-funds-2/" target="_blank" class="home-reads__img read-3">
+    </a>
+    
+  
+
+  <div class="screen3_blog_info">
+      <div class="screen3_blog_align">
+          <h3><a href="http://www.profitmatter.com/blog/investment-in-mutual-funds-2/" target="_blank">Things you must know before investing in Mutual Funds in India</a></h3>
+        <div class="screen3_blog_byline">
+          <div class="home-reads__bylinepic">
+            <img src="../images/logo/BRAND.JPG" height="30" width="30" alt="">
+          </div>
+          <div class="screen3_blog_author">
+            by Profit Matter Team
+          </div>
+        </div>
+        <span class="screen3_blog_gist">You want to start investing your money and does not have much knowledge about share market or you are a small investor and can't invest in large companies then Mutual Funds are the best bet for you.</span>
+      </div>
+    </div>
+</div> -->
+</div>
+</div>
+<div class="blog_address">
+    You can read all the articles at our <a href="/blog" target="_blank"> blog.</a>
+</div>
+</section>
+<section class="screen4_wrapper">
+    <div class="screen4_contact">
+        <ul class="head-banner wrap-content">
+            <li>
+                <h4 class="heading-size">Help us spread the Word</h4></li>
+                <li>Follow, like, tweet or post. We would love to interact with you.</li>
+            </ul>
+            <ul class="help_us_icon">
+                <li><a href="https://www.facebook.com/profitmatter" class="fb"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                <li><a href="https://twitter.com/" class="twit"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                <li><a href="" class="g-plus"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                <li><a href="" class="yt"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </section>
+</main>
+<%- include footer.ejs %>
+</div>
+    <!-- <div class="modal fade login" id="signin">
+  <div class="modal-dialog login animated">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+            <!-- <h4 class="modal-title">Login with</h4> -->
+    <!--    </div>
+        <div class="modal-body">  
+            <div class="box">
+                 <div class="content">
+ 
+                    <div class="error">
+                      <div ng-show="alert" id="alert" class="alert alert-danger col-sm-12">{{alert}}</div>
+                    </div>
+                    <div class="form loginBox">
+                        <form method="post" accept-charset="UTF-8">
+                        <input id="email" class="form-control" type="text" ng-model="user.username" placeholder="Email" name="email">
+                        <input id="password" class="form-control" type="password" ng-model="user.password" placeholder="Password" name="password">
+                        <input class="btn btn-default btn-login" type="button" value="Login" ng-click="login(user)">
+                        </form> 
+                    </div>
+                 </div>
+            </div>
+          </div>
+            
+        
+        <div class="modal-footer">
+            <div class="forgot login-footer">
+                <span>Looking to 
+                     <a ng-href="/signup" data-backdrop="false">create an account</a>
+                ?</span>
+            </div>
+   
+        </div>        
+      </div>
+    </div> 
+  </div>
+
+
+</div> -->
+
+  <script type="text/javascript">
+    $(function() {
+        $('a[scrollhref]').click(function() {
+            var target = $("#" + $(this).attr("scrollhref").replace(/\#/g, ''));
+            if (target.length) {
+                $('html,body').animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+                return false;
+            }
+        });
+    });
+    </script>
+    <!--
+  
+    <script type="text/ng-template" id="signin.html">
+        <div class="form">
+            <ul class="tab-group nav nav-tabs">
+                <li class="tab login-tab active" class="active" data-toggle="tab"><a data-toggle="tab" href="#login">Log In</a></li>
+                <li class="tab signup-tab"><a data-toggle="tab" href="#signup">Sign Up</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="login" class="tab-pane fade in active">
+                    <h1>Welcome Back!</h1>
+                    <div ng-show="alert" id="login-alert" class="alert alert-danger col-sm-12">{{alert}}</div>
+                    <form autocomplete="new-password" method="post">
+                        <div class="field-wrap">
+                            <label>
+                                Email Address<span class="req">*</span>
+                            </label>
+                            <input type="email" ng-model="user.username" required autocomplete="new-password" />
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Password<span class="req">*</span>
+                            </label>
+                            <input type="password" ng-model="user.password" required autocomplete="new-password" />
+                        </div>
+                        <p class="forgot"><a href="#">Forgot Password?</a></p>
+                        <button class="button button-block" ng-click="login(user)">Log In</button>
+                    </form>
+                </div>
+                <div id="signup" class="tab-pane fade">
+                    <h1>Sign Up for Free</h1>
+                    <form autocomplete="off" method="post">
+                        <div class="top-row">
+                            <div class="field-wrap">
+                                <label>
+                                    First Name<span class="req">*</span>
+                                </label>
+                                <input type="text" ng-model="user.userFirstName" required autocomplete="off" />
+                            </div>
+                            <div class="field-wrap">
+                                <label>
+                                    Last Name<span class="req">*</span>
+                                </label>
+                                <input type="text" ng-model="user.userLastName" required autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Email Address<span class="req">*</span>
+                            </label>
+                            <input type="email" ng-model="user.username" required autocomplete="off" />
+                        </div>
+                        <div class="field-wrap">
+                            <label>
+                                Set A Password<span class="req">*</span>
+                            </label>
+                            <input type="password" ng-model="user.password" required autocomplete="off" />
+                        </div>
+                        <button type="submit" class="button button-block" ng-click="signup(user)">Get Started</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </script>
+-->
+    <!--
+    <script type="text/javascript">
+    $('.form').find('input, textarea').on('keyup blur focus', function(e) {
+
+        var $this = $(this),
+            label = $this.prev('label');
+
+        if (e.type === 'keyup') {
+            if ($this.val() === '') {
+                label.removeClass('active highlight');
+            } else {
+                label.addClass('active highlight');
+            }
+        } else if (e.type === 'blur') {
+            if ($this.val() === '') {
+                label.removeClass('active highlight');
+            } else {
+                label.removeClass('highlight');
+            }
+        } else if (e.type === 'focus') {
+
+            if ($this.val() === '') {
+                label.removeClass('highlight');
+            } else if ($this.val() !== '') {
+                label.addClass('highlight');
+            }
+        }
+
+    });
+
+    // $('.tab a').on('click', function (e) {
+
+    //   e.preventDefault();
+
+    //   $(this).parent().addClass('active');
+    //   $(this).parent().siblings().removeClass('active');
+
+    //   target = $(this).attr('href');
+
+    //   $('.tab-content > div').not(target).hide();
+
+    //   $(target).fadeIn(600);
+
+    // });
+    </script>
+-->
+    <!-- <script type="text/javascript">
+//     $('#signinlink').on('click', function() {
+//         $('#signup.html').hide();
+//     });
+// </script>

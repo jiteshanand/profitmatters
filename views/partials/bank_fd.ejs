@@ -1,0 +1,151 @@
+<!-- Include header -->
+<%- include header.ejs %>
+<section class="allServices">
+    <div class="bank-name-header">
+        <div class="img-box">
+            <img height="60px" src="../images/bank/{{bankName}}.png" width="60px">
+            </img>
+        </div>
+        <div class="bank-detail-box" ng-repeat="bank in bankNames | filter : {Id:selectedBankId} :true">
+            {{bank.Name}}
+        </div>
+    </div>
+    <div>
+        <input checked="" id="s1" name="s" type="radio"/>
+        <input id="s2" name="s" type="radio"/>
+        <div class="savingtabs">
+            <label for="s1">
+                Interest Rate
+                <br/>
+                (Deposit < 1 Cr.)
+            </label>
+            <label for="s2">
+                Interest Rate
+                <br/>
+                (Deposit > 1 Cr.)
+            </label>
+        </div>
+        <ul class="InterestTab">
+            <li>
+                <table class="container">
+                    <thead>
+                        <tr>
+                            <th width="40%">
+                                <div class="head-interest">
+                                    Duration
+                                </div>
+                            </th>
+                            <th width="30%">
+                                <div class="head-interest">
+                                    Interest Rate
+                                </div>
+                            </th>
+                            <th width="30%">
+                                <div class="head-interest">
+                                    Interest Rate
+                                    <br/>
+                                    (For Senior Citizens)
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <div>
+                    <div ng-repeat="fd in fdDetail_General | filter:{bankId:selectedBankId}:true">
+                        <table class="container">
+                            <tr class="fdval" ng-click="calculateFD_modal(fdval)" ng-repeat="fdval in fd.value">
+                                <td width="40%">
+                                    {{fdval.duration}}
+                                </td>
+                                <td ng-if="!isNaN((fdval.interestRate_0_1))" width="30%">
+                                    {{((fdval.interestRate_0_1)*100).toFixed(2)}}%
+                                </td>
+                                <td ng-if="isNaN(((fdval.interestRate_0_1)*100).toFixed(2))" width="30%">
+                                    {{fdval.interestRate_0_1}}
+                                </td>
+                                <td ng-if="!isNaN(((fdval.interestRate_0_1_snr)*100).toFixed(2))" width="30%">
+                                    {{((fdval.interestRate_0_1_snr)*100).toFixed(2)}} %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </li>
+            <li>
+                Section two
+            </li>
+        </ul>
+    </div>
+</section>
+<%- include footer.ejs %>
+<script id="fdOpen_modal.html" type="text/ng-template">
+    <div class="modal-header">
+            <h4 class="modal-title">Duration : {{fixedDepositObj.duration}}</h4>
+            <h4 class="modal-title">Interest Rate : {{((fixedDepositObj.interestRate_0_1)*100).toFixed(2)}} % </h4>
+        </div>
+        <div class="modal-body">
+            <div id="FD-wrap" ng-app>
+                <form novalidate name="myform" class="FD_modalForm" action="#">
+                    <div class="form_wrap">
+                        <div class="fdCal_input">
+                            <label>Amount :
+                            </label>
+                            <input type="text" name="name" placeholder="Enter Amount for FD" ng-model="fixedDepositAmount" ng-required="true" />
+                        </div>
+                        <div class="fdCal_input">
+                            <label>Years :
+                            </label>
+                            <input type="text" name="name" ng-model="fixedDepositObj.year" value="0" />
+                        </div>
+                        <div class="fdCal_input">
+                            <label>Months:
+                            </label>
+                            <input type="text" name="name" ng-model="fixedDepositObj.month" value="0" />
+                        </div>
+                        <div class="fdCal_input">
+                            <label>Days:
+                            </label>
+                            <input type="text" name="name" ng-model="fixedDepositObj.days" value="0" />
+                        </div>
+                        <div class="fdCal_input">
+                            <label>Interest Payout Period:
+                            </label>
+                            <!-- <input type="text" name="name" ng-model="fixedDepositObj.period" ng-readonly="true" /> -->
+                            <select ng-model="payoutPeriod" class="payoutperiod" ng-options="period for period in payoutPeriods">
+                                <option value="">Select Payout Period</option>
+                            </select>
+                        </div>
+                        <div class="fdCal_output">
+                            <label>Interest :
+                            </label>
+                            <input type="text" name="name" ng-model="interest" ng-readonly="true" />
+                        </div>
+                        <div class="fdCal_output">
+                            <label>Final Amount :
+                            </label>
+                            <input type="text" name="name" ng-model="finalAmount" ng-readonly="true" />
+                        </div>
+                            <!-- <h3>{{interest}}</h3>
+                            <h3>{{finalAmount}}</h3> -->
+                        </div>
+                        <button class="btn btn-primary" type="button" ng-click="calculateInterest(fixedDepositAmount)" ng-disabled="myform.$invalid">Calculate Interest</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="cancel();buyFD_modal()">Buy</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Exit</button>
+            </div>
+</script>
+<script id="fdBuy_modal.html" type="text/ng-template">
+    <div class="modal-body">
+                <div id="FD-wrap" ng-app>
+                    <form novalidate name="myform" class="FD_modalForm" action="#">
+                        <h1>Jitesh</h1>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Exit</button>
+            </div>
+</script>

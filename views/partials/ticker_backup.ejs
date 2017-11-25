@@ -1,0 +1,370 @@
+<!-- Include header -->
+<%- include header.ejs %>
+<div class="screen1 stock-screen" ng-init="getStockData(tickersymbol);callIndustry()">
+    <div class="spinnerback" ng-show="loading">
+        <div class="spinner">
+            <i aria-hidden="true" class="fa fa-spinner fa-5x">
+            </i>
+        </div>
+    </div>
+    <section class="ticker main-section" id="sector">
+        <div class="sectordata">
+            <div class="stockdetail-content">
+                <div class="stock-header">
+                    <div class="stock-value">
+                        <div class="curr-price">
+                            {{activeTickerInfo[0].l}}
+                        </div>
+                        <div class="curr-change">
+                            <span class="curr-c" ng-class="{'lp_bg_green':(parseFloat(activeTickerInfo[0].c))>0,'lp_bg_red':(parseFloat(activeTickerInfo[0].c))<0}">
+                                {{activeTickerInfo[0].c}}
+                            </span>
+                            <span class="curr-cp">
+                                ({{activeTickerInfo[0].cp}})%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="stock-top-info">
+                        <div class="stock-title">
+                            <span class="title-symbol">
+                                {{activeTickerInfo[0].t}}
+                            </span>
+                            <span class="title-name">
+                                {{activeTickerInfo[0].name}}
+                            </span>
+                        </div>
+                        <div class="title-logo">
+                            <img height="85px" src="../images/logo/{{activeTickerInfo[0].t | uppercase}}.JPG" width="75px"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="stock-bottom-info">
+                    <div class="stock-stats">
+                        <ul>
+                            <li>
+                                <span class="info-title">
+                                    Open
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].op}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="info-title">
+                                    High
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].hi}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="info-title">
+                                    Low
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].lo}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="info-title">
+                                    High52
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].hi52}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="info-title">
+                                    Low52
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].lo52}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="info-title">
+                                    Volume
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].vo}}
+                                </span>
+                            </li>
+                            <li>
+                                <span class="info-title">
+                                    PE Ratio
+                                </span>
+                                <span class="info-value">
+                                    {{activeTickerInfo[0].pe}}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="row">
+                <highchart class="span10" config="chartItemLineGraph.chart" id="chart1">
+                </highchart>
+            </div>
+            <div class="insight-heading">
+                Insight into {{tickersymbol}} today
+            </div>
+            <form class="stock-option-form">
+                <fieldset class="radioset">
+                    <ul>
+                        <li>
+                            <input id="radio1" name="content" ng-checked="true" ng-model="content" type="radio" value="Fundamentals">
+                                <label for="radio1">
+                                    Fundamentals
+                                </label>
+                                <li>
+                                    <input id="radio4" name="content" ng-change="getPERatioData()" ng-model="content" type="radio" value="analysis">
+                                        <label for="radio4">
+                                            Analysis
+                                        </label>
+                                        <li>
+                                            <input id="radio5" name="content" ng-model="content" type="radio" value="peer">
+                                                <label for="radio5">
+                                                    Peers
+                                                </label>
+                                            </input>
+                                            <li>
+                                                <input id="radio2" name="content" ng-model="content" type="radio" value="about">
+                                                    <label for="radio2">
+                                                        About US
+                                                    </label>
+                                                </input>
+                                            </li>
+                                        </li>
+                                    </input>
+                                </li>
+                            </input>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+            <div class="aboutdata" ng-show="content == 'about'">
+                <div class="about-summary">
+                    <div class="about-title">
+                        What We Do??
+                    </div>
+                    <div class="summary-text">
+                        {{activeTickerInfo[0].summary[0].overview}}
+                    </div>
+                </div>
+                <div class="about-leadership">
+                    <div class="about-title">
+                        Our Leaders !!
+                    </div>
+                    <div class="row text-center leader-container">
+                        <div class="leader-text col-md-4" ng-repeat="leader in activeTickerInfo[0].management">
+                            <div class="leadername">
+                                <h4>
+                                    {{leader.name}}
+                                </h4>
+                                <p>
+                                    {{leader.title}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-reachus">
+                    <div class="about-title">
+                        Reach Us @
+                    </div>
+                    <div class="reachus-container">
+                        <div class="reach-label">
+                            Address :
+                            <div class="reach-text">
+                                {{activeTickerInfo[0].summary[0].address}}
+                            </div>
+                        </div>
+                        <div class="reach-label">
+                            Phone :
+                            <div class="reach-text">
+                                {{activeTickerInfo[0].summary[0].phone}}
+                            </div>
+                        </div>
+                        <div class="reach-label">
+                            Website :
+                            <div class="reach-text">
+                                <a href="{{activeTickerInfo[0].summary[0].url}}">
+                                    {{activeTickerInfo[0].summary[0].url}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="analysisdata" ng-show="content == 'analysis'">
+                <div class="analysis-container">
+                    <div>
+                        <input checked="" id="s1" name="s" type="radio"/>
+                        <input id="s2" name="s" type="radio"/>
+                        <input id="s3" name="s" type="radio"/>
+                        <div class="Graphtab">
+                            <label for="s1">
+                                PE Ratio
+                            </label>
+                            <label for="s2">
+                                Moving Average
+                            </label>
+                            <label for="s3">
+                                MACD
+                            </label>
+                        </div>
+                        <ul class="diffGraphTab">
+                            <li>
+                                <div class="peRatio_graph">
+                                    <highchart class="span10" config="chartPERatioItem.chart" id="chart2">
+                                    </highchart>
+                                    <div class="whatIs">
+                                        <div class="what-header">
+                                            <span>
+                                                What is PE Ratio?
+                                            </span>
+                                        </div>
+                                        <div class="what-content">
+                                            <p>
+                                                {{PE_Text[0]}}
+                                            </p>
+                                            {{PE_Text[1]}}
+                                            <div class="formula">
+                                                {{PE_Text[2]}}
+                                            </div>
+                                            {{PE_Text[3]}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="MA_graph">
+                                    <highchart class="span11" config="chartItemMA.chart" id="chart3">
+                                    </highchart>
+                                    <div class="whatIs">
+                                        <div class="what-header">
+                                            <span>
+                                                Moving Average?
+                                            </span>
+                                        </div>
+                                        <div class="what-content">
+                                            <p>
+                                                {{MA_Text}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <li>
+                                    <div class="MACD_graph">
+                                        <highchart class="span12" config="chartItemMACD.chart" id="chart4">
+                                        </highchart>
+                                        <div class="whatIs">
+                                            <div class="what-header">
+                                                <span>
+                                                    Moving average convergence divergence?
+                                                </span>
+                                            </div>
+                                            <div class="what-content">
+                                                <p>
+                                                    {{MACD_Text}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="content == 'peer'">
+                <div class="peer-container">
+                    <div class="peer-header">
+                        <span>
+                            STOCKS IN {{industryinuse}} SECTOR
+                        </span>
+                    </div>
+                    <div class="peer-wrap" ng-hide="stock.values[3] == tickersymbol" ng-repeat="stock in peers">
+                        <a href="/stock/{{stock.values[3]}}">
+                            <div class="peer-widget">
+                                <ul>
+                                    <li class="row1">
+                                        <span class="peer-symbol">
+                                            {{stock.values[3]}}
+                                        </span>
+                                        <span class="peer-price">
+                                            {{stock.values[6]}}
+                                        </span>
+                                    </li>
+                                    <li class="row2">
+                                        <span class="peer-change" ng-class="{'lp_bg_green':(parseFloat(stock.values[9]))>0,'lp_bg_red':(parseFloat(stock.values[9]))<0}">
+                                            {{parseFloat((stock.values[7]).replace(",","")).toFixed(2)}}
+                                        </span>
+                                        <span class="peer-cp">
+                                            ({{stock.values[9]}}%)
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="side-section">
+        <div class="newsdata">
+            <div class="news-header">
+                <span>
+                    Top {{tickersymbol}} news
+                </span>
+            </div>
+            <div class="news-item-container">
+                <div class="dailynews-item" ng-repeat="feed in googlenewsfeed track by $index | limitTo:15">
+                    <div class="news_logo">
+                        <img height="50px" src="../images/logo/{{feed.shortened}}.JPG" width="50px">
+                        </img>
+                    </div>
+                    <div class="news-msg">
+                        <a class="feed-url" href="{{feed.url}}" style="text-decoration: none;" target="_blank">
+                            <div class="dailynews-title">
+                                {{feed.title}}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tweetdata">
+            <div class="tweet-header">
+                <span>
+                    Top {{tickersymbol}} tweets
+                </span>
+            </div>
+            <div class="tweet-item-container">
+                <div class="tweet-item" ng-repeat="tweet in tweets | limitTo:20">
+                    <div class="news_logo">
+                        <img height="50px" src="../images/logo/twitter.JPG" width="50px">
+                        </img>
+                    </div>
+                    <div class="tweet-msg">
+                        <div class="tweet-user">
+                            <div class="handle-name">
+                                {{tweet.user.name}}
+                            </div>
+                            <div class="tweet-handle">
+                                @{{tweet.user.screen_name}}
+                            </div>
+                        </div>
+                        <div class="tweet-title">
+                            {{tweet.text}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    <%- include footer.ejs %>

@@ -1,0 +1,63 @@
+    <!-- <div class="signup-box"> -->
+    <div class="signup-container">
+<!--             <div class="signup-screen">
+                <div class="space-bot text-center">
+                    <h1>Sign up</h1>
+                    <div class="divider"></div>
+                </div>
+                <form class="form-register" method="post" name="register" novalidate>
+                <div class='signup-body'>
+                    <label>
+                        <div class='label'>User Name</div>
+                        <input id="username" type="text" class="validate" ng-model="user.userName" required>
+                    </label>
+                    <label>
+                        <div class='label'>Email </div>
+                        <input id="email" type="email" name="email" ng-model="user.email" class="validate" required autocomplete="new-password">
+                    </label>
+                    <p class="alert alert-danger" ng-show="form-register.email.$error.email">Your email is invalid.</p>
+                    <label>
+                        <div class='label'>Password </div>
+                        <input id="password" type="password" autocomplete="new-password" name="user.password" ng-model="password" ng-minlength='6' class="validate" required>
+                    </label>
+                    <p class="alert alert-danger" ng-show="form-register.password.$error.minlength || form.password.$invalid">Your password must be at least 6 characters.</p>
+                    <div class="space-top text-center">
+                        <button ng-disabled="form-register.$invalid" ng-click="signup(user)" class="waves-effect waves-light btn done">
+                            Submit
+                        </button>
+                        <button type="button" class="waves-effect waves-light btn cancel">
+                            Cancel
+                        </button>
+                    </div>
+                    </div>
+                </form>
+            </div> -->
+
+            <div class="header">
+        <div></div>
+        <div class="header-image"></div>
+    </div>
+
+            <div class="island-landscape">
+    <div class="island-title">
+        <h1>Create your Profitmatter Account<br/><br/> and<br/><br/> Start your investment journey </h1>
+    </div>
+    <div class="island-content">
+        <form method="post" novalidate id="signup-submit" name="register">
+            <input type="hidden" name="client_id" value="">
+            <input name="email" id="email" type="email" placeholder="Enter your email" ng-model="user.email" autofocus="autofocus" required="required" class="form-control">
+            <p class="alert alert-danger" ng-show="register.email.$error.email">Your email is invalid.</p>
+            <input name="name" type="text" max="100" placeholder="Enter your name" ng-model="user.userName" autofocus="autofocus" class="form-control">
+            <input name="password" ng-minlength='6' ng-maxlength='100' type="password" required placeholder="Password" ng-model="user.password" autocomplete="new-password" class="form-control">
+             <p class="alert alert-danger" ng-show="register.password.$error.minlength">Password must be at least 6 characters.</p>
+            <input name="password_confirmation" min="8" max="100" type="password" required="required" placeholder="Confirm" autocomplete="off" class="form-control">
+            <input type="submit" ng-disabled="form-register.$invalid" ng-click="signup(user)" value="Sign Up" class="island-button" id="signup-button">
+        </form>
+    </div>
+    <div class="island-footer">
+        <a href="/home" class="link-lowlight">Already joined? Sign in.</a>
+    </div>
+</div>
+
+        </div>
+<%- include footer.ejs %>

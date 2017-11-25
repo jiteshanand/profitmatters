@@ -1,0 +1,71 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div id="main" class="site-content">
+        <main id="content" role="main" itemprop="mainContentOfPage">
+            <div id="home-splash-mf" class="intro-image-mf active">
+                <div class="banner wrapper">
+                    <h1>Don't want to research or invest in equity.<br>Mutual Funds are the investment you are looking for.</h1>
+                    <p>We will help you to find the best fund available in the market.</p>
+                    <form class="mf-form-wrapper" method="POST">
+                        <select class="mf-option-type" ng-model="schemeType" ng-options="type for type in mftypes">
+                            <option value="">Scheme Type</option>
+                        </select>
+                                             
+                            <select class="mf-option-category" ng-disabled="!schemeType" ng-model="selectCategory" ng-options="x.categ for x in mfcategory | filter:{type :schemeType }">
+                                <option value="">Fund category</option>
+                            </select>
+                   
+                        <select class="mf-option-amc" ng-model="selectAMC" ng-options="y.name for y in familyunit">
+                            <option value="">Select AMC</option>
+                        </select>
+                        <button class="mf-search-btn" type="button" name="search" ng-click="mfSearchResult(schemeType,selectCategory.categ,selectAMC.id)">Search</button>
+                    </form>
+                </div>
+            </div>
+            <section class="fund-type-main-wrapper">
+                <div id="fund-wrap">
+                    <div class="mfconsole-container" ng-repeat="opt in mfoption">
+                        <a href="/mf/list/{{opt[1]}}" class="type-container" style="text-decoration: none">
+                            <div class="type-icon">
+                                <img src="../images/mf/{{opt[2]}}.png" class="mf-option-img">
+                            </div>
+                            <div class="mfDetail">
+                                <div class="mftype-heading">
+                                    {{opt[0]}}
+                                </div>
+                            </div>
+                        </a>
+
+                    <!--<a href="/mf/list/{{opt[1]}}" class="feature" style="text-decoration: none">
+                    <img class="picture" src="../images/mf/{{opt[2]}}.png" />
+                    <h4 class="caption">{{opt[0]}}</h4>
+                    <p class="summary">Playphone is a games-only network fostering an ecosystem of highly qualified users that love playing mobile games. You won't find a better way to reach untapped mobile gamers globally</p>
+                    </a> -->
+                    </div>
+                </div>
+            </section>
+            <%- include footer.ejs %>
+    </div>
+
+    <script type="text/ng-template" id="mfSearchResult1.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Search Result</h3>
+        </div>
+        <div class="modal-body">
+            <div class="wrap-buy">
+                <div class="body-heading1">
+                    <ul class="mssearchResult-wrap" >
+                        <li class="mfsearchResult-radio-options" ng-repeat="list in searchMfResult">
+                            <a href="mFund/{{list.schemeName}}" ng-click="exit()">{{list.schemeName}}</a>
+                        </li>
+                        <li class="no-mfsearchResult-options">
+                            <img src="../images/mf/warning1.png" class="mf-warning-img"><span class="warning-text">No Fund available in this category.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+            </div>
+        </div>
+    </script>

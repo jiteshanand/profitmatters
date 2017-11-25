@@ -1,0 +1,421 @@
+<!-- Include header -->
+<%- include header.ejs %>
+<section class="console2">
+    <div class="console2_container" ng-init="showIndex();showSector();showCurrency()">
+        <div class="console2_global">
+            <!-- <div class="global-index"> -->
+            <div class="index-header">
+                <span class="index-header-title">
+                    Global Indices
+                </span>
+                <i class="fa fa-bar-chart">
+                </i>
+            </div>
+            <div class="index-data-container">
+                <div class="index-data" ng-repeat="index in allIndices | filter :getglobalindex">
+                    <div class="line0">
+                        <span class="country" ng-switch="" on="index.values[1]">
+                            <div ng-switch-when=".IXIC">
+                                U.S.A
+                            </div>
+                            <div ng-switch-when="000001">
+                                CHINA
+                            </div>
+                            <div ng-switch-when=".DJI">
+                                U.S.A
+                            </div>
+                            <div ng-switch-when="NI225">
+                                JAPAN
+                            </div>
+                            <div ng-switch-when="HSI">
+                                HONG KONG
+                            </div>
+                            <div ng-switch-when="UKX">
+                                LONDON
+                            </div>
+                            <div ng-switch-when="DAX">
+                                GERMANY
+                            </div>
+                            <div ng-switch-when="SX5E">
+                                EUROPE
+                            </div>
+                            <div ng-switch-when=".INX">
+                                U.S.A
+                            </div>
+                        </span>
+                        <!-- <div class="traded-time">{{index.lt}}</div> -->
+                    </div>
+                    <div class="line1">
+                        <span class="exchange" ng-switch="" on="index.values[1]">
+                            <div ng-switch-when=".IXIC">
+                                NASDAQ
+                            </div>
+                            <div ng-switch-when="000001">
+                                SHANGHAI
+                            </div>
+                            <div ng-switch-when=".DJI">
+                                DOW
+                            </div>
+                            <div ng-switch-when="NI225">
+                                NIKKEI 225
+                            </div>
+                            <div ng-switch-when="HSI">
+                                HANG SENG
+                            </div>
+                            <div ng-switch-when="UKX">
+                                FTSE 100
+                            </div>
+                            <div ng-switch-when="DAX">
+                                DAX
+                            </div>
+                            <div ng-switch-when="SX5E">
+                                EURO STOXX
+                            </div>
+                            <div ng-switch-when=".INX">
+                                S&P; 500
+                            </div>
+                        </span>
+                        <span class="index-price">
+                            {{index.values[6]}}
+                        </span>
+                    </div>
+                    <div class="line2">
+                        <div class="arrow" ng-class="{'arrowu':(parseFloat(index.values[9]))>=0,'arrowd':(parseFloat(index.values[9]))<0}">
+                            <i class="fa fa-arrow-up" ng-if="(parseFloat(index.values[7]))>=0.00">
+                            </i>
+                            <i class="fa fa-arrow-down" ng-if="(parseFloat(index.values[7]))<0.00">
+                            </i>
+                        </div>
+                        <div class="index-change">
+                            <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                {{index.values[7]}}
+                            </span>
+                            <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                ({{index.values[9]}})%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+        <div class="console2_national">
+            <!-- <div class="national-index"> -->
+            <div class="index-header">
+                <span class="index-header-title">
+                    Indian Indices
+                </span>
+                <i class="fa fa-bar-chart">
+                </i>
+            </div>
+            <div class="index-data-container">
+                <div class="index-data" ng-repeat="index in allIndices | filter :getnationalindex |limitTo:10">
+                    <div class="line1">
+                        <span class="exchange">
+                            {{index.values[1]}}
+                        </span>
+                        <span class="index-price">
+                            {{index.values[6]}}
+                        </span>
+                    </div>
+                    <div class="line2">
+                        <div class="arrow" ng-class="{'arrowu':(parseFloat(index.values[9]))>=0,'arrowd':(parseFloat(index.values[9]))<0}">
+                            <i class="fa fa-arrow-up" ng-if="index.values[7] >= 0.00">
+                            </i>
+                            <i class="fa fa-arrow-down" ng-if="index.values[7] < 0.00">
+                            </i>
+                        </div>
+                        <div class="index-change">
+                            <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                {{index.values[7]}}
+                            </span>
+                            <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                ({{index.values[9]}})%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+        <div class="console2_currency">
+            <div class="index-header">
+                <span class="index-header-title">
+                    Currency
+                </span>
+                <i class="fa fa-money">
+                </i>
+            </div>
+            <div class="index-data-container">
+                <div class="index-data" ng-repeat="currency in currencies">
+                    <div class="line0">
+                        <span class="country" ng-switch="" on="currency.Name">
+                            <div ng-switch-when="USD/INR">
+                                U.S Dollar
+                            </div>
+                            <div ng-switch-when="BTC/INR">
+                                Bitcoin
+                            </div>
+                            <div ng-switch-when="EUR/INR">
+                                Euro
+                            </div>
+                            <div ng-switch-when="CNY/INR">
+                                Chinese Yuan
+                            </div>
+                            <div ng-switch-when="AUD/INR">
+                                Australian Dollar
+                            </div>
+                            <div ng-switch-when="GBP/INR">
+                                British Pound
+                            </div>
+                            <div ng-switch-when="CAD/INR">
+                                Canadian Dollar
+                            </div>
+                            <div ng-switch-when="JPY/INR">
+                                Japanese Yen
+                            </div>
+                            <div ng-switch-when="CHF/INR">
+                                Swiss Franc
+                            </div>
+                            <div ng-switch-when="ZAR/INR">
+                                South African RAND
+                            </div>
+                        </span>
+                        <!-- <div class="traded-time">{{index.lt}}</div> -->
+                    </div>
+                    <div class="line1">
+                        <span class="name">
+                            1 {{currency.Name}}
+                        </span>
+                        <span class="exchange-rate">
+                            <i class="fa fa-inr">
+                            </i>
+                            {{currency.Rate}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="phoneFrame">
+        <div class="tabs">
+            <a class="active" href="#tab1">
+                Global
+            </a>
+            <a href="#tab2">
+                National
+            </a>
+            <a href="#tab3">
+                Exchange Rate
+            </a>
+        </div>
+        <div class="tabContent" id="tab1">
+            <div class="console2_global">
+                <!-- <div class="global-index"> -->
+                <div class="index-header">
+                    <span class="index-header-title">
+                        Global Indices
+                    </span>
+                    <i class="fa fa-bar-chart">
+                    </i>
+                </div>
+                <div class="index-data-container">
+                    <div class="index-data" ng-repeat="index in allIndices | filter :getglobalindex">
+                        <div class="line0">
+                            <span class="country" ng-switch="" on="index.t">
+                                <div ng-switch-when=".IXIC">
+                                    U.S.A
+                                </div>
+                                <div ng-switch-when="000001">
+                                    CHINA
+                                </div>
+                                <div ng-switch-when=".DJI">
+                                    U.S.A
+                                </div>
+                                <div ng-switch-when="NI225">
+                                    JAPAN
+                                </div>
+                                <div ng-switch-when="HSI">
+                                    HONG KONG
+                                </div>
+                                <div ng-switch-when="UKX">
+                                    LONDON
+                                </div>
+                                <div ng-switch-when="DAX">
+                                    GERMANY
+                                </div>
+                                <div ng-switch-when="SX5E">
+                                    EUROPE
+                                </div>
+                            </span>
+                            <div class="traded-time">
+                                {{index.lt}}
+                            </div>
+                        </div>
+                        <div class="line1">
+                            <span class="exchange" ng-switch="" on="index.t">
+                                <div ng-switch-when=".IXIC">
+                                    NASDAQ
+                                </div>
+                                <div ng-switch-when="000001">
+                                    SHANGHAI
+                                </div>
+                                <div ng-switch-when=".DJI">
+                                    DOW
+                                </div>
+                                <div ng-switch-when="NI225">
+                                    NIKKEI 225
+                                </div>
+                                <div ng-switch-when="HSI">
+                                    HANG SENG
+                                </div>
+                                <div ng-switch-when="UKX">
+                                    FTSE 100
+                                </div>
+                                <div ng-switch-when="DAX">
+                                    DAX
+                                </div>
+                                <div ng-switch-when="SX5E">
+                                    EURO STOXX
+                                </div>
+                            </span>
+                            <span class="index-price">
+                                {{index.l}}
+                            </span>
+                        </div>
+                        <div class="line2">
+                            <div class="arrow" ng-class="{'arrowu':(parseFloat(index.values[9]))>=0,'arrowd':(parseFloat(index.values[9]))<0}">
+                                <i class="fa fa-arrow-up" ng-if="(parseFloat(index.values[7]))>=0.00">
+                                </i>
+                                <i class="fa fa-arrow-down" ng-if="(parseFloat(index.values[7]))<0.00">
+                                </i>
+                            </div>
+                            <div class="index-change">
+                                <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                    {{index.values[7]}}
+                                </span>
+                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                    ({{index.values[9]}})%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabContent" id="tab2">
+            <div class="console2_national">
+                <!-- <div class="national-index"> -->
+                <div class="index-header">
+                    <span class="index-header-title">
+                        Indian Indices
+                    </span>
+                    <i class="fa fa-bar-chart">
+                    </i>
+                </div>
+                <div class="index-data-container">
+                    <div class="index-data" ng-repeat="index in allIndices | filter :getnationalindex |limitTo:10">
+                        <div class="line1">
+                            <span class="exchange">
+                                {{index.t}}
+                            </span>
+                            <span class="index-price">
+                                {{index.l}}
+                            </span>
+                        </div>
+                        <div class="line2">
+                            <div class="arrow" ng-class="{'arrowu':(parseFloat(index.values[9]))>=0,'arrowd':(parseFloat(index.values[9]))<0}">
+                                <i class="fa fa-arrow-up" ng-if="index.values[7] >= 0.00">
+                                </i>
+                                <i class="fa fa-arrow-down" ng-if="index.values[7] < 0.00">
+                                </i>
+                            </div>
+                            <div class="index-change">
+                                <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                    {{index.values[7]}}
+                                </span>
+                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                    ({{index.values[9]}})%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabContent" id="tab3">
+            <div class="console2_currency">
+                <div class="index-header">
+                    <span class="index-header-title">
+                        Currency
+                    </span>
+                    <i class="fa fa-money">
+                    </i>
+                </div>
+                <div class="index-data-container">
+                    <div class="index-data" ng-repeat="currency in currencies">
+                        <div class="line0">
+                            <span class="country" ng-switch="" on="currency.Name">
+                                <div ng-switch-when="USD/INR">
+                                    U.S Dollar
+                                </div>
+                                <div ng-switch-when="BTC/INR">
+                                    Bitcoin
+                                </div>
+                                <div ng-switch-when="EUR/INR">
+                                    Euro
+                                </div>
+                                <div ng-switch-when="CNY/INR">
+                                    Chinese Yuan
+                                </div>
+                                <div ng-switch-when="AUD/INR">
+                                    Australian Dollar
+                                </div>
+                                <div ng-switch-when="GBP/INR">
+                                    British Pound
+                                </div>
+                                <div ng-switch-when="CAD/INR">
+                                    Canadian Dollar
+                                </div>
+                                <div ng-switch-when="JPY/INR">
+                                    Japanese Yen
+                                </div>
+                                <div ng-switch-when="CHF/INR">
+                                    Swiss Franc
+                                </div>
+                                <div ng-switch-when="ZAR/INR">
+                                    South African RAND
+                                </div>
+                            </span>
+                            <!-- <div class="traded-time">{{index.lt}}</div> -->
+                        </div>
+                        <div class="line1">
+                            <span class="name">
+                                1 {{currency.Name}}
+                            </span>
+                            <span class="exchange-rate">
+                                <i class="fa fa-inr">
+                                </i>
+                                {{currency.Rate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include footer.ejs %>
+<script type="text/javascript">
+    //tabs
+        $('.tabContent').removeClass('activeTab');
+        $('#tab1').addClass('activeTab');
+        $('.tabs a').click(function() {
+            $('.tabs a').removeClass('active');
+            $(this).addClass('active');
+            var currentTab = $(this).attr('href');
+            $('.tabContent').removeClass('activeTab');
+            $(currentTab).addClass('activeTab');
+            return false;
+        });
+</script>

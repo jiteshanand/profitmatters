@@ -1,0 +1,40 @@
+<header class="global-header">
+    <nav id="navbar-primary" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-primary-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo-wrapper">
+                    <a href="/home"><img src="../images/logo/brand_logo/brandicon4.jpg" width="120px"></a>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-primary-collapse">
+                <ul class="top-menu navbar-nav nav">
+                    <li class="menu-item"><a href="/home" class="home-link">HOME</a></li>
+                    <li class="menu-item"><a href="services" class="service-link" title="Services Offered">SERVICES</a>
+                        <ul class="child-menu">
+                            <li class="submenu-item"><a href="/bank & mutual fund" class="service-link" title="Open Bank account and Mutual Funds">Banking & Mutual Funds</a></li>
+                            <li class="submenu-item"><a href="/firms" class="service-link" title="Open a Demat account">Brokerage Account</a></li>
+                            <!-- <li class="submenu-item"><a href="/mf" class="service-link" title="Services Offered">Mutual Funds</a></li> -->
+                            <li class="submenu-item"><a href="/stocks" class="service-link" title="Check how the stock market performing today">Stock Market</a></li>
+                            <li class="submenu-item"><a href="/govt" class="service-link" title="Schemes Offered by Government of India">Government Schemes</a></li>
+                            <li class="submenu-item"><a href="/news" class="service-link" title="Check out the latest news">News</a></li>
+                            <li class="submenu-item"><a href="/blog" class="service-link" title="Learn with us..">Learning</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="/news" class="News-link-link">NEWS</a></li>
+                    <li class="menu-item"><a href="/blog" target="_blank" class="blog-link">BLOG</a></li>
+                    <li class="menu-item" ng-hide="login_success"><a scrollhref="#footer-link" href="javascript:void(0);" class="about-link">ABOUT</a></li>
+                    <li class="menu-item" ng-hide="login_success"><a scrollhref="#footer-link" href="javascript:void(0);" class="contact-link">CONTACT US</a></li>
+                    <li class="menu-item" ng-show="login_success"><a class="profile-link"><img src=""> <span class="username">{{currentuser}}</span></a></li>
+                </ul>
+            </div>
+        </div>
+                               <div class="oop">
+    </div>
+    </nav>
+</header>

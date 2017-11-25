@@ -1,0 +1,230 @@
+<!-- Include header -->
+<%- include header.ejs %>
+<section class="allServices">
+    <div class="selectBank-head">
+        <span class="head-text">
+            Select Bank
+        </span>
+    </div>
+    <div class="input-group input-text-box bank-filter">
+        <form class="search-bank">
+            <i aria-hidden="true" class="fa fa-list">
+            </i>
+            <input class="searchbox-nifty" ng-model="bankNameText" placeholder="Type a bank name here..." type="text">
+            </input>
+        </form>
+    </div>
+    <div class="no-banks" ng-hide="banks.length">
+        <img src="../images/no-data.jpg">
+            <br/>
+            No bank found with this name. Please try some other name.
+        </img>
+    </div>
+    <ul class="bank-list" ng-class="grid-list">
+        <li class="grid-head">
+            <ul class="bank-heading">
+                <li style="width:25%">
+                    Bank Name
+                </li>
+                <li style="width:25%">
+                    Interest Rate
+                </li>
+                <li style="width:25%">
+                    Rating
+                </li>
+                <li style="width:20%">
+                    Reach Us !
+                </li>
+            </ul>
+        </li>
+        <li class="bank-detail" ng-repeat="bank in banks = (bankNames | filter:{Name:bankNameText})">
+            <div class="bank-parent">
+                <div class="bank-part1">
+                    <a ng-href="/bank/saving/{{bank.Id}}/{{bank.icon}}-Saving-Account">
+                        <img class="bank-img" src="../images/bank/{{bank.icon | lowercase}}.png"/>
+                        <div class="bank-name">
+                            {{bank.Name}}
+                        </div>
+                    </a>
+                </div>
+                <div class="bank-interest-rates bank-part2">
+                    {{bank.InterestRate}}
+                </div>
+                <div class="star-rating bank-part3" on-rating-selected="getSelectedRating(rating)" rating-value="rating" star-rating="">
+                </div>
+                <div class="bank-social-wrapper bank-part4">
+                    <div class="bank-social-btn">
+                        <i class="fa fa-facebook">
+                        </i>
+                    </div>
+                    <div class="bank-social-btn">
+                        <i class="fa fa-twitter">
+                        </i>
+                    </div>
+                    <div class="bank-social-btn">
+                        <i class="fa fa-linkedin">
+                        </i>
+                    </div>
+                    <div class="website">
+                        <a ng-href="{{bank.website}}" target="_blank">
+                            {{bank.website}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <ul id="option-head">
+                <li class="account-type-list type-saving-head">
+                    {{bank.Name}} have {{bank.type.length}} types of saving accounts, Please have a look..
+                </li>
+                <li class="account-type-list" ng-repeat="type in bank.type | limitTo: bank.limitRecords">
+                    <div class="type-name-wrap">
+                        <div class="type-name">
+                            <i class="fa fa-hand-o-right" aria-hidden="true"></i>&nbsp;&nbsp;{{type.Name}}
+                        </div>
+                        <div class="type-name-know-more">
+                           <a ng-click="visitbankaccount(bank.Name,type.Name,type.link)"> Know more &nbsp;
+                                <i aria-hidden="true" class="fa fa-expand">
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="toggle-rec" ng-click="toggleRec(bank)">
+                    <i aria-hidden="true" class="fa fa-chevron-circle-down">
+                    </i>
+                    Show More ...
+                </li>
+            </ul>
+        </li>
+    </ul>
+</section>
+<script type="text/ng-template" id="bankaccounttype.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Sending you directly on {{bkName}} - {{acName}}</h3>
+    </div>
+    <div class="modal-body modalConsole">
+        <div class="loader">
+            <h1>LOADING</h1>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</script>
+<%- include footer.ejs %>
+
+
+<style type="text/css">
+    
+    .loader{
+    margin:50px auto;
+}
+h1{
+    font-family: 'Actor', sans-serif;
+    color:red;
+    font-size:16px;
+    letter-spacing:1px;
+    font-weight:200;
+    text-align:center;
+}
+.loader span{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    display:inline-block;
+    position:absolute;
+    left:50%;
+    margin-left:-10px;
+    -webkit-animation:3s infinite linear;
+    -moz-animation:3s infinite linear;
+    -o-animation:3s infinite linear;
+    
+}
+
+
+.loader span:nth-child(2){
+    background:#E84C3D;
+    -webkit-animation:kiri 1.2s infinite linear;
+    -moz-animation:kiri 1.2s infinite linear;
+    -o-animation:kiri 1.2s infinite linear;
+    
+}
+.loader span:nth-child(3){
+    background:#F1C40F;
+    z-index:100;
+}
+.loader span:nth-child(4){
+    background:#2FCC71;
+    -webkit-animation:kanan 1.2s infinite linear;
+    -moz-animation:kanan 1.2s infinite linear;
+    -o-animation:kanan 1.2s infinite linear;
+}
+
+
+@-webkit-keyframes kanan {
+    0% {-webkit-transform:translateX(20px);
+    }
+   
+    50%{-webkit-transform:translateX(-20px);
+    }
+    
+    100%{-webkit-transform:translateX(20px);
+    z-index:200;
+    }
+}
+@-moz-keyframes kanan {
+    0% {-moz-transform:translateX(20px);
+    }
+   
+    50%{-moz-transform:translateX(-20px);
+    }
+    
+    100%{-moz-transform:translateX(20px);
+    z-index:200;
+    }
+}
+@-o-keyframes kanan {
+    0% {-o-transform:translateX(20px);
+    }
+   
+    50%{-o-transform:translateX(-20px);
+    }
+    
+    100%{-o-transform:translateX(20px);
+    z-index:200;
+    }
+}
+
+
+
+
+@-webkit-keyframes kiri {
+     0% {-webkit-transform:translateX(-20px);
+    z-index:200;
+    }
+    50%{-webkit-transform:translateX(20px);
+    }
+    100%{-webkit-transform:translateX(-20px);
+    }
+}
+
+@-moz-keyframes kiri {
+     0% {-moz-transform:translateX(-20px);
+    z-index:200;
+    }
+    50%{-moz-transform:translateX(20px);
+    }
+    100%{-moz-transform:translateX(-20px);
+    }
+}
+@-o-keyframes kiri {
+     0% {-o-transform:translateX(-20px);
+    z-index:200;
+    }
+    50%{-o-transform:translateX(20px);
+    }
+    100%{-o-transform:translateX(-20px);
+    }
+}
+
+</style>

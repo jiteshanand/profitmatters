@@ -1,0 +1,369 @@
+<!-- Include header -->
+<%- include header.ejs %>
+
+<section class="stock-data-container">
+<div class="stockdata">
+<div class="data-render col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding-left:0px;">
+	<div class="loading">Loading&#8230;</div>
+	<div id="container_detail" config="stockgraph" style="height: 450px; min-width: 310px;">
+</div>
+</div>
+
+<div class="stockdetail-content col-lg-7 col-md-7 col-sm-7 col-xs-7" ng-repeat="stock in niftystocks | filter:{t:tickersymbol}:true">
+	<div class="stock-header">
+		<div class="stock-value">
+		<div class="curr-price">{{stock.l}}</div>
+		<div class="curr-change">
+			<span class="curr-c" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0}">{{stock.c}}</span>
+			<span class="curr-cp">({{stock.cp}})%</span>
+		</div>
+	</div>
+	<div class="stock-top-info">
+		<div class="stock-title">
+			<span class="title-symbol">{{stock.t}}</span>
+			<span class="title-name">{{stock.name}}</span>
+		</div>
+		<div class="title-logo"><img src="../images/logo/{{stock.t}}.jpg" width="75px" height="85px"></div>
+		</div>
+</div>
+<div class="stock-bottom-info">
+	<div class="stock-stats">
+		<ul>
+		<li>
+			<span class="info-title">Open</span>
+			<span class="info-value">{{stock.op}}</span>
+		</li>
+		<li>
+			<span class="info-title">High</span>
+			<span class="info-value">{{stock.hi}}</span>
+		</li>
+			<li>
+			<span class="info-title">Low</span>
+			<span class="info-value">{{stock.lo}}</span>
+		</li>
+		<li>
+			<span class="info-title">High52</span>
+			<span class="info-value">{{stock.hi52}}</span>
+		</li>
+		<li>
+			<span class="info-title">Low52</span>
+			<span class="info-value">{{stock.lo52}}</span>
+		</li>
+		<li>
+			<span class="info-title">Volume</span>
+			<span class="info-value">{{stock.vo}}</span>
+		</li>
+<!--     <li>
+			<span class="info-title">EPS</span>
+			<span class="info-value">{{stock.eps}}</span>
+		</li> -->
+		</ul>
+	</div>
+	</div>
+
+
+	<form class="stock-option-form"> 
+		 <fieldset class="radioset">
+		<ul>
+			<li><input type="radio" ng-model="content" name="content" id="radio1" value="analysis" ng-checked="true">
+			<label for="radio1">Analysis</label>
+			<li><input type="radio" ng-model="content" name="content" id="radio2" value="news">
+			<label for="radio2">News</label>
+			<li><input type="radio" ng-model="content" name="content" id="radio3" value="tweet">
+			<label for="radio3">Tweets</label>
+			<li><input type="radio" ng-model="content" name="content" id="radio4" value="peer">
+			<label for="radio4">Peers</label>
+		</ul>
+	</fieldset>
+		</form>
+
+		<div class="newsdata" ng-show="content == 'news'">
+		<div class="news-header"><span> Top {{tickersymbol}} news</span></div>
+	<div class="dailynews-item" ng-repeat="feed in googlenewsfeed | limitTo:15">
+		<a class="feed-url" href="{{feed.url}}" target="_blank"><div class="dailynews-title">{{feed.title}}</div></a>
+</div>
+</div>
+
+<div ng-show="content == 'peer'" ng-init="$scope.searchindustry($rootScope.tickersymbol)">
+
+<div class="peer-container">
+<div class="peer-header">
+	<span>{{industryinuse}} SECTOR</span>
+</div>
+<div class="grid-body" ng-repeat="peer in pagedItems[currentPage - 1] | orderBy:sortingOrder:reverse" ng-class="{'last':$last}">
+ <div class="peer-wrap" ng-repeat="stock in niftystocks | filter:{t:peer._source.symbol}:true">
+	<a href="/stock/{{stock.t}}">
+	 <div class="peer-widget">
+		<ul>
+		<li class="row1">
+		<span class="peer-symbol">{{stock.t}}</span>
+		<span class="peer-price">{{stock.l}}</span>
+		</li>
+		<li class="row2">
+		<span class="peer-change" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0}">{{parseFloat((stock.c).replace(",","")).toFixed(2)}}</span>
+		<span class="peer-cp">({{stock.cp}}%)</span>
+		</li>
+		</ul>
+		</div>
+		</a>
+	</div>
+</div>
+</div>
+
+</div>
+			
+		<div class="tweetdata" ng-show="content == 'tweet'">
+		<div class="tweet-header"><span> Top {{tickersymbol}} tweets</span></div>
+	<div class="tweet-item" ng-repeat="tweet in tweets | limitTo:20">
+		<div class="tweet-title">{{tweet.text}}</div>
+		<div class="tweet-user">Tweeted By : {{tweet.user.screen_name}} </div>
+</div>
+</div>
+	<!-- 	<div class="stock-buttons">
+<div class="btn-switch btn-switch-primary follow-btn">
+	<input type="checkbox" id="input-btn-switch-primary"/>
+	<label for="input-btn-switch-primary" class="btn btn-round btn-primary"><em class="glyphicon glyphicon-ok"></em><strong>Follow</strong></label>
+</div>
+
+<div class="btn-switch btn-switch-success addto-btn">
+	<input type="checkbox" id="input-btn-switch-success"/>
+	<label for="input-btn-switch-success" class="btn btn-round btn-success"><em class="glyphicon glyphicon-ok"></em><strong>+ Portfolio</strong></label>
+</div>
+		</div>		 -->	
+	<!--   <div class="last-updated">Last updated at : {{stock.lt | limitTo:15}}
+		</div> -->
+	</div>
+</div>
+
+
+
+
+
+<!-- </div> -->
+
+
+
+
+</div>
+</section>
+</div>
+
+
+
+
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+
+Highcharts.theme2 = {
+	 colors: ["#2b908f", "#90ee7e", "#f45b5b", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+			"#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+	 chart: {
+			// backgroundColor: {
+			//    linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+			//    stops: [
+			//       [0, '#2a2a2b'],
+			//       [1, '#3e3e40']
+			//    ]
+			// },
+			backgroundColor:'rgba(47, 46, 46, 0.5)',
+			 width:460,
+				height:550,
+			style: {
+				 fontFamily: "'Unica One', sans-serif"
+
+			},
+			plotBorderColor: '#606063'
+	 },
+	 title: {
+			style: {
+				 color: '#E0E0E3',
+				 textTransform: 'uppercase',
+				 fontSize: '20px'
+			}
+	 },
+	 subtitle: {
+			style: {
+				 color: '#E0E0E3',
+				 textTransform: 'uppercase'
+			}
+	 },
+	 xAxis: {
+			gridLineColor: '#707073',
+			labels: {
+				 style: {
+						color: '#E0E0E3'
+				 }
+			},
+			lineColor: '#707073',
+			minorGridLineColor: '#505053',
+			tickColor: '#707073',
+			title: {
+				 style: {
+						color: '#A0A0A3'
+				 }
+			}
+	 },
+	 yAxis: {
+			gridLineColor: '#707073',
+			labels: {
+				 style: {
+						color: '#E0E0E3'
+				 }
+			},
+			lineColor: '#707073',
+			minorGridLineColor: '#505053',
+			tickColor: '#707073',
+			tickWidth: 1,
+			title: {
+				 style: {
+						color: '#A0A0A3'
+				 }
+			}
+	 },
+	 tooltip: {
+			backgroundColor: 'rgba(0, 0, 0, 0.85)',
+			style: {
+				 color: '#F0F0F0'
+			}
+	 },
+	 plotOptions: {
+			series: {
+				 dataLabels: {
+						color: '#B0B0B3'
+				 },
+				 marker: {
+						lineColor: '#333'
+				 }
+			},
+			boxplot: {
+				 fillColor: '#505053'
+			},
+			candlestick: {
+				 lineColor: 'white'
+			},
+			errorbar: {
+				 color: 'white'
+			}
+	 },
+	 legend: {
+			itemStyle: {
+				 color: '#E0E0E3'
+			},
+			itemHoverStyle: {
+				 color: '#FFF'
+			},
+			itemHiddenStyle: {
+				 color: '#606063'
+			}
+	 },
+	 credits: {
+			style: {
+				 color: '#666'
+			}
+	 },
+	 labels: {
+			style: {
+				 color: '#707073'
+			}
+	 },
+
+	 drilldown: {
+			activeAxisLabelStyle: {
+				 color: '#F0F0F3'
+			},
+			activeDataLabelStyle: {
+				 color: '#F0F0F3'
+			}
+	 },
+
+	 navigation: {
+			buttonOptions: {
+				 symbolStroke: '#DDDDDD',
+				 theme: {
+						fill: '#505053'
+				 }
+			}
+	 },
+
+	 // scroll charts
+	 rangeSelector: {
+				enabled:true,
+				selected : 3,
+			buttonTheme: {
+				 fill: '#505053',
+				 stroke: '#000000',
+				 style: {
+						color: '#CCC'
+				 },
+				 states: {
+						hover: {
+							 fill: '#707073',
+							 stroke: '#000000',
+							 style: {
+									color: 'white'
+							 }
+						},
+						select: {
+							 fill: '#000003',
+							 stroke: '#000000',
+							 style: {
+									color: 'white'
+							 }
+						}
+				 }
+			},
+			inputBoxBorderColor: '#505053',
+			inputStyle: {
+				 backgroundColor: '#333',
+				 color: 'silver'
+			},
+			labelStyle: {
+				 color: 'silver'
+			}
+	 },
+
+	 navigator: {
+			handles: {
+				 backgroundColor: '#666',
+				 borderColor: '#AAA'
+			},
+			outlineColor: '#CCC',
+			maskFill: 'rgba(255,255,255,0.1)',
+			series: {
+				 color: '#7798BF',
+				 lineColor: '#A6C7ED'
+			},
+			xAxis: {
+				 gridLineColor: '#505053'
+			}
+	 },
+
+	 scrollbar: {
+			barBackgroundColor: '#808083',
+			barBorderColor: '#808083',
+			buttonArrowColor: '#CCC',
+			buttonBackgroundColor: '#606063',
+			buttonBorderColor: '#606063',
+			rifleColor: '#FFF',
+			trackBackgroundColor: '#404043',
+			trackBorderColor: '#404043'
+	 },
+
+	 // special colors for some of the
+	 legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+	 background2: '#505053',
+	 dataLabelsColor: '#B0B0B3',
+	 textColor: '#C0C0C0',
+	 contrastTextColor: '#F0F0F3',
+	 maskColor: 'rgba(255,255,255,0.3)'
+};
+
+
+// Apply the theme1
+	Highcharts.setOptions(Highcharts.theme2);
+
+
+
+});
+</script>

@@ -1,0 +1,269 @@
+<%- include header.ejs %>
+<div class="section1" ng-init="getNiftyValues();showIndex();">
+    <div class="form-container">
+        <form class="form-wrapper" name="inputForm">
+            <input auto-complete="" class="searchResult" name="query" ng-model="search_stock" placeholder="Search here for stocks...    ex. infy,infosys,tata,bank etc" required="" type="text" typeahead-no-results="noResults" uib-typeahead="stock._source.symbol for stock in instantSearch.instantResult($viewValue) | limitTo:10">
+                <button name="search" ng-click="stockPage(search_stock)" ng-disabled="inputForm.$invalid" type="submit">
+                    Search
+                </button>
+            </input>
+        </form>
+    </div>
+    <div class="fixed1">
+        <div class="stockdetail-content" ng-controller="newsctrl">
+            <div class="feed-item" id="domestic" ng-repeat="feed in nationalnewsfeed | filter :{title:search_stock}">
+                <div class="text-holder">
+                    <div class="news_logo">
+                        <img height="50px" src="../images/logo/{{feed.shortened}}.JPG" width="50px">
+                        </img>
+                    </div>
+                    <div class="text-header">
+                        <div class="feed-title">
+                            <a class="feed-url" href="{{feed.url}}" target="_blank">
+                                {{feed.title}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="title-date">
+                    {{feed.date |date : 'dd/MM/yyyy'}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="newsdata fixed1">
+        <div class="news-header">
+            <input id="i1" name="i" ng-checked="true" type="radio"/>
+            <input id="i2" name="i" type="radio"/>
+            <div class="Graphtab">
+                <label for="i1">
+                    <i aria-hidden="true" class="fa fa-circle">
+                    </i>
+                    India
+                </label>
+                <label for="i2">
+                    <i aria-hidden="true" class="fa fa-circle">
+                    </i>
+                    Global
+                </label>
+            </div>
+            <ul class="diffGraphTab">
+                <li>
+                    <div class="index-data-container">
+                        <div class="index-data" ng-repeat="index in allIndices | filter :getnationalindex |limitTo:10">
+                            <div class="line1">
+                                <span class="exchange">
+                                    {{index.values[1]}}
+                                </span>
+                                <span class="index-price">
+                                    {{index.values[6]}}
+                                </span>
+                            </div>
+                            <div class="line2">
+                                <div class="arrow" ng-class="{'arrowu':(parseFloat(index.values[9]))>=0,'arrowd':(parseFloat(index.values[9]))<0}">
+                                    <i class="fa fa-arrow-up" ng-if="index.values[7] >= 0.00">
+                                    </i>
+                                    <i class="fa fa-arrow-down" ng-if="index.values[7] < 0.00">
+                                    </i>
+                                </div>
+                                <div class="index-change">
+                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                        {{index.values[7]}}
+                                    </span>
+                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                        ({{index.values[9]}})%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="index-data-container">
+                        <div class="index-data" ng-repeat="index in allIndices | filter :getglobalindex">
+                            <div class="line1">
+                                <span class="exchange" ng-switch="" on="index.values[1]">
+                                    <div ng-switch-when=".IXIC">
+                                        NASDAQ
+                                    </div>
+                                    <div ng-switch-when="000001">
+                                        SHANGHAI
+                                    </div>
+                                    <div ng-switch-when=".DJI">
+                                        DOW
+                                    </div>
+                                    <div ng-switch-when="NI225">
+                                        NIKKEI 225
+                                    </div>
+                                    <div ng-switch-when="HSI">
+                                        HANG SENG
+                                    </div>
+                                    <div ng-switch-when="UKX">
+                                        FTSE 100
+                                    </div>
+                                    <div ng-switch-when="DAX">
+                                        DAX
+                                    </div>
+                                    <div ng-switch-when="SX5E">
+                                        EURO STOXX
+                                    </div>
+                                    <div ng-switch-when=".INX">
+                                        S&P; 500
+                                    </div>
+                                </span>
+                                <span class="index-price">
+                                    {{index.values[6]}}
+                                </span>
+                            </div>
+                            <div class="line2">
+                                <span class="country" ng-switch="" on="index.values[1]">
+                                    <div ng-switch-when=".IXIC">
+                                        U.S.A
+                                    </div>
+                                    <div ng-switch-when="000001">
+                                        CHINA
+                                    </div>
+                                    <div ng-switch-when=".DJI">
+                                        U.S.A
+                                    </div>
+                                    <div ng-switch-when="NI225">
+                                        JAPAN
+                                    </div>
+                                    <div ng-switch-when="HSI">
+                                        HONG KONG
+                                    </div>
+                                    <div ng-switch-when="UKX">
+                                        LONDON
+                                    </div>
+                                    <div ng-switch-when="DAX">
+                                        GERMANY
+                                    </div>
+                                    <div ng-switch-when="SX5E">
+                                        EUROPE
+                                    </div>
+                                    <div ng-switch-when=".INX">
+                                        U.S.A
+                                    </div>
+                                </span>
+                                <div class="arrow" ng-class="{'arrowu':(parseFloat(index.values[9]))>=0,'arrowd':(parseFloat(index.values[9]))<0}">
+                                    <i class="fa fa-arrow-up" ng-if="(parseFloat(index.values[7]))>=0.00">
+                                    </i>
+                                    <i class="fa fa-arrow-down" ng-if="(parseFloat(index.values[7]))<0.00">
+                                    </i>
+                                </div>
+                                <div class="index-change">
+                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                        {{index.values[7]}}
+                                    </span>
+                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.values[7]))>=0,'lp_red':(parseFloat(index.values[7]))<0}">
+                                        ({{index.values[9]}})%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="section1">
+    <div class="fixed1">
+        <div class="row">
+            <div class="browser-screen mobile-margin-bottom col-sm-7">
+                <a href="/stocks/nifty50">
+                    <div class="ticker-graph" id="rowr1">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-5 block-msg">
+                <h2 class="block-h2">Explore Nifty50</h2>
+                <p class="block-p">Best way to keep an eye for all the important 50 stocks of NSE.
+                    <br/>Explore and track top 50 stock of NSE. </p>
+                    <a class="block-button" href="/stocks/nifty50">See Nifty 50</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section1">
+    <div class="fixed1">
+        <div class="row">
+            <div class="browser-screen mobile-margin-bottom col-sm-8">
+            <section class="info-section">
+                <div class="info-cards">
+                    <div class="info-card" ng-click="modal = showConsole()">
+                        <div class="info-text">
+                            <div><i class="fa fa-th" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">Blue Chip</div>
+                            <div class="info-description">Check out most important companies and leader of their industries.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card" ng-click="modal = showIndustries()">
+                        <div class="info-text">
+                            <div><i class="fa fa-university" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">Banks</div>
+                            <div class="info-description">How stocks from banking industries are doing today.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card" ng-click="modal = showThemes()">
+                        <div class="info-text">
+                            <div><i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">IT</div>
+                            <div class="info-description">How stocks of technology companies changing the market.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card" ng-click="modal = showIndustries()">
+                        <div class="info-text">
+                            <div><i class="fa fa-pie-chart" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">Mid-Cap</div>
+                            <div class="info-description">How mid capital companies are performing in the market.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </div>
+            <div class="col-sm-4 block-msg">
+                <h2 class="block-h2">Stock screener themes</h2>
+                <p class="block-p">Best way to keep track of the companies based on industries & themes. </p>
+                    <a class="block-button" href="/stocks/themes">See all themes ...</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include footer.ejs %>
+
+<script type="text/javascript">
+    setTimeout(function() {
+                    new TradingView.widget({
+                      "width": 700,
+                      "height": 500,
+                      "symbol": "NSE:NIFTY",
+                      "interval": "D",
+                      "timezone": "Etc/UTC",
+                      "theme": "Light",
+                      "style": "1",
+                      "locale": "en",
+                      "toolbar_bg": "#f1f3f6",
+                      "enable_publishing": false,
+                      "save_image": false,
+                      "hide_side_toolbar":false,
+                      "hideideas": true,
+                      "container_id": "rowr1",
+                    });
+                    }, 100);
+</script>
+

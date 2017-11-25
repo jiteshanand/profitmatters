@@ -1,0 +1,332 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div id="main" class="site-content">
+        <main id="content" role="main" itemprop="mainContentOfPage">
+            <div id="home-splash-stock" class="intro-image-stock active">
+                <div class="banner-stock wrapper">
+                    <h1>Don't get overwhelmed by financial<br> jargons and numbers.</h1>
+                    <p>We will help you to find the best stocks to invest.Complete analysis of stocks and related industry is just a click away.</p>
+                    <form class="form-wrapper cf col-lg-6 col-md-6 col-sm-6 col-xs-6" method="POST" ng-submit="searchthisstock()">
+                        <input type="text" name="query" placeholder="Search here for stocks...&nbsp;&nbsp;&nbsp;&nbsp;ex. infy,infosys,tata,bank etc" ng-model="search_stock" required>
+                        <button type="submit" name="search">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="option-explorer">
+                <nav>
+                    <ul class="explorer-menu">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 explorer-card">
+                            <li class="market-sectors" ng-class="{'option-selector':hovering}" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                                <a href="#sector" style="text-decoration:none;">
+                                    <i class="fa fa-pie-chart"></i>
+                                    <div>
+                                        <h3>Market Sectors</h3>
+                                        <p>Explore stocks from different sectors.</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 explorer-card">
+                            <li class="market-console" ng-class="{'option-selector':hovering}" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                                <a href="#console" style="text-decoration:none;">
+                                    <i class="fa fa-bar-chart"></i>
+                                    <div>
+                                        <h3>Market Console</h3>
+                                        <p>Explore market at a glance in our console.</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 explorer-card">
+                            <li class="market-theme" ng-class="{'option-selector':hovering}" ng-mouseenter="hovering=true" ng-mouseleave="hovering=false">
+                                <a href="#theme" style="text-decoration:none;">
+                                    <i class="fa fa-empire"></i>
+                                    <div>
+                                        <h3>Market Theme</h3>
+                                        <p>Explore stocks based on themes.</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+            </section>
+            <section id="console" class="console">
+                <div class="container-menu">
+                    <div class="span3 bs-docs-sidebar tabs-left">
+                        <ul class="nav nav-tabs bs-docs-sidenav">
+                            <li class="active"><a href="#market" data-toggle="tab"><i class="fa fa-tachometer"></i><br>Live Market</a></li>
+                            <li><a href="#sector" data-toggle="tab"><i class="fa fa-pie-chart fa-lg"></i><br>Sectors</a></li>
+                            <li><a href="#heatmap" data-toggle="tab"><i class="fa fa-th fa-lg"></i><br>Heat Map</a></li>
+                            <li><a href="#themes" data-toggle="tab"><i class="fa fa-arrows-alt"></i><br>Themes</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content container-content">
+                    <section class="market tab-pane active" id="market">
+                        <div class="market-container">
+                            <div class="container2">
+                                <div class="national-index">
+                                    <div class="index-header">
+                                        <span class="index-header-title">Indian Indices</span>
+                                        <i class="fa fa-bar-chart"></i>
+                                    </div>
+                                    <div class="index-data-container">
+                                        <div class="index-data" ng-repeat="index in allIndices | filter :getnationalindex |limitTo:5">
+                                            <div class="line1">
+                                                <span class="exchange">{{index.t}}</span>
+                                                <span class="index-price">{{index.l}}</span>
+                                            </div>
+                                            <div class="line2">
+                                                <div class="arrow" ng-class="{'arrowu':(parseFloat(index.cp))>=0,'arrowd':(parseFloat(index.cp))<0}"><i class="fa fa-arrow-up" ng-if="index.c >= 0.00"></i><i class="fa fa-arrow-down" ng-if="index.c < 0.00"></i></div>
+                                                <div class="index-change">
+                                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">{{index.c}}</span>
+                                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">({{index.cp}})%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="currency-index">
+                                    <div class="index-header">
+                                        <span class="index-header-title">Currency</span>
+                                        <i class="fa fa-money"></i>
+                                    </div>
+                                    <div class="index-data-container">
+                                        <div class="index-data" ng-repeat="currency in currencies">
+                                            <div class="line1">
+                                                <span class="name">1 {{currency.Name}}</span>
+                                                <span class="exchange-rate"><i class="fa fa-inr"></i>{{currency.Rate}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container3">
+                                <div class="global-index">
+                                    <div class="index-header">
+                                        <span class="index-header-title">Global Indices</span>
+                                        <i class="fa fa-bar-chart"></i>
+                                    </div>
+                                    <div class="index-data-container">
+                                        <div class="index-data" ng-repeat="index in allIndices | filter :getglobalindex">
+                                            <div class="line0">
+                                                <span class="country" ng-switch on="index.t">
+    <div ng-switch-when=".IXIC">U.S.A</div>
+    <div ng-switch-when="000001">CHINA</div>
+    <div ng-switch-when=".DJI">U.S.A</div>
+    <div ng-switch-when="NI225">JAPAN</div>
+    <div ng-switch-when="HSI">HONG KONG</div>
+    <div ng-switch-when="UKX">LONDON</div>
+    <div ng-switch-when="DAX">GERMANY</div>
+    <div ng-switch-when="SX5E">EUROPE</div>
+    </span>
+                                                <div class="traded-time">{{index.lt}}</div>
+                                            </div>
+                                            <div class="line1">
+                                                <span class="exchange" ng-switch on="index.t">
+    <div ng-switch-when=".IXIC">NASDAQ</div>
+    <div ng-switch-when="000001">SHANGHAI</div>
+    <div ng-switch-when=".DJI">DOW</div>
+    <div ng-switch-when="NI225">NIKKEI 225</div>
+    <div ng-switch-when="HSI">HANG SENG</div>
+    <div ng-switch-when="UKX">FTSE 100</div>
+    <div ng-switch-when="DAX">DAX</div>
+    <div ng-switch-when="SX5E">EURO STOXX</div>
+    </span>
+                                                <span class="index-price">{{index.l}}</span>
+                                            </div>
+                                            <div class="line2">
+                                                <div class="arrow" ng-class="{'arrowu':(parseFloat(index.cp))>=0,'arrowd':(parseFloat(index.cp))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(index.c))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(index.c))<0.00"></i></div>
+                                                <div class="index-change">
+                                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">{{index.c}}</span>
+                                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">({{index.cp}})%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container4">
+                                <div class="performance">
+                                    <div class="index-header">
+                                        <span class="index-header-title">Market Watch</span>
+                                        <i class="fa fa-bar-chart"></i>
+                                    </div>
+                                    <select ng-model="selection" class="categories" ng-options="option for option in options">
+                                    </select>
+                                    <div class="switch-container" ng-switch on="selection">
+                                        <div class="index-data-container">
+                                            <div ng-switch-when="Top Gainers">
+                                                <div class="index-data" ng-repeat="stock in niftystocks | orderObjectBy: 'cp' :true  |limitTo:10 ">
+                                                    <a ng-href="/stock/{{stock.t}}" style="text-decoration:none;">
+                                                        <div class="line1">
+                                                            <span class="exchange">{{stock.t}}</span>
+                                                            <span class="index-price">{{stock.l}}</span>
+                                                        </div>
+                                                        <div class="line2">
+                                                            <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.c))>=0,'arrowd':(parseFloat(stock.c))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.c))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.c))<0.00"></i></div>
+                                                            <div class="index-change">
+                                                                <span class="index-changep" ng-class="{'lp_green':(parseFloat(stock.c))>=0,'lp_red':(parseFloat(stock.c))<0}">{{stock.c}}</span>
+                                                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.c))>=0,'lp_red':(parseFloat(stock.c))<0}">({{stock.cp}})%</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div ng-switch-when="Top Losers">
+                                                <div class="index-data" ng-repeat="stock in niftystocks | orderObjectBy: 'cp' :false  |limitTo:10 ">
+                                                    <a ng-href="/stock/{{stock.t}}" style="text-decoration:none;">
+                                                        <div class="line1">
+                                                            <span class="exchange">{{stock.t}}</span>
+                                                            <span class="index-price">{{stock.l}}</span>
+                                                        </div>
+                                                        <div class="line2">
+                                                            <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.c))>=0,'arrowd':(parseFloat(stock.c))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.c))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.c))<0.00"></i></div>
+                                                            <div class="index-change">
+                                                                <span class="index-changep" ng-class="{'lp_green':(parseFloat(stock.c))>=0,'lp_red':(parseFloat(stock.c))<0}">{{stock.c}}</span>
+                                                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.c))>=0,'lp_red':(parseFloat(stock.c))<0}">({{stock.cp}})%</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div ng-switch-when="Volume">
+                                                <div class="index-data" ng-repeat="stock in niftystocks |filter:strtonum | orderObjectBy: 'vo' :true | limitTo : 10  ">
+                                                    <a ng-href="/stock/{{stock.t}}" style="text-decoration:none;">
+                                                        <div class="line1">
+                                                            <span class="exchange">{{stock.t}}</span>
+                                                            <span class="index-price">{{stock.l}}</span>
+                                                        </div>
+                                                        <div class="line2">
+                                                            <div class="arrow" ng-class="{'arrowu':(parseFloat(stock.c))>=0,'arrowd':(parseFloat(stock.c))<0}"><i class="fa fa-arrow-up" ng-if="(parseFloat(stock.c))>=0.00"></i><i class="fa fa-arrow-down" ng-if="(parseFloat(stock.c))<0.00"></i></div>
+                                                            <div class="index-change">
+                                                                <span class="index-vol"> {{getformatmoney(stock.vo)}} </span>
+                                                                <span class="index-changepr" ng-class="{'lp_green':(parseFloat(stock.c))>=0,'lp_red':(parseFloat(stock.c))<0}">({{stock.cp}})%</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="sector" class="sectors tab-pane">
+                        <div class="sector-container">
+                            <div class="option-row">
+                                <span class="option-text">Select a Sector </span>
+                                <select ng-model="sectorCateg" class="sector-categ" ng-options="sector for sector in sectors">
+                                </select>
+                            </div>
+                            <div class="sector-data-container col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                <div class="loading">Loading&#8230;</div>
+                                <div id="container_sector" class="sector-graph" config="stockgraph" style="height: 450px; min-width: 310px;">
+                                </div>
+                                <div ng-switch on="sectorCateg">
+                                    <div class="sector-data-container">
+                                        <div class="sector-data" ng-repeat="index in allIndices | filter:{t:'BANKNIFTY'}">
+                                            <div class="sector-price-col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <span class="sector-price">{{index.l}}</span>
+                                                <div class="sector-change">
+                                                    <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">{{index.c}}</span>
+                                                    <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">({{index.cp}})%</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                                <div class="sector-ohl-col">
+                                                    <li>
+                                                        <span class="info-title">Open</span>
+                                                        <span class="info-value">{{index.op}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="info-title">High</span>
+                                                        <span class="info-value">{{index.hi}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="info-title">Low</span>
+                                                        <span class="info-value">{{index.lo}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="info-title">High52</span>
+                                                        <span class="info-value">{{index.hi52}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="info-title">Low52</span>
+                                                        <span class="info-value">{{index.lo52}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="info-title">Volume</span>
+                                                        <span class="info-value">{{index.vo}}</span>
+                                                    </li>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sector-peer-container col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                <div class="sector-data-container">
+                                    <ul class="sector-list">
+                                        <li><a ng-click="sort_by('_source.name')">Name&nbsp;<i class="fa fa-arrows-v"></i></a></li>
+                                        <li><a>Price</a></li>
+                                        <li><a>Change</a></li>
+                                        <li><a>High</a></li>
+                                        <li><a>Low</a></li>
+                                        <li><a>Volume</a></li>
+                                    </ul>
+                                    <div ng-repeat="peer in pagedItems[currentPage - 1] | orderBy:sortingOrder:reverse |limitTo:15" ng-class="{'last':$last}">
+                                        <div ng-repeat="stock in niftystocks | filter:strtonum | filter:{t:peer._source.symbol}:true |orderObjectBy: 'stock.vo' :true  ">
+                                            <div class="sector-stat">
+                                                <ul>
+                                                    <li>
+                                                        <span class="company-title"><a ng-href="stock/{{stock.t}}">{{stock.t}}</a></span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="list-price" ng-class="{'lp_green':(parseFloat(stock.c))>0,'lp_red':(parseFloat(stock.c))<0}">{{ stock.l}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="change">{{ stock.cp }}%</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="sector-lo">{{ stock.hi}}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="sector-hi">{{ stock.lo }}</span>
+                                                    </li>
+                                                    <li>
+                                                        <span class="sector-vo">{{getformatmoney(stock.vo)}}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="heatmap" class="heatmap tab-pane">
+                        <div class="map-container" ng-repeat="stock in niftystocks | filter:strtonum |orderObjectBy :'cp' :true">
+                            <a href="/stock/{{stock.t}}" class="map-card" ng-class="getmapclass(stock.cp)">
+                                <span class="map-header">{{stock.t}}</span>
+                                <div class='map-content'>
+                                    <span class="map=price">
+    {{stock.l}}
+    </span>
+                                    <span class="map-change">
+    {{stoc.c}}<br> 
+    <span class="map-changep">({{stock.cp}})%</span>
+                                    </span>
+                                </div>
+                                <span class="map-vol">Vol: {{getformatmoney(stock.vo)}}</span>
+                            </a>
+                        </div>
+                    </section>
+                    <section id="theme" class="themes tab-pane">
+                    </section>
+                </div>
+            </section>
+    </div>

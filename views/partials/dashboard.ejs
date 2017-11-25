@@ -1,0 +1,47 @@
+<%- include header.ejs %>
+    <section class="componentsWrapper">
+        <div class="componentsWindow">
+            <div class="totalInvestment_component">
+                <div class="title_component">
+                    Total Investment
+                </div>
+                <div class="componentValue">
+                	<h3>Total Invested Amount is : {{parseFloat(investedAmount).toFixed(2)}}</h3>
+                </div>
+
+            </div>
+            
+            <div class="InvestmentCateg_component">
+                <div class="title_component">
+                    Investment Categrories
+                </div>
+                <div class="componentValue">
+                	<div class="investmentContainer" ng-repeat="invest in allInvestments">
+                		<h3>Categories : {{invest.investment.category}}</h3>
+                </div>
+            </div>
+            </div>
+
+            <div class="InvestmentPortfolio_component">
+                <div class="title_component">
+                    Investment Portfolio
+                </div>
+                <div class="componentValue">
+                	<div class="investmentContainer" ng-repeat="invest in allInvestments | filter:{investment:{category:'Mutual Fund'}}:true">
+                	<div class="mfPortfolio" >
+                		<h1>{{invest.investment.name}}</h1>
+                	</div>
+                		
+                	</div>
+
+                	  	<div class="investmentContainer" ng-repeat="invest in allInvestments | filter:{investment:{category:'Stocks'}}:true">
+                	<div class="stockPortfolio" >
+                		<h1>{{invest.investment.name}}</h1>
+                	</div>
+                		
+                	</div>
+                </div>
+           </div}>
+        </div>
+    </section>
+    <%- include footer.ejs %>

@@ -1,0 +1,242 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div class="screen1-selected-fund">
+        <div class="spinnerback" ng-show="loading">
+            <div class="spinner">
+                <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="nav-container">
+            <div class="mfschemeDetails">
+                <div class="scheme-head">
+                    <div class="mfscheme-name">
+                        {{fundName}}
+                    </div>
+                    <div class="buyFund">
+                        <a ng-click="buyThisMf(schemeDetail[0].schemeName,schemeDetail[0].amc)" class="btn btn-primary btn_buy">
+                            <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;&nbsp;Buy</i>
+                        </a>
+                    </div>
+                    <div class="detail-container">
+                        <div class="scheme-detail-table">
+                            <!--      <div class="about-head">
+                            <div>Scheme Details</div> -->
+                            <div class="broker-type-heading" ng-click="showscheme =!showscheme">
+                                <span>Scheme Details</span>
+                                <div class="mf-filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showscheme"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showscheme"></i>
+                                </div>
+                            </div>
+                            <div class="scheme-detail-wrapper" ng-show="showscheme">
+                                <div class="scheme-fund-house detail-row">
+                                    <div class="scheme-detail-label">Fund House Name</div>
+                                    <div class="scheme-detail-value"> {{schemeDetail[0].amc}}</div>
+                                </div>
+                                <div class="scheme-fund-type detail-row">
+                                    <div class="scheme-detail-label">Scheme Type</div>
+                                    <div class="scheme-detail-value"> {{schemeDetail[0].schemeType}}</div>
+                                </div>
+                                <div class="scheme-fund-manager detail-row">
+                                    <div class="scheme-detail-label">Scheme Manager</div>
+                                    <div class="scheme-detail-value">{{schemeDetail[0].manager}}</div>
+                                </div>
+                                <div class="scheme-fund-category detail-row">
+                                    <div class="scheme-detail-label">Scheme Category</div>
+                                    <div class="scheme-detail-value">{{schemeDetail[0].schemeCategory}}</div>
+                                </div>
+                                <div class="scheme-fund-risk detail-row">
+                                    <div class="scheme-detail-label">Risk Profile</div>
+                                    <div class="scheme-detail-value">{{schemeDetail[0].riskProfile}}</div>
+                                </div>
+                                <div class="scheme-fund-crisil-rating detail-row">
+                                    <div class="scheme-detail-label">Crisil Rating</div>
+                                    <div class="scheme-detail-value">N.A</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="investment-detail-table">
+                            <!--    <div class="about-head">
+                            <div>Investment Details</div>
+                        </div> -->
+                            <div class="broker-type-heading" ng-click="showinvest =!showinvest">
+                                <span>Investment Details</span>
+                                <div class="mf-filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showinvest"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showinvest"></i>
+                                </div>
+                            </div>
+                            <div class="investment-detail-wrapper" ng-show="showinvest">
+                                <div class="detail-row">
+                                    <div class="invest-detail-label">Minimum Investment Amount</div>
+                                    <div class="invest-detail-value"> {{schemeDetail[0].schemeMinInvestmentAmount}}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="invest-detail-label">Minimum Additional Investment</div>
+                                    <div class="invest-detail-value"> {{schemeDetail[0].additionalPurchase}}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="invest-detail-label">Minimum SIP Amount</div>
+                                    <div class="invest-detail-value">{{schemeDetail[0].sipAmount}}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="invest-detail-label">Benchmark Index</div>
+                                    <div class="invest-detail-value">{{schemeDetail[0].benchmarkIndex}}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="invest-detail-label">Entry Load</div>
+                                    <div class="invest-detail-value">{{schemeDetail[0].entryLoad}}</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="invest-detail-label">Exit Load</div>
+                                    <div class="invest-detail-value">{{schemeDetail[0].exitLoad}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mfNavDetails">
+                <div class="mfoption-heading">Insight into {{schemeDetail[0].schemeName}}</div>
+                <form class="stock-option-form mf-option-form">
+                    <fieldset class="radioset">
+                        <ul>
+                            <li>
+                                <input type="radio" ng-model="content" name="content" id="radio2" value="scheme" ng-checked="true">
+                                <label for="radio2">Scheme Options</label>
+                                <li>
+                                    <input type="radio" ng-model="content" ng-click="relatedFunds(schemeDetail[0].schemeCategory)" name="content" id="radio3" value="related">
+                                    <label for="radio3">Related Funds</label>
+                                    <li>
+                                        <input type="radio" ng-model="content" name="content" id="radio1" value="analysis">
+                                        <label for="radio1">Fund Analysis</label>
+                                        <li>
+                                            <input type="radio" ng-model="content" name="content" id="radio4" value="portfolio">
+                                            <label for="radio4">Fund Portfolio</label>
+                        </ul>
+                    </fieldset>
+                </form>
+                <div class="scheme_detail" ng-show="content == 'scheme'">
+                    <div class="selected-nav-container">
+                        <div ng-repeat="list in fundHistoryDetail track by $index">
+                            <div class="selectedNavName">
+                                {{list.schemeName}}
+                            </div>
+                            <div class="nav_value_chart_section">
+                                <div class="showData">
+                                    <div class="selected-nav">
+                                        <div class="selectedNavValue" ng-if="!list.values[0].NAV">Last Reported NAV : {{list.values[0].NAV}}</div>
+                                        <div class="selectedNavValue" ng-if="list.values[0].NAV">Last Reported NAV : {{list.values[0].NAV}}</div>
+                                        <div class="mf-curr-change">
+                                            <span class="curr-c" ng-class="{'lp_bg_green':(parseFloat(allPercentChange[$index][0]))>0,'lp_bg_red':(parseFloat(allPercentChange[$index][0]))<0}">{{allPercentChange[$index][0]}}</span>
+                                            <span class="curr-cp">{{allPercentChange[$index][1]}}%</span>
+                                        </div>
+                                    </div>
+                                    <div class="retValuecontainer">
+                                        <div ng-repeat="value in list.values track by $index ">
+                                            {{timeDiffInDays($index,value.date)}}
+                                        </div>
+                                        <div>
+                                           <div class="retValue" ng-class="{'lp_bg_green':(parseFloat(list.values[0].NAV - list.values[days30[0]].NAV))>0,'lp_bg_red':(parseFloat(list.values[0].NAV - list.values[days30[0]].NAV))< 0.0}" ng-if="days30[0] != ''"> 1 Month Return <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="retText">{{parseFloat(((list.values[0].NAV - list.values[days30[0]].NAV)/list.values[0].NAV)*100).toFixed(2)}} % </span></div>
+
+                                            <div class="retValue" ng-class="{'lp_bg_green':(parseFloat(list.values[0].NAV - list.values[days90[0]].NAV))>0,'lp_bg_red':(parseFloat(list.values[0].NAV - list.values[days90[0]].NAV)) < 0.0}" ng-if="days90[0] != ''"> 3 Month Return <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="retText">{{parseFloat(((list.values[0].NAV - list.values[days90[0]].NAV)/list.values[0].NAV)*100).toFixed(2)}} % </span></div>
+
+                                            <div class="retValue" ng-class="{'lp_bg_green':(parseFloat(list.values[0].NAV - list.values[days180[0]].NAV))>0,'lp_bg_red':(parseFloat(list.values[0].NAV - list.values[days180[0]].NAV)) < 0.0}" ng-if="days180[0] != ''"> 6 Month Return <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="retText">{{parseFloat(((list.values[0].NAV - list.values[days180[0]].NAV)/list.values[0].NAV)*100).toFixed(2)}} % </span></div>
+
+                                            <div class="retValue" ng-class="{'lp_bg_green':(parseFloat(list.values[0].NAV - list.values[days270[0]].NAV))>0,'lp_bg_red':(parseFloat(list.values[0].NAV - list.values[days270[0]].NAV))< 0.0}" ng-if="days270[0] != ''"> 9 Month Return <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="retText">{{parseFloat(((list.values[0].NAV - list.values[days270[0]].NAV)/list.values[0].NAV)*100).toFixed(2)}} % </span></div>
+
+                                            <div class="retValue" ng-class="{'lp_bg_green':(parseFloat(list.values[0].NAV - list.values[days365[0]].NAV))>0,'lp_bg_red':(parseFloat(list.values[0].NAV - list.values[days365[0]].NAV))<0.0}" ng-if="days365[0] != ''">1 Year return <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="retText">{{parseFloat(((list.values[0].NAV - list.values[days365[0]].NAV)/list.values[0].NAV)*100).toFixed(2)}} % </span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="MF_graph">
+                                    <highchart id="chart11" config="chartItem[$index].chart" class="nav-chart">
+                                    </highchart>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="scheme_detail" ng-show="content == 'related'">
+                    <div class="selected-nav-container">
+                        <div class="listRepeat" id="style-1" ng-repeat="list in mfList_type track by $index" ng-if="list.schemeName != schemeDetail[0].schemeName">
+                            <div class="listRowConstainer">
+                                <div class="fund-name-heading">
+                                    <a href="fund/{{list.schemeName}}">{{list.schemeName}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%- include footer.ejs %>
+
+
+
+
+
+
+
+
+
+    
+    <!--  <script type="text/ng-template" id="modalBuyConsole.html" class="modalConsole">
+        <div class="modal-header">
+            <h3 class="modal-title">Thanks for chosing {{fundName}}.</h3>
+        </div>
+        <div class="modal-body">
+            <div class="wrap-buy">
+                <div class="body-heading0">
+                    <h3 class="modal-title">Personal Details</h3>
+                    <form novalidate name="myform" class="mfbuyForm" action="#">
+                        <div class="form_mf_wrap">
+                            <div class="input-box">
+                                <input type="text" name="name" placeholder="Enter your name" ng-model="lead.name" ng-required="true" ng-minlength="2" />
+                                <p class="error" ng-show="myform.name.$invalid && myform.name.$touched"> Please, enter your name</p>
+                            </div>
+                            <div class="input-box">
+                                <input type="email" name="email" placeholder="Email" ng-model="lead.email" />
+                                <p class="error" ng-show="myform.email.$invalid && myform.mobile.$touched"> Please, enter a valid email</p>
+                            </div>
+                            <div class="input-box">
+                                <input type="number" name="mobile" placeholder="Mobile Number" ng-model="lead.mobile" ng-required="true" ng-minlength="10" />
+                                <p class="error" ng-show="myform.mobile.$invalid && myform.mobile.$touched"> Please, enter 10 digit mobile number</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="body-heading1">
+                    <h3 class="modal-title">Options available under this scheme.Please choose one.</h3>
+                    <div class="scheme-wrap">
+                        <div class="scheme-radio-options" ng-repeat="list in availableScheme | limitTo:10">
+                            <form class="radio-option">
+                                <label>
+                                    <input id="first_{{list.navName}}" type="radio" ng-model="$parent.navName" value="schemeOption_{{list.navName}}"> {{list.navName}}
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-heading2">
+                    <h3 class="modal-title">Please select vendor to buy mutual fund.</h3>
+                    <div class="scheme-wrap">
+                        <div class="vendor-radio-options" ng-repeat="vendor in vendorName | limitTo:10">
+                            <form class="radio-option">
+                                <label>
+                                    <input id="{{vendor}}" type="radio" ng-model="$parent.name" value=name_{{vendor.name}}> {{vendor.name}}
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="confirm_buy()">Confirm</button>
+                <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+            </div>
+        </div>
+    </script>
+ -->

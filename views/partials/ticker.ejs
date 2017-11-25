@@ -1,0 +1,590 @@
+
+<div class="section" ng-init="getStockData(tickersymbol);callIndustry()">
+<%- include header.ejs %>
+    <div class="fixed">
+        <div class="stockdetail-content">
+            <div class="stock-header">
+                <div class="stock-value">
+                    <div class="curr-price">
+                        {{activeTickerInfo[0].l}}
+                    </div>
+                    <div class="curr-change">
+                        <span class="curr-c" ng-class="{'lp_bg_green':(parseFloat(activeTickerInfo[0].c))>0,'lp_bg_red':(parseFloat(activeTickerInfo[0].c))<0}">
+                            {{activeTickerInfo[0].c}}
+                        </span>
+                        <span class="curr-cp">
+                            ({{activeTickerInfo[0].cp}})%
+                        </span>
+                    </div>
+                </div>
+                <div class="stock-top-info">
+                    <div class="stock-title">
+                        <span class="title-symbol" id="tickerSymbol">
+                            {{activeTickerInfo[0].t}}
+                        </span>
+                        <span class="title-name">
+                            {{activeTickerInfo[0].name}}
+                        </span>
+                    </div>
+                    <div class="title-logo">
+                        <img height="85px" src="../images/logo/{{activeTickerInfo[0].t | uppercase}}.JPG" width="75px"/>
+                    </div>
+                </div>
+            </div>
+            <div class="stock-bottom-info">
+                <div class="stock-stats">
+                    <ul>
+                        <li>
+                            <span class="info-title">
+                                Open
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].op}}
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-title">
+                                High
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].hi}}
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-title">
+                                Low
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].lo}}
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-title">
+                                High52
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].hi52}}
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-title">
+                                Low52
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].lo52}}
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-title">
+                                Volume
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].vo}}
+                            </span>
+                        </li>
+                        <li>
+                            <span class="info-title">
+                                PE Ratio
+                            </span>
+                            <span class="info-value">
+                                {{activeTickerInfo[0].pe}}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="mainGraph-container">
+            <!-- <input id="g1" name="g"  type="radio"/> -->
+            <input id="g2" name="g" ng-checked="true" type="radio"/>
+            <input id="g3" name="g" type="radio"/>
+            <div class="Graphtab">
+     <!--            <label for="g1">
+                    <i aria-hidden="true" class="fa fa-circle">
+                    </i>
+                    Line Graph
+                </label> -->
+                <label for="g2">
+                    <i aria-hidden="true" class="fa fa-circle">
+                    </i>
+                    Graph
+                </label>
+                <label for="g3">
+                    <i aria-hidden="true" class="fa fa-circle">
+                    </i>
+                    Table
+                </label>
+            </div>
+            <ul class="diffGraphTab">
+                <li>
+                    <div class="ticker-graph" id="rowr">
+                        <!-- <highchart class="span10" config="chartItemCandlestickGraph.chart" id="chart1">
+                        </highchart> -->
+                    </div>
+                </li>
+                <li>
+                    <div class="table-price">
+                        <table class="table table-bordered table-hover table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Open
+                                    </th>
+                                    <th>
+                                        High
+                                    </th>
+                                    <th>
+                                        Low
+                                    </th>
+                                    <th>
+                                        Close
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="stock in candlePrice">
+                                    <td width="20%">
+                                        {{stock[0]}}
+                                    </td>
+                                    <td width="20%">
+                                        {{stock[1]}}
+                                    </td>
+                                    <td width="20%">
+                                        {{stock[2]}}
+                                    </td>
+                                    <td width="20%">
+                                        {{stock[3]}}
+                                    </td>
+                                    <td width="20%">
+                                        {{stock[4]}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="newsdata fixed">
+        <div class="news-header">
+            <span>
+                Top {{tickersymbol}} news
+            </span>
+        </div>
+        <div class="news-item-container">
+            <div class="dailynews-item" ng-repeat="feed in googlenewsfeed track by $index | limitTo:15">
+                <div class="news_logo">
+                    <img height="50px" src="../images/logo/{{feed.shortened}}.JPG" width="50px">
+                    </img>
+                </div>
+                <div class="news-msg">
+                    <a class="feed-url" href="{{feed.url}}" style="text-decoration: none;" target="_blank">
+                        <div class="dailynews-title">
+                            {{feed.title}}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="fixed">
+        <div class="peer-wrapper">
+            <ul>
+                <li class="peer-card" ng-hide="stock.values[3] == tickersymbol" ng-repeat="stock in peers">
+                <a href="/{{stock.values[3]}}">
+                    <section>
+                        <div class="share-code">
+                            {{stock.values[3]}}
+                        </div>
+                        <div class="share-star share-star--active">
+                            ★
+                        </div>
+                        <p class="share-name">
+                            {{stock.values[2]}}
+                        </p>
+                    </section>
+                    <section class="clearfix">
+                        <div class="share-price">
+                            <p class="share-price-value" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}">
+                                {{stock.values[6]}}
+                            </p>
+                            <p class="share-label">
+                                Last price
+                            </p>
+                        </div>
+                        <div class="share-perf ">
+                            <div class="share-perf-values clearfix">
+                                <div class="share-perf-value">
+                                    {{stock.values[7]}}
+                                </div>
+                                <!--  <div class="share-perf-value">
+                                    ↑
+                                </div> -->
+                                <div class="share-perf-value">
+                                    {{stock.values[9]}}%
+                                </div>
+                            </div>
+                            <p class="share-label">
+                                Today's change
+                            </p>
+                        </div>
+                    </section>
+ <!--                    <section>
+                        <dl class="share-information">
+                            <dt>
+                                Exchange:
+                            </dt>
+                            <dd>
+                                {{stock.values[4]}}
+                            </dd>
+                            <dt>
+                                Industry:
+                            </dt>
+                            <dd>
+                                {{industryinuse}}
+                            </dd>
+                               <dt>
+                                EPS:
+                            </dt>
+                            <dd>
+                                {{stock.values[11]}}
+                            </dd>
+                               <dt>
+                                PE:
+                            </dt>
+                            <dd>
+                                {{stock.values[12]}}
+                            </dd>
+                        </dl>
+                    </section> -->
+                   <!--  <a class="btn-buy" href="#">
+                        Buy
+                    </a> -->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="fixed">
+        <div class="aboutdata">
+            <div class="about-summary">
+                <div class="about-title">
+                    What We Do??
+                </div>
+                <div class="summary-text">
+                    {{activeTickerInfo[0].summary[0].overview}}
+                </div>
+            </div>
+            <div class="about-leadership">
+                <div class="about-title">
+                    {{tickersymbol}} Leadership Team !!
+                </div>
+                <div class="row text-center leader-container">
+                    <div class="leader-text col-md-4" ng-repeat="leader in activeTickerInfo[0].management">
+                        <div class="leadername">
+                            <h4>
+                                {{leader.name}}
+                            </h4>
+                            <p>
+                                {{leader.title}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--             <div class="about-reachus">
+                <div class="about-title">
+                    Reach Us @
+                </div>
+                <div class="reachus-container">
+                    <div class="reach-label">
+                        Address :
+                        <div class="reach-text">
+                            {{activeTickerInfo[0].summary[0].address}}
+                        </div>
+                    </div>
+                    <div class="reach-label">
+                        Phone :
+                        <div class="reach-text">
+                            {{activeTickerInfo[0].summary[0].phone}}
+                        </div>
+                    </div>
+                    <div class="reach-label">
+                        Website :
+                        <div class="reach-text">
+                            <a href="{{activeTickerInfo[0].summary[0].url}}">
+                                {{activeTickerInfo[0].summary[0].url}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="fixed">
+        <div class="about-title">
+            {{tickersymbol}} FUNDAMENTALS
+        </div>
+        <div class="stock-stats">
+            <ul>
+                <li>
+                    <span class="info-title">
+                        Yield %
+                    </span>
+                    <span class="info-value">
+                        {{activeTickerInfo[0].dy}}
+                    </span>
+                </li>
+                <li>
+                    <span class="info-title">
+                        Dividend
+                    </span>
+                    <span class="info-value">
+                        <i aria-hidden="true" class="fa fa-inr">
+                        </i>
+                        {{activeTickerInfo[0].ldiv}}
+                    </span>
+                </li>
+                <li>
+                    <span class="info-title">
+                        Market Cap
+                    </span>
+                    <span class="info-value">
+                        {{activeTickerInfo[0].mc}}
+                    </span>
+                </li>
+                <li>
+                    <span class="info-title">
+                        Total Shares
+                    </span>
+                    <span class="info-value">
+                        {{activeTickerInfo[0].shares}}
+                    </span>
+                </li>
+                <li>
+                    <span class="info-title">
+                        Revenue
+                    </span>
+                    <span class="info-value">
+                        {{(niftystocks | filter : tickersymbol | limitTo:1 )[0].values[33]}}
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="ratio-container">
+            <div class="valuation-ratio table-responsive">
+                <h2>
+                    Valuation Ratios
+                </h2>
+                <table class="table table-bordered table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Ratio
+                            </th>
+                            <th>
+                                Value
+                            </th>
+                        </tr>
+                        <tr>
+                            <td width="60%">
+                                PE Ratio
+                            </td>
+                            <td width="40%">
+                                {{activeTickerInfo[0].pe}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60%">
+                                Earning Per Share
+                            </td>
+                            <td width="40%">
+                                {{activeTickerInfo[0].eps}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60%">
+                                Price to Book (P/E Ratio)
+                            </td>
+                            <td width="40%">
+                                {{(niftystocks | filter : tickersymbol | limitTo:1 )[0].values[13]}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="60%">
+                                Price to Sales (P/S Ratio)
+                            </td>
+                            <td width="40%">
+                                {{(niftystocks | filter : tickersymbol | limitTo:1 )[0].values[14]}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="financial-ratio">
+                <h2>
+                    Financial Ratios
+                </h2>
+                <table class="table table-bordered table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Ratio
+                            </th>
+                            <th>
+                                Last Quarter
+                            </th>
+                            <th>
+                                Annual
+                            </th>
+                        </tr>
+                        <tr ng-repeat="ratio in activeTickerInfo[0].keyratios | limitTo:5">
+                            <td width="40%">
+                                {{ratio.title}}
+                            </td>
+                            <td width="30%">
+                                {{ratio.recent_quarter}}
+                            </td>
+                            <td width="30%">
+                                {{ratio.annual}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tweetdata fixed">
+        <div class="tweet-header">
+            <span>
+                Top {{tickersymbol}} tweets
+            </span>
+        </div>
+        <div class="tweet-item-container">
+            <div class="tweet-item" ng-repeat="tweet in tweets | limitTo:20">
+                <div class="news_logo">
+                    <img height="50px" src="../images/logo/twitter.JPG" width="50px">
+                    </img>
+                </div>
+                <div class="tweet-msg">
+                    <div class="tweet-user">
+                        <div class="handle-name">
+                            {{tweet.user.name}}
+                        </div>
+                        <div class="tweet-handle">
+                            @{{tweet.user.screen_name}}
+                        </div>
+                    </div>
+                    <div class="tweet-title">
+                        {{tweet.text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section">
+    <div class="fixed">
+        <!--    <h3>30 : {{perDiff_30}}</h3>
+        <h3>90 :{{perDiff_90}}</h3>
+        <h3>180: {{perDiff_180}}</h3>
+        <h3>365: {{perDiff_365}}</h3>
+ -->
+        <div class="analysisdata">
+            <div class="analysis-container">
+                <input id="s1" name="s" ng-checked="true" type="radio"/>
+                <input id="s2" name="s" type="radio"/>
+                <input id="s3" name="s" type="radio"/>
+                <div class="Graphtab">
+                    <label for="s1">
+                        Returns %
+                    </label>
+                    <label for="s2">
+                        Moving Average
+                    </label>
+                    <label for="s3">
+                        MACD
+                    </label>
+                </div>
+                <ul class="diffGraphTab">
+                    <li>
+                        <div class="ticker-graph">
+                            <highchart class="span13" config="chartItemReturn.chart" id="chart9">
+                            </highchart>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="MACD_graph ticker-graph">
+                            <highchart class="span12" config="chartItemMACD.chart" id="chart4">
+                            </highchart>
+                            <div class="whatIs">
+                                <div class="what-header">
+                                    <span>
+                                        Moving average convergence divergence?
+                                    </span>
+                                </div>
+                                <div class="what-content">
+                                    <p>
+                                        {{MACD_Text}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="MA_graph">
+                            <highchart class="span11" config="chartItemMA.chart" id="chart3">
+                            </highchart>
+                            <div class="whatIs">
+                                <div class="what-header">
+                                    <span>
+                                        Moving Average?
+                                    </span>
+                                </div>
+                                <div class="what-content">
+                                    <p>
+                                        {{MA_Text}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- TradingView Widget BEGIN -->
+<script type="text/javascript">
+    setTimeout(function() {
+                    new TradingView.widget({
+                      "width": 700,
+                      "height": 400,
+                      "symbol": "NSE:"+angular.element(document.getElementById('tickerSymbol')).scope().tickersymbol,
+                      "interval": "D",
+                      "timezone": "Etc/UTC",
+                      "theme": "Light",
+                      "style": "1",
+                      "locale": "en",
+                      "toolbar_bg": "#f1f3f6",
+                      "enable_publishing": false,
+                      "save_image": false,
+                      "hide_side_toolbar":false,
+                      "hideideas": true,
+                      "container_id": "rowr",
+                    });
+                    }, 100);
+</script>
+<!-- TradingView Widget END -->

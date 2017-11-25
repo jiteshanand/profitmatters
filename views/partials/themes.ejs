@@ -1,0 +1,80 @@
+<%- include header.ejs %>
+<section class="card-view" ng-class="cardView ? 'show' : 'hide'">
+    <div class="card" ng-repeat="card in cards">
+        <div class="info">
+            <h1>
+                {{card.title}}
+            </h1>
+            <h5>
+                {{card.sub}}
+            </h5>
+            <p>
+                id: {{card.id}}
+            </p>
+            <p>
+                date: {{card.date}}
+            </p>
+        </div>
+        <button class="card-button" ng-click="viewMore()">
+            View Info
+        </button>
+    </div>
+</section>
+<section class="card-view-info">
+<%- include header.ejs %>
+<br/>
+    <header>
+        <div class="view-toggle">
+            <i class="fa fa-times" ng-click="close()" aria-hidden="true"> Close</i>
+        </div>
+        <h1>
+            Card Title - (123123123123)
+        </h1>
+    </header>
+    <div class="nav">
+        <ul>
+            <li>
+                tab 1
+            </li>
+            <li>
+                tab 2
+            </li>
+            <li>
+                tab 3
+            </li>
+            <li>
+                tab 5
+            </li>
+            <li>
+                tab 6
+            </li>
+            <li>
+                tab 7
+            </li>
+        </ul>
+    </div>
+    <div class="info-sect">
+        <h1>
+            INFO GOES HERE
+        </h1>
+    </div>
+</section>
+<div class="list-view" ng-class="listView ? 'show' : 'hide'">
+    <ul class="list">
+        <li ng-repeat="card in cards">
+            {{card.title}}
+					{{card.sub}}
+					id: {{card.id}}
+					date: {{card.date}}
+            <ul>
+                <li>
+                    test
+                    <li>
+                    </li>
+                </li>
+            </ul>
+            <li>
+            </li>
+        </li>
+    </ul>
+</div>

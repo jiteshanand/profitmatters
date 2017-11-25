@@ -1,0 +1,155 @@
+
+<!--  <div class="mfdetail-wrapper" ng-init="getmfdetail($root.nav_number)"> -->
+
+<!-- Include header -->
+<!-- <%- include header.ejs %>
+
+<section class="mf-data-container">
+<div class="mfdata">
+
+<div class="mfbio">
+	<div class="mf_name_index_manager">
+	<div class="mf_name">{{mfrecord[0]._source.scheme_name}}</div>
+		<div class="bench_manager">
+	<div class="mf_benchmark">
+		<div class="benchmark_label">Follows Index :-</div>
+		<div class="benchmark_value">{{mfrecord[0]._source.scheme_benchmark}}</div>
+	</div>
+	<div class="mf_manager">
+		<div class="manager_label">Managed By :-</div>
+		<div class="manager_value">{{mfrecord[0]._source.scheme_manager[0].name}}</div>
+	</div>
+		<div class="mf_launch">
+		<div class="launch_label">Launch Date :-</div>
+		<div class="launch_value">7th March 1999</div>
+	</div>
+	</div>
+	</div>
+<div class="other_options">
+<div class="line1">
+	<div class="mf_category">
+		<div class="all_label">Category</div>
+		<div class="all_Value">{{mfrecord[0]._source.scheme_category}}</div>
+	</div>
+	<div class="mf_type">
+		<div class="all_label">Type</div>
+		<div class="all_Value">{{mfrecord[0]._source.scheme_type}}</div>
+	</div>
+	<div class="mf_risk_rating">
+		<div class="all_label">Risk Rating</div>
+		<div class="all_Value">{{mfrecord[0]._source.risk_rating}}</div>
+	</div>
+	<div class="mf_crisil_rating">
+		<div class="all_label">Crisil Rating</div>
+		<div class="all_Value">{{mfrecord[0]._source.crisil_rating}}</div>
+	</div>
+</div>			
+
+<div class="line2">
+	<div class="mf_minimum_invest">
+		<div class="all_label">Minimum Investment</div>
+		<div class="all_Value">{{mfrecord[0]._source.scheme_minimum}}</div>
+	</div>
+	<div class="mf_sip_allow">
+		<div class="all_label">SIP Allowed</div>
+		<div class="all_Value">Yes</div>
+	</div>
+	<div class="mf_min_sipinvest">
+		<div class="all_label">Minimum SIP investment</div>
+		<div class="all_Value">1000</div>
+	</div>
+</div>
+</div>
+
+</div>
+
+<div class="scheme_data">
+
+<div class="scheme_details">
+	<div class="scheme_option">
+		<div class="scheme_head">Options available under this scheme</div>
+	</div>
+
+	<div class="mf-block expansible-list" ng-repeat = "mf in mfrecord[0]._source.scheme_nav">
+		<div class="nav_option_name item">
+		<button>
+		<i class="fa fa-minus" ng-click="collapse=true" ng-hide="collapse"></i>	
+		<i class="fa fa-plus" ng-click="collapse=false;showmfdata(mf.nav_code)" ng-hide="!collapse"></i>
+		</button>
+	        <span class="title">{{mf.nav_name}}</span>
+		</div>
+		<div class="nav_option_name">
+		<input type="radio" ng-model="$parent.selected_nav" name="mf.nav_name" value="{{mf.nav_code}}" ng-change="showmfdata(selected_nav)"/> {{mf.nav_name}}
+		</div>
+			<div class="scheme_daily" ng-hide="collapse">
+				<div class="nav_daily">
+				<div class="nav_price">
+				<div class="nav_today">
+				<div class="nav_label">NAV</div>
+				<div class="nav_value">{{today_nav | number:2}}</div>
+				</div>
+				<div class="reported_on"><span>Last reported on </span>{{reported_date | date:'dd-MMM-yyyy @ h:mma'}}</div>
+				</div>
+				<div class="nav_change">
+				<div class="arrow" ng-class="{'arrowu':(parseFloat(percentsavings))>=0,'arrowd':(parseFloat(percentsavings))<0}">
+				<i class="fa fa-arrow-up" ng-if="(parseFloat(percentsavings))>=0.00">
+				</i>
+				<i class="fa fa-arrow-down" ng-if="(parseFloat(percentsavings))<0.00"></i>
+				</div>
+				<div class="change_nav_value" ng-class="{'lp_green':(parseFloat(changevalue))>=0,'lp_red':(parseFloat(changevalue))<0}">{{changevalue | number:2}}</div>
+				<div class="change_nav_per">({{percentsavings | number:2}}%)</div>
+				</div>
+				</div>
+			
+			<div id="row">
+			   <highchart id="chart1" config="chartItem.chart" class="span10">
+                 </highchart>
+			</div>
+	</div>
+
+
+</div>
+</div>  -->
+<!-- <div class="data-render col-lg-5 col-md-5 col-sm-5 col-xs-5" style="padding-left:0px;">
+  <div class="loading">Loading&#8230;</div>
+  <div id="container_detail" config="stockgraph" style="height: 450px; min-width: 310px;">
+</div>
+</div> -->
+
+<!-- <div class="stockdetail-content col-lg-7 col-md-7 col-sm-7 col-xs-7" ng-repeat="stock in niftystocks | filter:{t:tickersymbol}:true">
+	<div class="stock-header">
+    <div class="stock-value">
+    <div class="curr-price">{{stock.l}}</div>
+    <div class="curr-change">
+      <span class="curr-c" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0}">{{stock.c}}</span>
+      <span class="curr-cp">({{stock.cp}})%</span>
+    </div>
+  </div>
+	<div class="stock-top-info">
+		<div class="stock-title">
+			<span class="title-symbol">{{stock.t}}</span>
+			<span class="title-name">{{stock.name}}</span>
+		</div>
+    <div class="title-logo"><img src="../images/logo/{{stock.t}}.jpg" width="75px" height="85px"></div>
+    </div>
+</div>
+</div> -->
+<!-- 
+</div>
+</section>
+</div>
+ -->
+<!-- 
+<script type="text/javascript">
+
+      var newh = $("#box").height();
+    
+            $( window ).resize(function() {
+
+          // newh = $("#box").height();
+          console.log(newh);
+        $scope.chart1.redraw();
+        $scope.chart1.reflow();
+});
+
+</script>

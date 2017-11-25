@@ -1,0 +1,194 @@
+<%- include header.ejs %>
+<div class="nifty50-section">
+    <div class="nifty50-fixed">
+        <div class="ctrls">
+            <div class="nifty-filter">
+                <span class="m-search">
+                    <i aria-hidden="true" class="fa fa-search">
+                    </i>
+                </span>
+                <input class="form-control ng-pristine ng-valid ng-touched" ng-model="searchies" placeholder="Enter the stock name" type="text">
+                </input>
+            </div>
+            <div class="grid-toggle" ng-show="niftystocks.length">
+                <a ng-class="{ 'active' : gridToggle }" ng-click="gridToggle = !gridToggle">
+                    <i class="fa fa-th">
+                    </i>
+                    <i class="fa fa-list">
+                    </i>
+                </a>
+            </div>
+        </div>
+        <ul class="grid" ng-class="{ 'grid-list' : gridToggle, 'grid-thumb' : !gridToggle }">
+                <li class="grid-head">
+                    <ul>
+                        <li style="width:39%;text-align:left;padding-left:50px;">Name&nbsp;<a><i class="fa fa-sort" ng-click="predicate='values[3]';mytoggle=!mytoggle" aria-hidden="true"></i>
+                        </a></li>
+                        <li style="width:12%;text-align:left;"><a>Price</a></li>
+                        <li style="width:12%;text-align:center;"><a>Change</a></li>
+
+                        <li style="width:15%;text-align:left;"><a>%Change&nbsp;
+                            <i class="fa fa-sort" ng-click="predicate='values[9]';mytoggle=!mytoggle" aria-hidden="true"></i>
+                        </i>
+                        </a></li>
+                        <li style="width:10%;text-align:center;"><a>EPS</a></li>
+                        <li style="width:10%;text-align:center;"><a>PE Ratio</a></li>
+                        
+                    </ul>
+                </li>
+            </li>
+            <li class="grid-body animate-repeat" ng-class="{'last':$last}">
+                <div class="search-result" ng-repeat="stock in niftystocks | filter: searchies |orderBy:predicate: mytoggle">
+         <!--        mytoggle?'-values[3]':'values[3]' "> -->
+                    <div class="top-info">
+                        <ul>
+                            <li>
+                                <span class="grid-icon" ng-class="{'lp_bg_green':(parseFloat(stock.values[7]))>0,'lp_bg_red':(parseFloat(stock.values[7]))<0}">
+                                    {{ stock.values[3] }}
+                                </span>
+                                <span class="company-title">
+                                    <a ng-href="stock/{{stock.values[3]}}">
+                                        {{stock.values[2]}}
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                        <ul class="side-info">
+                            <li>
+                                <span class="list-price" ng-if="stock.values[6]" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}" ng-if>
+                                    {{ stock.values[6]}}
+                                </span>
+       							 <span ng-if="!stock.values[6]"> - </span>
+                            </li>
+                             <li>
+                                <span ng-if="stock.values[7]">
+                                    {{ stock.values[7]}}
+                                </span>
+                                <span ng-if="!stock.values[7]"> - </span>
+                            </li>
+                            <li>
+                                <span class="grid-date" ng-if="stock.values[9]">
+                                    {{ stock.values[9]}}%
+                                </span>
+                                 <span ng-if="!stock.values[9]"> - </span>
+                            </li>
+                            <li>
+                                <span class="grid-date" ng-if="stock.values[11]">
+                                    {{ stock.values[11]}}
+                                </span>
+                                 <span ng-if="!stock.values[11]"> - </span>
+                            </li>
+                            <li>
+                                <span ng-if="stock.values[12]">
+                                    {{ stock.values[12] }}
+                                </span>
+                                <span ng-if="!stock.values[12]"> - </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget-container">
+                        <div class="widget">
+                            <a ng-href="stock/{{stock.values[3]}}">
+                                <div class="top-widget">
+                                    <div class="leftinfo">
+                                        <div>
+                                            <span class="info-big">
+                                                {{stock.values[3]}}
+                                            </span>
+                                            <span class="price-info" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}">
+                                                {{stock.values[7]}}
+                                            </span>
+                                            <span class="info-small" ng-class="{'lp_bg_green':(parseFloat(stock.values[7]))>0,'lp_bg_red':(parseFloat(stock.values[7]))<0,'lp_bg_blue':(parseFloat(stock.values[7]))==0}">
+                                                {{stock.values[9]}}%
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="info-price" ng-class="{'lp_green':(parseFloat(stock.values[7]))>0,'lp_red':(parseFloat(stock.values[7]))<0}">
+                                                <i aria-hidden="true" class="fa fa-inr">
+                                                </i>
+                                                {{stock.values[6]}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul class="rightinfo">
+                                        <li>
+                                            PE :   {{stock.values[12]}}
+                                        </li>
+                                        <li class="graph-info-big">
+                                            EPS :   {{stock.values[11]}}
+                                        </li>
+                                        <li class="graph-info-small">
+                                            Low :   {{stock.lo}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </a>
+                            <div class="bottom-widget">
+                                <ul>
+                                    <li>
+                                        <span class="green" style="height: 70%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="green" style="height: 40%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="orange" style="height: 47.5%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="orange" style="height: 70%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="orange" style="height: 85%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="orange" style="height: 40%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="green" style="height: 75%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="green" style="height: 50%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="green" style="height: 15%">
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="green" style="height: 25%">
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="widget-buttons">
+                            <button class="btn btn-buy" ng-class="{'btn-success':(parseFloat(stock.values[7]))>0,'btn-danger':(parseFloat(stock.values[7]))<0}" ng-click="buyStock(stock.values[3],strtoint(stock.values[6]))" type="button">
+                                Trade
+                            </button>
+                            <button class="btn btn-primary btn-portfolio" ng-click="" type="button">
+                                Add to portfolio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="uib-pagination">
+                <uib-pager items-per-page="itemsPerPage" max-size="maxSize" ng-change="pageChanged()" ng-model="currentPage" total-items="totalItems">
+                </uib-pager>
+                <p ng-if="itemsPerPage * currentPage < totalItems">
+                    Showing {{ itemsPerPage * currentPage - itemsPerPage + 1 }} - {{ itemsPerPage * currentPage }} of {{ totalItems }} total items
+                </p>
+                <p ng-if="itemsPerPage * currentPage >= totalItems">
+                    Showing {{ itemsPerPage * currentPage - itemsPerPage + 1 }} - {{ totalItems }} of {{ totalItems }} total items
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div class="screen1">
+        <section id="heatmap" class="heatmap">
+            <div class="spinnerback" ng-show="loading">
+                <div class="spinner">
+                    <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="map-wrap">
+                <div class="map-container" ng-repeat="stock in niftystocks | filter:strtonum |orderBy : 'values[9]'">
+                    <a href="/stock/{{stock.values[3]}}" class="map-card" ng-class="getmapclass(stock.values[9])">
+                        <span class="map-header">{{stock.values[3]}}</span>
+                        <div class='map-content'>
+                            <span class="map=price">
+    {{stock.values[6]}}
+    </span>
+                            <span class="map-change">
+    {{stoc.values[7]}}<br> 
+    <span class="map-changep">({{stock.values[9]}})%</span>
+                            </span>
+                        </div>
+                       <!--  <span class="map-vol">Vol: {{getformatmoney(stock.vo)}}</span> -->
+                    </a>
+                </div>
+            </div>
+        </section>
+        <%- include footer.ejs %>
+    </div>

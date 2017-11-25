@@ -1,0 +1,214 @@
+<!-- Include header -->
+<%- include header.ejs %>
+
+<div class="screen1">
+  
+<section id="sector" class="sectors">
+
+
+  
+<div class="sectordata">
+
+
+<div class="sector-content" ng-repeat="index in allSectors | filter:{t:'CNXIT'}:true">
+
+  <div class="sector-header">
+    <div class="header-value">
+    <div class="curr-price">{{index.l}}</div>
+    <div class="curr-change">
+      <span class="curr-c" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0}">{{index.c}}</span>
+      <span class="curr-cp">({{index.cp}})%</span>
+    </div>
+  </div>
+  <div class="sector-top-info">
+    <div class="sector-title">
+      <span class="title-symbol">{{index.t}}</span>
+      <span class="title-name">{{index.name}}</span>
+    </div>
+    <div class="title-logo"><img src="../images/logo/{{stock.t}}.jpg" width="75px" height="85px"></div>
+    </div>
+</div>
+<div class="sector-bottom-info">
+  <div class="sector-stats">
+    <ul>
+    <li>
+      <span class="info-title">Open</span>
+      <span class="info-value">{{index.op}}</span>
+    </li>
+    <li>
+      <span class="info-title">High</span>
+      <span class="info-value">{{index.hi}}</span>
+    </li>
+      <li>
+      <span class="info-title">Low</span>
+      <span class="info-value">{{index.lo}}</span>
+    </li>
+    <li>
+      <span class="info-title">High52</span>
+      <span class="info-value">{{(index.hi52|tonumber)/100}}</span>
+    </li>
+    <li>
+      <span class="info-title">Low52</span>
+      <span class="info-value">{{index.lo52}}</span>
+    </li>
+    <li>
+      <span class="info-title">Volume</span>
+      <span class="info-value">{{index.vo}}</span>
+    </li>
+<!--     <li>
+      <span class="info-title">EPS</span>
+      <span class="info-value">{{stock.eps}}</span>
+    </li> -->
+    </ul>
+  </div>
+  </div>
+
+
+<div id="row">
+         <highchart id="chart1" config="chartItem.chart" class="span10">
+        </highchart>
+</div>
+
+
+</div>
+  <form class="sector-option-form"> 
+     <fieldset class="radioset">
+    <ul>
+      <li><input type="radio" ng-model="content" name="content" id="radio1" value="analysis" ng-checked="true">
+      <label for="radio1">Analysis</label>
+      <li><input type="radio" ng-model="content" name="content" id="radio2" value="news">
+      <label for="radio2">News</label>
+      <li><input type="radio" ng-model="content" name="content" id="radio3" value="tweet">
+      <label for="radio3">Tweets</label>
+      <li><input type="radio" ng-model="content" name="content" id="radio4" value="peer">
+      <label for="radio4">Peers</label>
+    </ul>
+  </fieldset>
+    </form>
+
+
+<div class="newsdata" ng-show="content == 'news'">
+    <div class="news-header"><span> Top {{tickersymbol}} news</span></div>
+  <div class="dailynews-item" ng-repeat="feed in googlenewsfeed | limitTo:15">
+    <a class="feed-url" href="{{feed.url}}" target="_blank"><div class="dailynews-title">{{feed.title}}</div></a>
+</div>
+</div>
+
+<div ng-show="content == 'peer'" ng-init="$scope.searchindustry($rootScope.tickersymbol)">
+
+<div class="peer-container">
+<div class="peer-header">
+  <span>{{industryinuse}} SECTOR</span>
+</div>
+<div class="grid-body" ng-repeat="peer in pagedItems[currentPage - 1] | orderBy:sortingOrder:reverse" ng-class="{'last':$last}">
+ <div class="peer-wrap" ng-repeat="stock in niftystocks | filter:{t:peer._source.symbol}:true">
+  <a href="/stock/{{stock.t}}">
+   <div class="peer-widget">
+    <ul>
+    <li class="row1">
+    <span class="peer-symbol">{{stock.t}}</span>
+    <span class="peer-price">{{stock.l}}</span>
+    </li>
+    <li class="row2">
+    <span class="peer-change" ng-class="{'lp_bg_green':(parseFloat(stock.c))>0,'lp_bg_red':(parseFloat(stock.c))<0}">{{parseFloat((stock.c).replace(",","")).toFixed(2)}}</span>
+    <span class="peer-cp">({{stock.cp}}%)</span>
+    </li>
+    </ul>
+    </div>
+    </a>
+  </div>
+</div>
+</div>
+
+</div>
+      
+    <div class="tweetdata" ng-show="content == 'tweet'">
+    <div class="tweet-header"><span> Top {{tickersymbol}} tweets</span></div>
+  <div class="tweet-item" ng-repeat="tweet in tweets | limitTo:20">
+    <div class="tweet-title">{{tweet.text}}</div>
+    <div class="tweet-user">Tweeted By : {{tweet.user.screen_name}} </div>
+</div>
+</div>
+
+
+
+</div>
+</section>
+
+<!--<div class="sector-data-container">
+      <div class="loading">Loading&#8230;</div>
+      <div id="container_sector" class="sector-graph" config="stockgraph" style="height: 450px; min-width: 310px;">
+      </div> 
+
+          <div class="sector-data" ng-repeat="index in allSectors | filter:{t:'BANKNIFTY'}">
+    <div class="sector-price-col col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <span class="sector-price">{{index.l}}</span>
+        <div class="sector-change">
+          <span class="index-changep" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">{{index.c}}</span>
+          <span class="index-changepr" ng-class="{'lp_green':(parseFloat(index.c))>=0,'lp_red':(parseFloat(index.c))<0}">({{index.cp}})%</span>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <div class="sector-ohl-col">
+    <li>
+      <span class="info-title">Open</span>
+      <span class="info-value">{{index.op}}</span>
+    </li>
+    <li>
+      <span class="info-title">High</span>
+      <span class="info-value">{{index.hi}}</span>
+    </li>
+      <li>
+      <span class="info-title">Low</span>
+      <span class="info-value">{{index.lo}}</span>
+    </li>
+  
+    <li>
+      <span class="info-title">High52</span>
+      <span class="info-value">{{index.hi52}}</span>
+    </li>
+    <li>
+      <span class="info-title">Low52</span>
+      <span class="info-value">{{index.lo52}}</span>
+    </li>
+    <li>
+      <span class="info-title">Volume</span>
+      <span class="info-value">{{index.vo}}</span>
+    </li>
+    </div>
+    </div>
+</div>
+</div>
+-->
+<!-- 
+      <div ng-repeat="peer in pagedItems[currentPage - 1] | orderBy:sortingOrder:reverse |limitTo:15" ng-class="{'last':$last}">
+ <div ng-repeat="stock in niftystocks | filter:strtonum | filter:{t:peer._source.symbol}:true |orderObjectBy: 'stock.vo' :true  ">
+
+    <div class="sector-stat">
+      <ul>
+        <li>
+              <span class="company-title"><a ng-href="stock/{{stock.t}}">{{stock.t}}</a></span>
+        </li>
+        <li>
+        <span class="list-price" ng-class="{'lp_green':(parseFloat(stock.c))>0,'lp_red':(parseFloat(stock.c))<0}">{{ stock.l}}</span>
+        </li>
+        <li>
+     
+        <span class="change">{{ stock.cp }}%</span>
+        </li>
+        <li>
+        <span class="sector-lo">{{ stock.hi}}</span>
+        </li>
+        <li>
+        <span class="sector-hi">{{ stock.lo }}</span>
+        </li>
+        <li>
+        <span class="sector-vo">{{getformatmoney(stock.vo)}}</span>
+        </li>
+      </ul>
+      </div>
+ </div>
+ </div> -->
+   
+
+</div>

@@ -1,0 +1,197 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div class="mfListwrapper">
+        <div class="mfListContainer">
+            <div class="spinnerback" ng-show="loading">
+                <div class="spinner">
+                    <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="mfListHeading" ng-if="mftype == 'ELSS'">Tax Saving Funds</div>
+            <div class="mfListHeading" ng-if="mftype == 'lowRisk'">Low Risk Funds</div>
+            <div class="mfListHeading" ng-if="mftype == 'highRisk'">High Risk Funds</div>
+            <div class="mfListHeading" ng-if="mftype == 'topPerformer'">Top Performing Funds</div>
+            <div class="fund-list">
+                <ul class="fund-heading">
+                    <li style="width:28%">Name</li>
+                    <li style="width:17%">Benchmark Index</li>
+                    <li style="width:15%">Risk Profile</li>
+                    <li style="width:20%">Minimum Investment</li>
+                    <li style="width:20%">Minimum SIP</li>
+                </ul>
+                <!-- <div class="listRepeat" id="style-1" ng-repeat="list in fundToFilter() | orderBy:'schemeName' | filter:filterFunds "> -->
+                <section class="mf-filter filter-mobile">
+                    <div class="filter-heading" ng-click="showfilter=!showfilter">
+                        <span>Filters  </span><i class="fa fa-list" aria-hidden="true"></i>
+                    </div>
+                    <form name="mf-filterForm" class="mf-filterForm" ng-show="showfilter">
+                        <div class="broker-type-container">
+                            <div class="mf-type-heading">
+                                <!--  ng-click="showmf=!showmf"> -->
+                                <span>Mutual Fund AMC</span>
+                                <!--                                 <div class="filter-icon">
+                                    <i class="fa fa-caret-right" ng-hide="showmf"></i>
+                                    <i class="fa fa-caret-down" ng-hide="!showmf"></i>
+                                </div> -->
+                            </div>
+                            <div>
+                                <select ng-model="amcName" class="mf-filter-type" ng-options="mftype.amc for mftype in mfList_type">
+                                    <option value="">All Funds</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+                <ul class="listRepeat" id="style-1" ng-repeat="list in (mfList = (mfList_type | orderBy:'schemeName' | filter:{amc:amcName.amc || undefined}:true))"> 
+                    <li class="listRowContainer">
+                        <!-- <div class="fundLabel">Name</div> -->
+                        <div class="accordion-parent1 mf-list-head item1">
+                            <div class="accordion-head1" ng-click="showscheme=!showscheme">
+                                <div class="fund-name-heading value1">
+                                    <a href="fund/{{list.schemeName}}" class="filtered-fund-name"><img class="mf-img-icon" src="../images/logo/mf_icon.JPG" width="45px" height="45px">{{list.schemeName}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="accordion-detail1 hidden-mf-detail" ng-show="showscheme">
+                            <li class="accordion-items">
+                                <div class="fundItemContainer item2">
+                                    <div class="fundLabel">Benchmark Index</div>
+                                    <div class="benchmark-index value2">{{list.benchmarkIndex}}</div>
+                                </div>
+                                <div class="fundItemContainer item3">
+                                    <div class="fundLabel">Risk Profile</div>
+                                    <div class="risk-profile value3">{{list.riskProfile}}</div>
+                                </div>
+                                <div class="fundItemContainer item4">
+                                    <div class="fundLabel">Minimum Investment</div>
+                                    <div class="fund-min-invest value4">{{list.schemeMinInvestmentAmount}}</div>
+                                </div>
+                                <div class="fundItemContainer item5">
+                                    <div class="fundLabel">Minimum SIP</div>
+                                    <div class="fund-min-sip value5">{{list.sipAmount}}</div>
+                                </div>
+                                <div class="optionContainer_mobile">
+                                    <a ng-click="buyThisMf(mfList_type[$index].schemeName,mfList_type[$index].amc)" class="btn btn-primary btn_buy">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;&nbsp;Buy</i>
+                                    </a>
+                                    <a ng-click="callbackThisMf(mfList_type[$index].schemeName,mfList_type[$index].amc)" class="btn btn-primary btn_call">
+                                        <i class="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;Callback</i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <div class="optionContainer_desktop">
+                        <a ng-click="buyThisMf(mfList_type[$index].schemeName,mfList_type[$index].amc)" class="btn btn-primary btn_buy">
+                            <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;&nbsp;Buy</i>
+                        </a>
+                        <a ng-click="callbackThisMf(mfList_type[$index].schemeName,mfList_type[$index].amc)" class="btn btn-primary btn_call">
+                            <i class="fa fa-phone" aria-hidden="true">&nbsp;&nbsp;Callback</i>
+                        </a>
+                    </div>
+                    <!--                    <div ng-show="up">
+                        <li ng-repeat="fund in mfList_type | filter:{schemeName: list.schemeName}">{{fund.schemeNavName}}</li>
+                    </div> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/ng-template" id="modalBuyConsole.html">
+        <div class="modal-header">
+            <div class="modal-title">Thanks for choosing {{fundName}}.</div>
+        </div>
+        <div class="modal-body">
+            <div class="wrap-buy">
+                <div class="body-heading0">
+                    <div class="modal-subtitle">Personal Details</div>
+                    <form novalidate name="myform" class="mfbuyForm" action="#">
+                        <div class="form_mf_wrap">
+                            <div class="input-box">
+                                <input type="text" name="name" placeholder="Enter your name" ng-model="lead.name" ng-required="true" ng-minlength="2" />
+                                <p class="error" ng-show="myform.name.$invalid && myform.name.$touched"> Please, enter your name</p>
+                            </div>
+                            <div class="input-box">
+                                <input type="email" name="email" placeholder="Email" ng-model="lead.email" />
+                                <p class="error" ng-show="myform.email.$invalid && myform.mobile.$touched"> Please, enter a valid email</p>
+                            </div>
+                            <div class="input-box">
+                                <input type="number" name="mobile" placeholder="Mobile Number" ng-model="lead.mobile" ng-required="true" ng-minlength="10" />
+                                <p class="error" ng-show="myform.mobile.$invalid && myform.mobile.$touched"> Please, enter 10 digit mobile number</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="body-heading1">
+                    <div class="modal-subtitle">Options available under this scheme.Please choose one.</div>
+                    <div class="scheme-wrap">
+                        <div class="scheme-radio-options" ng-repeat="list in availableScheme | limitTo:10">
+                            <form class="radio-option">
+                                <label>
+                                    <input id="first_{{list.schemeNavName}}" type="radio" ng-model="$parent.schemeNavName" value="{{list.schemeNavName}}"> {{list.schemeNavName}}
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-heading2">
+                    <div class="modal-subtitle">Please select vendor to buy mutual fund.</div>
+                    <div class="scheme-wrap">
+                        <div class="vendor-radio-options" ng-repeat="vendor in vendorName | limitTo:10">
+                            <form class="radio-option">
+                                <label>
+                                    <input id="{{vendor}}" type="radio" ng-model="$parent.vendor" value={{vendor.vendor}}> {{vendor.vendor}}
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-heading3">
+                    <div class="modal-subtitle">Explore Related Schemes.</div>
+                    <div class="scheme-wrap">
+                        <div class="related-fund-wrap" ng-repeat="list in mfList_type track by $index | limitTo:10" ng-if="list.schemeName != fundName ">
+                            <div class="related-funds">
+                                <a href="fund/{{list.schemeName}}" ng-click="exit()">{{list.schemeName}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="confirm_buy(schemeNavName,vendor,'MF','New')">Confirm</button>
+                <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="modalCallbackConsole.html">
+        <div class="modal-header">
+            <div class="modal-title">Thanks for chosing {{fundName}}.</div>
+        </div>
+        <div class="modal-body">
+            <div class="wrap-buy">
+                <div class="body-heading0">
+                    <div class="modal-subtitle">Personal Details</div>
+                    <form novalidate name="myform" class="mfcallbackForm" action="#">
+                        <div class="form_mfcallback_wrap">
+                            <div class="callback-input-box">
+                                <input type="text" name="name" placeholder="Enter your name" ng-model="lead.name" ng-required="true" ng-minlength="2" />
+                                <p class="error" ng-show="myform.name.$invalid && myform.name.$touched"> Please, enter your name</p>
+                            </div>
+                            <div class="callback-input-box">
+                                <input type="email" name="email" placeholder="Email" ng-model="lead.email" />
+                                <p class="error" ng-show="myform.email.$invalid && myform.mobile.$touched"> Please, enter a valid email</p>
+                            </div>
+                            <div class="callback-input-box">
+                                <input type="number" name="mobile" placeholder="Mobile Number" ng-model="lead.mobile" ng-required="true" ng-minlength="10" />
+                                <p class="error" ng-show="myform.mobile.$invalid && myform.mobile.$touched"> Please, enter 10 digit mobile number</p>
+                            </div>
+                            <textarea cols="30" rows="3" name="comment" ng-model="lead.comment" placeholder="Please provide any comment like appropriate time to contact you etc."></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="confirm_callback(fundName,'MF','Callback')">Confirm</button>
+                <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+            </div>
+        </div>
+    </script>

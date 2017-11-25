@@ -1,0 +1,81 @@
+<!-- Include header -->
+<%- include header.ejs %>
+    <div id="main" class="site-content">
+        <main id="content" role="main" itemprop="mainContentOfPage">
+            <div id="home-splash" class="intro-image-stock active">
+                <div class="banner wrapper">
+                    <h1>Don't get overwhelmed by financial<br> jargons and numbers.</h1>
+                    <p>We will help you to find the best stocks to invest.Complete analysis of stocks and related industry is just a click away.</p>
+                    <form class="form-wrapper" name="inputForm">
+                        <input auto-complete type="text" class="searchResult" name="query" placeholder="Search here for stocks...&nbsp;&nbsp;&nbsp;&nbsp;ex. infy,infosys,tata,bank etc" ng-model="search_stock" uib-typeahead="stock._source.symbol for stock in instantSearch.instantResult($viewValue) | limitTo:10" typeahead-no-results="noResults" required>
+                        <button type="submit" name="search" ng-disabled="inputForm.$invalid" ng-click=stockPage(search_stock)>Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="spinnerback" ng-show="loading">
+                <div class="spinner">
+                    <i class="fa fa-spinner fa-5x" aria-hidden="true"></i>
+                </div>
+            </div>
+            <section class="info-section">
+                <div class="info-cards">
+                    <div class="info-card" ng-click="modal = showConsole()">
+                        <div class="info-text">
+                            <div><i class="fa fa-th" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">Console</div>
+                            <div class="info-description">Stock market console to help you find quick information about market.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card" ng-click="modal = showIndustries()">
+                        <div class="info-text">
+                            <div><i class="fa fa-pie-chart" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">Industries</div>
+                            <div class="info-description">How stocks from different industries are performing in the market today.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card" ng-click="modal = showThemes()">
+                        <div class="info-text">
+                            <div><i class="fa fa-star-half-o" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-heading">Themes</div>
+                            <div class="info-description">Stocks based on their market value and performance are divided into themes.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <%- include footer.ejs %>
+    </div>
+
+
+    <script type="text/ng-template" id="modalConsole.html">
+        <div class="modal-header">
+            <h3 class="modal-title">{{consoleTitle}}</h3>
+        </div>
+        <div class="modal-body modalConsole">
+            <div id="wrapConsole">
+                <div class="console-container" ng-repeat="opt in option">
+                    <div class="option-container">
+                        <a href="/stocks/{{opt[1]}}" ng-click="exit()" style="text-decoration: none">
+                            <div class="option-icon"><i class="fa {{opt[2]}}" aria-hidden="true"></i></div>
+                            <div class="option-heading">
+                                {{opt[0]}}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="exit()">Exit</button>
+        </div>
+    </script>
+
+
+
+
