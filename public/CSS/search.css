@@ -1,0 +1,621 @@
+.search-container {
+    width: 70%;
+    margin-left: 15%;
+    min-height: 700px;
+}
+
+.result-box {
+    display: flex;
+}
+
+.search-box {
+    padding: 25px;
+}
+
+.no-stocks {
+    text-align: center;
+    font-size: 20px;
+    padding: 30px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    color: #228D90;
+    font-family: arvo;
+    letter-spacing: 1.5px;
+}
+
+.search-content {
+    background-color: #DEDEDE;
+    background-image: url(../images/bg-repeat.svg);
+    background-position: center;
+    background-size: 5px, cover, cover;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-height: 800px;
+    position: relative;
+    height: 100%;
+}
+
+.search-home-header .form-wrapper {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: none;
+    box-shadow: none;
+}
+
+.search-home-header .form-wrapper input {
+    border: 1px solid #ccc;
+}
+
+.grid-toggle {
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 25px;
+    margin-bottom: 10px;
+}
+
+.grid-toggle a i {
+    color: #D83C3C;
+    font-size: 35px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.btn {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #5d7592;
+}
+
+.grid {
+    display: block;
+}
+
+.grid-body {
+    display: inline-block;
+}
+
+ul.grid .grid-body ul li span.grid-icon {
+    color: #476283;
+}
+
+ul.grid .grid-body ul li span.company-title a {
+  
+    /* font-weight: 700; */
+    color: #287690;
+    text-decoration: none;
+    /* word-spacing: 2px; */
+    font-size: 14px;
+    font-weight: 500;
+    color: #38405e;
+    text-decoration: none;
+    font-family: sintony;
+}
+
+ul.grid .grid-body ul li span.company-title a:hover {
+    text-decoration: underline;
+}
+
+ul.grid .grid-body ul li span {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+}
+
+ul.grid .grid-body ul li span.grid-icon {
+    margin-right: 12px;
+    font-size: 0;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background: #1bbbef;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+ul.grid .grid-body ul li span.grid-icon:first-letter {
+    color: white;
+    font-size: 16px;
+}
+
+
+/*############################################### grid - list css ############################################*/
+
+ul.grid.grid-list {
+    background: rgba(253, 253, 253, 0.92);
+    border: 1px solid #ccc;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    padding: 0px;
+}
+
+ul.grid.grid-list .grid-head {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #B3B0B0;
+}
+
+ul.grid.grid-list .grid-head ul {
+    width: 100%;
+}
+
+ul.grid.grid-list .grid-head ul li {
+    float: left;
+/*    border-right: 1px solid;
+    border-right-style: groove;*/
+    margin-top: 10px;
+    text-align: center !important;
+}
+
+ul.grid.grid-list .grid-head ul li a {
+    cursor: pointer;
+    color: #792830;
+    font-size: 18px;
+    font-family: bitter;
+    padding: 5px;
+    text-decoration: none !important;
+}
+
+ul.grid.grid-list .grid-head ul li a:hover {
+    text-decoration: underline;
+}
+
+ul.grid.grid-list li.grid-body {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.73);
+    display: block;
+}
+
+.top-info {
+    width: 100%;
+    display: flex;
+}
+
+.top-info ul:first-child {
+    width: 40%;
+    padding-left: 10px;
+}
+
+.top-info ul:last-child {
+    width: 60%;
+    padding: 0px;
+    display: inline-flex;
+}
+
+.top-info ul:last-child li {
+    width: 20%;
+    margin-left: 30px;
+    text-align: left;
+    font-family: oswald;
+    font-size: 15px;
+    color: #487184;
+}
+
+.list-price {
+    font-size: 18px;
+}
+
+.company-title {
+    font-family: arvo;
+}
+
+ul.grid.grid-list .grid-body .search-result .widget-container {
+    display: none;
+}
+
+ul.grid.grid-thumb .grid-body .search-result .top-info {
+    display: none;
+}
+
+ul.grid.grid-thumb .grid-head {
+    display: none;
+}
+
+.grid-list .animate-repeat {
+    line-height: 4em;
+}
+
+.grid-list .animate-repeat.ng-leave.ng-leave-active,
+.grid-list .animate-repeat.ng-move,
+.grid-list .animate-repeat.ng-enter {
+    height: 0;
+}
+
+.grid-list .animate-repeat.ng-leave,
+.grid-list .animate-repeat.ng-move.ng-move-active,
+.grid-list .animate-repeat.ng-enter.ng-enter-active {
+    height: 5em;
+}
+
+
+/*######################################################## grid -list css ends #########################################*/
+
+
+/*######################################################## grid-thumb css starts #########################################*/
+
+.stock-disp-container {
+    background-color: #EEE;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    min-height: 700px;
+}
+
+.grid-thumb {
+    padding: 0px;
+    text-align: center;
+}
+
+.grid-thumb .search-result {
+    display: inline-block;
+    padding: 5px;
+    float: left;
+    margin: 8px;
+}
+
+.widget-container {
+    margin: 0px auto;
+    width: 430px;
+}
+
+.widget-buttons .btn{
+    width: 50%;
+    border-radius: 0px;
+    padding: 3px;
+}
+.widget-buttons .btn-buy{
+    float: left;
+}
+.widget-buttons .btn-portfolio{
+    float: left;
+}
+.widget {
+    display: inline-block;
+    background: white;
+    border: 1px solid #EAE6E6;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.widget a,
+.widget a:hover,
+.widget a:focus {
+    text-decoration: none;
+}
+
+.top-widget {
+    width: 100%;
+    display: inline-flex;
+}
+
+.leftinfo {
+    width: 67%;
+    padding: 0px;
+}
+
+.rightinfo {
+    width: 32%;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.rightinfo li {
+    /*font-size: 18px;*/
+    font-size: 2vh;
+    font-family: arvo;
+    color: #6F6A6A;
+    background: #E5E6D3;
+    text-align: center;
+    padding: 3px;
+    margin-top: 5px;
+}
+
+.leftinfo div:nth-child(1) {
+    display: flex;
+}
+
+.leftinfo div:nth-child(2) {
+    float: left;
+    margin-left: 10px;
+}
+
+.info-big {
+    float: left;
+    /*font-size: 25px;*/
+    font-size: 3vh;
+    padding: 10px;
+    color: #585555;
+    font-family: Roboto;
+}
+
+.info-small {
+    float: right;
+    margin-top: 10px;
+    color: #FFF;
+    background: rgba(214, 92, 89, 0.84);
+    /*font-size: 22px;*/
+    font-size: 2.5vh;
+    border-radius: 4px;
+    padding: 5px;
+    /*font-weight: bold;*/
+    display: table !important;
+    line-height: normal;
+   /* margin-left: auto;*/
+}
+
+.price-info{
+        float: right;
+    margin-top: 6px;
+    color: #337496;
+    padding: 5px;
+    margin-left: auto;
+    font-size: 3vh;
+}
+.info-price {
+    /*font-size: 35px;*/
+    font-size: 4vh;
+    letter-spacing: 2px;
+    color: rgba(214, 92, 89, 0.84);
+    font-family: arvo;
+}
+
+.bottom-widget {
+    float: right;
+    margin-top: 4px;
+    margin-bottom: 3px;
+    margin-left: 10px;
+}
+
+.bottom-widget ul {
+    margin: 0;
+    padding: 0;
+}
+
+.bottom-widget li {
+    margin: 0;
+    display: block;
+    width: 9px;
+    height: 40px;
+    margin-right: 6px;
+    background-color: #f5f0ec;
+    float: left;
+    position: relative;
+}
+
+.bottom-widget li span {
+    display: block;
+    width: 9px;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+}
+
+.bottom-widget li span.orange {
+    background-color: #e75e3a;
+}
+
+.bottom-widget li span.green {
+    background-color: #4eaf7c;
+}
+.stockBuyForm input{
+    padding: 7px;
+    margin-bottom: 6px;
+    border: 1px solid rgb(221, 221, 221);
+    color: rgb(85, 85, 85);
+    font-family: roboto;
+    letter-spacing: 1px;
+    font-size: 14px;
+    width: 48%;
+}
+.stockBuyForm label{
+    margin-left: 15px;
+    font-size: 17px;
+    font-family: roboto;
+}
+
+.buyMessage{
+    font-size: 16px;
+    font-family: roboto;
+    padding: 5px;
+}
+.labelWrap{
+    width: 100%;
+}
+
+.stockBuymodalHead{
+    display: flex;
+}
+
+
+.modal-title2{
+        font-family: oswald;
+    font-size: 25px;
+    margin-left: auto;
+}
+
+/*###################################################grid-thumbs css ends here #############################################*/
+
+li.uib-pagination {
+    padding: 1em 0 2em;
+    text-align: center;
+}
+
+li.uib-pagination p {
+    font-size: 14px;
+}
+
+li.uib-pagination ul.pager {
+    margin: 2em 0;
+}
+
+li.uib-pagination ul.pager li {
+    display: inline;
+}
+
+.pager .next a,
+.pager .previous a {
+    float: none !important;
+    margin: 0px 15px;
+}
+
+li.uib-pagination ul.pager li:first-child {
+    margin-right: 1em;
+}
+
+li.uib-pagination ul.pager li a {
+    color: #1bbbef;
+    text-decoration: none;
+    padding: 0.5em 1.5em;
+    border: 1px solid #1bbbef;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+}
+
+.animate-repeat {
+    list-style: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+    -webkit-transition: all ease-in-out 0.4s;
+    transition: all ease-in-out 0.4s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+    opacity: 0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+    opacity: 1;
+}
+
+.grid-thumb .animate-repeat.ng-move,
+.grid-thumb .animate-repeat.ng-enter,
+.grid-thumb .animate-repeat.ng-leave {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.lp_red {
+    color: #FF0000 !important;
+}
+
+.lp_green {
+    color: #159827  !important;
+}
+
+.lp_bg_red {
+    background: #E74C54 !important;
+}
+
+.lp_bg_green {
+    background: #62C670 !important;
+}
+
+.lp_bg_blue {
+    background-color: #29B3F1 !important;
+}
+
+.stock-header-value {
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    text-align: left;
+    font-family: serif;
+}
+
+.stock-header-value .sections {
+    text-align: center;
+    padding: 0px;
+}
+
+.stock-header-gl .sections {
+    padding: 0px;
+    font-size: 17px;
+    text-align: center;
+}
+
+.stock-header-value .sections li:nth-child(2) {
+    font-size: 20px;
+    text-align: center;
+}
+
+.green-value {
+    color: green;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.red-value {
+    color: red;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.green-share,
+.red-share {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.industry_header {
+    font-size: 40px;
+    text-transform: uppercase;
+    font-family: oswald;
+    color: #555;
+    text-align: center;
+    padding: 15px;
+    letter-spacing: 1.5px;
+    word-spacing: 2px;
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 200px) and (max-width: 800px) {
+    .search-container {
+        width: 100%;
+        margin-left: 0%;
+    }
+    .grid-thumb .search-result {
+        float: none;
+        /*margin: 0px; */
+    }
+    .widget-container {
+        margin: 0px auto;
+        width: 340px;
+    }
+    .stock-disp-container {
+        margin-top: 35px;
+        background-color: none;
+        border: none;
+        border-radius: 0px;
+    }
+    .industry_header {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 440px) and (max-width: 800px) {
+    .widget-container {
+        margin: 0px auto;
+        width: 420px;
+    }
+}
+
+@media screen and (min-width: 200px) and (max-width: 1000px) {
+    .grid-toggle {
+        display: none;
+    }
+}

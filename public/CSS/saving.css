@@ -1,0 +1,28 @@
+.savingContainer{
+	background: #72ADA7;
+}
+
+.type-static-text{
+	    font-size: 16px;
+    font-weight: 500;
+    color: #971e4c;
+    text-shadow: none;
+}
+
+.saving-accordion-childbg{
+	background: #CDCBBF;
+    font-size: 14px;
+}
+
+.saving-accordion-label{
+    font-weight: 600;
+    color: #464646;
+    padding: 15px 6px 5px 12px;
+    padding-left: 40px;
+}
+
+.savingbankDetail{
+	background: #95C9A2;
+margin-bottom: 0px;
+
+}
